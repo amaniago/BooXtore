@@ -1,0 +1,18 @@
+11-21 17:00:04 jdbc[2]: null
+org.h2.message.DbException: The connection was not closed by the application and is garbage collected [90018-168]
+	at org.h2.message.DbException.get(DbException.java:169)
+	at org.h2.message.DbException.get(DbException.java:146)
+	at org.h2.message.DbException.get(DbException.java:135)
+	at org.h2.jdbc.JdbcConnection.closeOld(JdbcConnection.java:172)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:119)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:92)
+	at org.h2.Driver.connect(Driver.java:72)
+	at org.netbeans.modules.db.explorer.DbDriverManager.getConnection(DbDriverManager.java:131)
+	at org.netbeans.modules.db.explorer.DatabaseConnection.doConnect(DatabaseConnection.java:806)
+	at org.netbeans.modules.db.explorer.DatabaseConnection.access$100(DatabaseConnection.java:98)
+	at org.netbeans.modules.db.explorer.DatabaseConnection$2.run(DatabaseConnection.java:872)
+	at org.openide.util.RequestProcessor$Task.run(RequestProcessor.java:1452)
+	at org.openide.util.RequestProcessor$Processor.run(RequestProcessor.java:2032)
+Caused by: org.h2.jdbc.JdbcSQLException: The connection was not closed by the application and is garbage collected [90018-168]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
+	... 13 more
