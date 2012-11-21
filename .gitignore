@@ -5,3 +5,7 @@
 /BooXtore-library/dist/
 /BooXtore-library/build/
 /BooXtore-war/dist/
+/nbproject/private/
+/BooXtore-war/nbproject/private/
+/BooXtore-ejb/nbproject/private/
+/BooXtore-library/nbproject/private/
