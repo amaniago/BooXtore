@@ -36,7 +36,7 @@ public class EtatCommande implements Serializable
     @Size(max = 20)
     @Column(name = "TYPE_ETAT")
     private String typeEtat;
-    @OneToMany(mappedBy = "idEtatCommande")
+    @OneToMany(mappedBy = "etatCommande")
     private List<Commande> commandeList;
 
     public EtatCommande()

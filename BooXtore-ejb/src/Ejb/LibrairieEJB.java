@@ -4,14 +4,19 @@ import Jpa.Classes.Livre;
 import java.sql.Date;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 @Stateless
 public class LibrairieEJB implements LibrairieEJBRemote
 {
+    @PersistenceContext
+    EntityManager em;
+
     @Override
     public List<Livre> getListe()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return em.createNamedQuery("Livre.findAll").getResultList();
     }
 
     @Override
@@ -23,7 +28,7 @@ public class LibrairieEJB implements LibrairieEJBRemote
     @Override
     public Livre getLivre(int idLivre)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return (Livre) em.createNativeQuery("Livre.findByIdLivre", Integer.toString(idLivre)).getSingleResult();
     }
 
     @Override

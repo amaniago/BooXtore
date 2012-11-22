@@ -29,7 +29,7 @@ public class EtatLivre implements Serializable
     @Size(max = 50)
     @Column(name = "VALEUR_ETAT")
     private String valeurEtat;
-    @OneToMany(mappedBy = "idEtatLivre")
+    @OneToMany(mappedBy = "etatLivre")
     private List<Livre> livreList;
 
     public EtatLivre()

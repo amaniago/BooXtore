@@ -10,3 +10,4 @@
 /BooXtore-ejb/nbproject/private/
 /BooXtore-library/nbproject/private/
 dist/gfdeploy/BooXtore/
+BooXtore-library/src/META-INF/persistence.xml

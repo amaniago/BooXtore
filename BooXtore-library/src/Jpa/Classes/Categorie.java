@@ -37,7 +37,7 @@ public class Categorie implements Serializable
     @Size(max = 50)
     @Column(name = "NOM_CATEGORIE")
     private String nomCategorie;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCategorie")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categorie")
     private List<Livre> livreList;
 
     public Categorie()

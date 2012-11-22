@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-  <persistence-unit name="BooXtorePU" transaction-type="RESOURCE_LOCAL">
-    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>Jpa.Classes.Contenir</class>
-    <class>Jpa.Classes.Commande</class>
-    <class>Jpa.Classes.Compte</class>
-    <class>Jpa.Classes.Livre</class>
-    <class>Jpa.Classes.Client</class>
-    <class>Jpa.Classes.EtatCommande</class>
-    <class>Jpa.Classes.Categorie</class>
-    <class>Jpa.Classes.EtatLivre</class>
-    <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:h2://A:\Documents\Mes documents\NetBeansProjects\BooXtore\BDD\BooXtore"/>
-      <property name="javax.persistence.jdbc.password" value=""/>
-      <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
-      <property name="javax.persistence.jdbc.user" value=""/>
-      <property name="eclipselink.ddl-generation" value="create-tables"/>
-    </properties>
-  </persistence-unit>
+    <persistence-unit name="BooXtorePU" transaction-type="JTA">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <jta-data-source>jdbc/BooXtoreBDD</jta-data-source>
+        <class>Jpa.Classes.Contenir</class>
+        <class>Jpa.Classes.Commande</class>
+        <class>Jpa.Classes.Compte</class>
+        <class>Jpa.Classes.Livre</class>
+        <class>Jpa.Classes.Client</class>
+        <class>Jpa.Classes.EtatCommande</class>
+        <class>Jpa.Classes.Categorie</class>
+        <class>Jpa.Classes.EtatLivre</class>
+<!--        <properties>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2://C:\Users\Kevin\Documents\NetBeansProjects\BooXtore\BDD\BooXtore"/>
+            <property name="javax.persistence.jdbc.password" value=""/>
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="javax.persistence.jdbc.user" value=""/>
+            <property name="eclipselink.ddl-generation" value="create-tables"/>
+            <property name="eclipselink.target-database" value="org.eclipse.persistence.platform.database.H2Platform"/>
+        </properties>-->
+    </persistence-unit>
 </persistence>

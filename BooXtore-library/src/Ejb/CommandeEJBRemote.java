@@ -1,7 +1,6 @@
 package Ejb;
 
 import Jpa.Classes.Commande;
-import Jpa.Classes.EtatCommande;
 import javax.ejb.Remote;
 
 @Remote
