@@ -1,5 +1,11 @@
 package Jpa.Dao;
 
+import java.io.Serializable;
+import javax.persistence.Query;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import Jpa.Classes.EtatLivre;
 import Jpa.Classes.Categorie;
 import Jpa.Classes.Contenir;
 import Jpa.Classes.Livre;
@@ -42,24 +48,30 @@ public class LivreJpaController implements Serializable
         {
             em = getEntityManager();
             em.getTransaction().begin();
-            Categorie categorie = livre.getCategorie();
-            if (categorie != null)
-            {
-                categorie = em.getReference(categorie.getClass(), categorie.getIdCategorie());
-                livre.setCategorie(categorie);
+            EtatLivre idEtatLivre = livre.getIdEtatLivre();
+            if (idEtatLivre != null) {
+                idEtatLivre = em.getReference(idEtatLivre.getClass(), idEtatLivre.getIdEtatLivre());
+                livre.setIdEtatLivre(idEtatLivre);
             }
-            List<Contenir> attachedContenirList = new ArrayList<>();
-            for (Contenir contenirListContenirToAttach : livre.getContenirList())
-            {
+            Categorie idCategorie = livre.getIdCategorie();
+            if (idCategorie != null) {
+                idCategorie = em.getReference(idCategorie.getClass(), idCategorie.getIdCategorie());
+                livre.setIdCategorie(idCategorie);
+            }
+            List<Contenir> attachedContenirList = new ArrayList<Contenir>();
+            for (Contenir contenirListContenirToAttach : livre.getContenirList()) {
                 contenirListContenirToAttach = em.getReference(contenirListContenirToAttach.getClass(), contenirListContenirToAttach.getContenirPK());
                 attachedContenirList.add(contenirListContenirToAttach);
             }
             livre.setContenirList(attachedContenirList);
             em.persist(livre);
-            if (categorie != null)
-            {
-                categorie.getLivreList().add(livre);
-                categorie = em.merge(categorie);
+            if (idEtatLivre != null) {
+                idEtatLivre.getLivreList().add(livre);
+                idEtatLivre = em.merge(idEtatLivre);
+            }
+            if (idCategorie != null) {
+                idCategorie.getLivreList().add(livre);
+                idCategorie = em.merge(idCategorie);
             }
             for (Contenir contenirListContenir : livre.getContenirList())
             {
@@ -91,8 +103,8 @@ public class LivreJpaController implements Serializable
             em = getEntityManager();
             em.getTransaction().begin();
             Livre persistentLivre = em.find(Livre.class, livre.getIdLivre());
-            Categorie categorieOld = persistentLivre.getCategorie();
-            Categorie categorieNew = livre.getCategorie();
+            Categorie idCategorieOld = persistentLivre.getIdCategorie();
+            Categorie idCategorieNew = livre.getIdCategorie();
             List<Contenir> contenirListOld = persistentLivre.getContenirList();
             List<Contenir> contenirListNew = livre.getContenirList();
             List<String> illegalOrphanMessages = null;
@@ -111,10 +123,13 @@ public class LivreJpaController implements Serializable
             {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            if (categorieNew != null)
-            {
-                categorieNew = em.getReference(categorieNew.getClass(), categorieNew.getIdCategorie());
-                livre.setCategorie(categorieNew);
+            if (idEtatLivreNew != null) {
+                idEtatLivreNew = em.getReference(idEtatLivreNew.getClass(), idEtatLivreNew.getIdEtatLivre());
+                livre.setIdEtatLivre(idEtatLivreNew);
+            }
+            if (idCategorieNew != null) {
+                idCategorieNew = em.getReference(idCategorieNew.getClass(), idCategorieNew.getIdCategorie());
+                livre.setIdCategorie(idCategorieNew);
             }
             List<Contenir> attachedContenirListNew = new ArrayList<>();
             for (Contenir contenirListNewContenirToAttach : contenirListNew)
@@ -125,10 +140,17 @@ public class LivreJpaController implements Serializable
             contenirListNew = attachedContenirListNew;
             livre.setContenirList(contenirListNew);
             livre = em.merge(livre);
-            if (categorieOld != null && !categorieOld.equals(categorieNew))
-            {
-                categorieOld.getLivreList().remove(livre);
-                categorieOld = em.merge(categorieOld);
+            if (idEtatLivreOld != null && !idEtatLivreOld.equals(idEtatLivreNew)) {
+                idEtatLivreOld.getLivreList().remove(livre);
+                idEtatLivreOld = em.merge(idEtatLivreOld);
+            }
+            if (idEtatLivreNew != null && !idEtatLivreNew.equals(idEtatLivreOld)) {
+                idEtatLivreNew.getLivreList().add(livre);
+                idEtatLivreNew = em.merge(idEtatLivreNew);
+            }
+            if (idCategorieOld != null && !idCategorieOld.equals(idCategorieNew)) {
+                idCategorieOld.getLivreList().remove(livre);
+                idCategorieOld = em.merge(idCategorieOld);
             }
             if (categorieNew != null && !categorieNew.equals(categorieOld))
             {
@@ -204,11 +226,15 @@ public class LivreJpaController implements Serializable
             {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            Categorie categorie = livre.getCategorie();
-            if (categorie != null)
-            {
-                categorie.getLivreList().remove(livre);
-                categorie = em.merge(categorie);
+            EtatLivre idEtatLivre = livre.getIdEtatLivre();
+            if (idEtatLivre != null) {
+                idEtatLivre.getLivreList().remove(livre);
+                idEtatLivre = em.merge(idEtatLivre);
+            }
+            Categorie idCategorie = livre.getIdCategorie();
+            if (idCategorie != null) {
+                idCategorie.getLivreList().remove(livre);
+                idCategorie = em.merge(idCategorie);
             }
             em.remove(livre);
             em.getTransaction().commit();

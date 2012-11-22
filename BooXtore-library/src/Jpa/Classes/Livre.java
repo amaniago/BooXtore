@@ -38,10 +38,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Livre.findByAuteur", query = "SELECT l FROM Livre l WHERE l.auteur = :auteur"),
     @NamedQuery(name = "Livre.findByEditeur", query = "SELECT l FROM Livre l WHERE l.editeur = :editeur"),
     @NamedQuery(name = "Livre.findByPrix", query = "SELECT l FROM Livre l WHERE l.prix = :prix"),
-    @NamedQuery(name = "Livre.findByEtat", query = "SELECT l FROM Livre l WHERE l.etat = :etat")
-})
-public class Livre implements Serializable
-{
+    @NamedQuery(name = "Livre.findByEtat", query = "SELECT l FROM Livre l WHERE l.etat = :etat")})
+public class Livre implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -71,11 +69,11 @@ public class Livre implements Serializable
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "PRIX")
     private BigDecimal prix;
-    @Size(max = 30)
-    @Column(name = "ETAT")
-    private String etat;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "livre")
     private List<Contenir> contenirList;
+    @JoinColumn(name = "ID_ETAT_LIVRE", referencedColumnName = "ID_ETAT_LIVRE")
+    @ManyToOne
+    private EtatLivre idEtatLivre;
     @JoinColumn(name = "ID_CATEGORIE", referencedColumnName = "ID_CATEGORIE")
     @ManyToOne(optional = false)
     private Categorie idCategorie;
@@ -178,30 +176,15 @@ public class Livre implements Serializable
     {
         this.prix = prix;
     }
-
-    public String getEtat()
-    {
-        return etat;
+    public EtatLivre getIdEtatLivre() {
+        return idEtatLivre;
     }
 
-    public void setEtat(String etat)
-    {
-        this.etat = etat;
+    public void setIdEtatLivre(EtatLivre idEtatLivre) {
+        this.idEtatLivre = idEtatLivre;
     }
 
-    @XmlTransient
-    public List<Contenir> getContenirList()
-    {
-        return contenirList;
-    }
-
-    public void setContenirList(List<Contenir> contenirList)
-    {
-        this.contenirList = contenirList;
-    }
-
-    public Categorie getCategorie()
-    {
+    public Categorie getIdCategorie() {
         return idCategorie;
     }
 
