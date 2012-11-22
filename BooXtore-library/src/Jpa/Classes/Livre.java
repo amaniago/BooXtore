@@ -37,9 +37,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Livre.findByQuantiterDisponible", query = "SELECT l FROM Livre l WHERE l.quantiterDisponible = :quantiterDisponible"),
     @NamedQuery(name = "Livre.findByAuteur", query = "SELECT l FROM Livre l WHERE l.auteur = :auteur"),
     @NamedQuery(name = "Livre.findByEditeur", query = "SELECT l FROM Livre l WHERE l.editeur = :editeur"),
-    @NamedQuery(name = "Livre.findByPrix", query = "SELECT l FROM Livre l WHERE l.prix = :prix"),
-    @NamedQuery(name = "Livre.findByEtat", query = "SELECT l FROM Livre l WHERE l.etat = :etat")})
-public class Livre implements Serializable {
+    @NamedQuery(name = "Livre.findByPrix", query = "SELECT l FROM Livre l WHERE l.prix = :prix")
+})
+public class Livre implements Serializable
+{
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -73,10 +74,10 @@ public class Livre implements Serializable {
     private List<Contenir> contenirList;
     @JoinColumn(name = "ID_ETAT_LIVRE", referencedColumnName = "ID_ETAT_LIVRE")
     @ManyToOne
-    private EtatLivre idEtatLivre;
+    private EtatLivre etatLivre;
     @JoinColumn(name = "ID_CATEGORIE", referencedColumnName = "ID_CATEGORIE")
     @ManyToOne(optional = false)
-    private Categorie idCategorie;
+    private Categorie categorie;
 
     public Livre()
     {
@@ -176,21 +177,36 @@ public class Livre implements Serializable {
     {
         this.prix = prix;
     }
-    public EtatLivre getIdEtatLivre() {
-        return idEtatLivre;
+
+    @XmlTransient
+    public List<Contenir> getContenirList()
+    {
+        return contenirList;
     }
 
-    public void setIdEtatLivre(EtatLivre idEtatLivre) {
-        this.idEtatLivre = idEtatLivre;
+    public void setContenirList(List<Contenir> contenirList)
+    {
+        this.contenirList = contenirList;
     }
 
-    public Categorie getIdCategorie() {
-        return idCategorie;
+    public EtatLivre getEtatLivre()
+    {
+        return etatLivre;
+    }
+
+    public void setEtatLivre(EtatLivre etatLivre)
+    {
+        this.etatLivre = etatLivre;
+    }
+
+    public Categorie getCategorie()
+    {
+        return categorie;
     }
 
     public void setCategorie(Categorie categorie)
     {
-        this.idCategorie = categorie;
+        this.categorie = categorie;
     }
 
     @Override
