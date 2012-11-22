@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import Jpa.Classes.EtatLivre;
 import Jpa.Classes.Categorie;
 import Jpa.Classes.Contenir;
 import Jpa.Classes.Livre;
@@ -45,6 +46,11 @@ public class LivreJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            EtatLivre idEtatLivre = livre.getIdEtatLivre();
+            if (idEtatLivre != null) {
+                idEtatLivre = em.getReference(idEtatLivre.getClass(), idEtatLivre.getIdEtatLivre());
+                livre.setIdEtatLivre(idEtatLivre);
+            }
             Categorie idCategorie = livre.getIdCategorie();
             if (idCategorie != null) {
                 idCategorie = em.getReference(idCategorie.getClass(), idCategorie.getIdCategorie());
@@ -57,6 +63,10 @@ public class LivreJpaController implements Serializable {
             }
             livre.setContenirList(attachedContenirList);
             em.persist(livre);
+            if (idEtatLivre != null) {
+                idEtatLivre.getLivreList().add(livre);
+                idEtatLivre = em.merge(idEtatLivre);
+            }
             if (idCategorie != null) {
                 idCategorie.getLivreList().add(livre);
                 idCategorie = em.merge(idCategorie);
@@ -84,6 +94,8 @@ public class LivreJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Livre persistentLivre = em.find(Livre.class, livre.getIdLivre());
+            EtatLivre idEtatLivreOld = persistentLivre.getIdEtatLivre();
+            EtatLivre idEtatLivreNew = livre.getIdEtatLivre();
             Categorie idCategorieOld = persistentLivre.getIdCategorie();
             Categorie idCategorieNew = livre.getIdCategorie();
             List<Contenir> contenirListOld = persistentLivre.getContenirList();
@@ -100,6 +112,10 @@ public class LivreJpaController implements Serializable {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
+            if (idEtatLivreNew != null) {
+                idEtatLivreNew = em.getReference(idEtatLivreNew.getClass(), idEtatLivreNew.getIdEtatLivre());
+                livre.setIdEtatLivre(idEtatLivreNew);
+            }
             if (idCategorieNew != null) {
                 idCategorieNew = em.getReference(idCategorieNew.getClass(), idCategorieNew.getIdCategorie());
                 livre.setIdCategorie(idCategorieNew);
@@ -112,6 +128,14 @@ public class LivreJpaController implements Serializable {
             contenirListNew = attachedContenirListNew;
             livre.setContenirList(contenirListNew);
             livre = em.merge(livre);
+            if (idEtatLivreOld != null && !idEtatLivreOld.equals(idEtatLivreNew)) {
+                idEtatLivreOld.getLivreList().remove(livre);
+                idEtatLivreOld = em.merge(idEtatLivreOld);
+            }
+            if (idEtatLivreNew != null && !idEtatLivreNew.equals(idEtatLivreOld)) {
+                idEtatLivreNew.getLivreList().add(livre);
+                idEtatLivreNew = em.merge(idEtatLivreNew);
+            }
             if (idCategorieOld != null && !idCategorieOld.equals(idCategorieNew)) {
                 idCategorieOld.getLivreList().remove(livre);
                 idCategorieOld = em.merge(idCategorieOld);
@@ -170,6 +194,11 @@ public class LivreJpaController implements Serializable {
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
+            }
+            EtatLivre idEtatLivre = livre.getIdEtatLivre();
+            if (idEtatLivre != null) {
+                idEtatLivre.getLivreList().remove(livre);
+                idEtatLivre = em.merge(idEtatLivre);
             }
             Categorie idCategorie = livre.getIdCategorie();
             if (idCategorie != null) {

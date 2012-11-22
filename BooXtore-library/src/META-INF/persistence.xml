@@ -9,6 +9,7 @@
     <class>Jpa.Classes.Client</class>
     <class>Jpa.Classes.EtatCommande</class>
     <class>Jpa.Classes.Categorie</class>
+    <class>Jpa.Classes.EtatLivre</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:h2://A:\Documents\Mes documents\NetBeansProjects\BooXtore\BDD\BooXtore"/>
       <property name="javax.persistence.jdbc.password" value=""/>
