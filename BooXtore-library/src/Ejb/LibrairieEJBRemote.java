@@ -1,23 +1,24 @@
 package Ejb;
 
+import Jpa.Classes.Livre;
+import java.sql.Date;
 import java.util.List;
 import javax.ejb.Remote;
 
 @Remote
 public interface LibrairieEJBRemote
 {
-    //TODO : Remplacer Object par Livre
-    List<Object> getListe();
+    List<Livre> getListe();
 
-    List<Object> getTop10();
+    List<Livre> getTop10();
 
-    Object getLivre(int id);
+    Livre getLivre(int idLivre);
 
-    void setStock(Object o);
+    void setStock(Livre livre);
 
-    void ajouterLivre();    //TODO : Ajouter propriété du livre
+    void ajouterLivre(String titre, Date date, String resume, String sommaire, int quantite, String auteur, String editeur, double prix, String etat);
 
-    void modifierLivre(Object o);   //TODO : Ajouter propriété du livre
+    void modifierLivre(Livre livre, String titre, Date date, String resume, String sommaire, int quantite, String auteur, String editeur, double prix, String etat);
 
-    void supprimerLivre(Object o);
+    void supprimerLivre(Livre livre);
 }

@@ -1,5 +1,6 @@
 package Ejb;
 
+import Jpa.Classes.Commande;
 import javax.ejb.Stateless;
 
 @Stateless
@@ -12,13 +13,13 @@ public class CommandeEJB implements CommandeEJBRemote
     }
 
     @Override
-    public Object getCommande(int IdCommande)
+    public Commande getCommande(int IdCommande)
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public void setEtatCommande(int IdCommande, String Etat)
+    public void setEtatCommande(int IdCommande, String idEtatCommande)
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }

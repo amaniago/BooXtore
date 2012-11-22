@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Jpa.Classes;
 
 import java.io.Serializable;
@@ -18,18 +14,16 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author MANIAGO
- */
 @Entity
 @Table(name = "CLIENT")
 @XmlRootElement
-@NamedQueries({
+@NamedQueries(
+{
     @NamedQuery(name = "Client.findAll", query = "SELECT c FROM Client c"),
     @NamedQuery(name = "Client.findByLogin", query = "SELECT c FROM Client c WHERE c.login = :login"),
     @NamedQuery(name = "Client.findByMotDePasse", query = "SELECT c FROM Client c WHERE c.motDePasse = :motDePasse"),
@@ -38,8 +32,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Client.findByEmail", query = "SELECT c FROM Client c WHERE c.email = :email"),
     @NamedQuery(name = "Client.findByAdresse", query = "SELECT c FROM Client c WHERE c.adresse = :adresse"),
     @NamedQuery(name = "Client.findByCodePostal", query = "SELECT c FROM Client c WHERE c.codePostal = :codePostal"),
-    @NamedQuery(name = "Client.findByVille", query = "SELECT c FROM Client c WHERE c.ville = :ville")})
-public class Client implements Serializable {
+    @NamedQuery(name = "Client.findByVille", query = "SELECT c FROM Client c WHERE c.ville = :ville")
+})
+public class Client implements Serializable
+{
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -56,7 +52,7 @@ public class Client implements Serializable {
     @Size(max = 50)
     @Column(name = "PRENOM")
     private String prenom;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 200)
     @Column(name = "EMAIL")
     private String email;
@@ -71,121 +67,147 @@ public class Client implements Serializable {
     private String ville;
     @JoinColumn(name = "ID_COMPTE", referencedColumnName = "ID_COMPTE")
     @ManyToOne
-    private Compte idCompte;
+    private Compte compte;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "login")
     private List<Commande> commandeList;
 
-    public Client() {
+    public Client()
+    {
     }
 
-    public Client(String login) {
+    public Client(String login)
+    {
         this.login = login;
     }
 
-    public String getLogin() {
+    public String getLogin()
+    {
         return login;
     }
 
-    public void setLogin(String login) {
+    public void setLogin(String login)
+    {
         this.login = login;
     }
 
-    public String getMotDePasse() {
+    public String getMotDePasse()
+    {
         return motDePasse;
     }
 
-    public void setMotDePasse(String motDePasse) {
+    public void setMotDePasse(String motDePasse)
+    {
         this.motDePasse = motDePasse;
     }
 
-    public String getNom() {
+    public String getNom()
+    {
         return nom;
     }
 
-    public void setNom(String nom) {
+    public void setNom(String nom)
+    {
         this.nom = nom;
     }
 
-    public String getPrenom() {
+    public String getPrenom()
+    {
         return prenom;
     }
 
-    public void setPrenom(String prenom) {
+    public void setPrenom(String prenom)
+    {
         this.prenom = prenom;
     }
 
-    public String getEmail() {
+    public String getEmail()
+    {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(String email)
+    {
         this.email = email;
     }
 
-    public String getAdresse() {
+    public String getAdresse()
+    {
         return adresse;
     }
 
-    public void setAdresse(String adresse) {
+    public void setAdresse(String adresse)
+    {
         this.adresse = adresse;
     }
 
-    public String getCodePostal() {
+    public String getCodePostal()
+    {
         return codePostal;
     }
 
-    public void setCodePostal(String codePostal) {
+    public void setCodePostal(String codePostal)
+    {
         this.codePostal = codePostal;
     }
 
-    public String getVille() {
+    public String getVille()
+    {
         return ville;
     }
 
-    public void setVille(String ville) {
+    public void setVille(String ville)
+    {
         this.ville = ville;
     }
 
-    public Compte getIdCompte() {
-        return idCompte;
+    public Compte getCompte()
+    {
+        return compte;
     }
 
-    public void setIdCompte(Compte idCompte) {
-        this.idCompte = idCompte;
+    public void setCompte(Compte compte)
+    {
+        this.compte = compte;
     }
 
     @XmlTransient
-    public List<Commande> getCommandeList() {
+    public List<Commande> getCommandeList()
+    {
         return commandeList;
     }
 
-    public void setCommandeList(List<Commande> commandeList) {
+    public void setCommandeList(List<Commande> commandeList)
+    {
         this.commandeList = commandeList;
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         int hash = 0;
         hash += (login != null ? login.hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
+    public boolean equals(Object object)
+    {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Client)) {
+        if (!(object instanceof Client))
+        {
             return false;
         }
         Client other = (Client) object;
-        if ((this.login == null && other.login != null) || (this.login != null && !this.login.equals(other.login))) {
+        if ((this.login == null && other.login != null) || (this.login != null && !this.login.equals(other.login)))
+        {
             return false;
         }
         return true;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "Jpa.Classes.Client[ login=" + login + " ]";
     }
-    
 }

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Jpa.Classes;
 
 import java.io.Serializable;
@@ -21,21 +17,20 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author MANIAGO
- */
 @Entity
 @Table(name = "COMPTE")
 @XmlRootElement
-@NamedQueries({
+@NamedQueries(
+{
     @NamedQuery(name = "Compte.findAll", query = "SELECT c FROM Compte c"),
     @NamedQuery(name = "Compte.findByIdCompte", query = "SELECT c FROM Compte c WHERE c.idCompte = :idCompte"),
-    @NamedQuery(name = "Compte.findByTypeCompte", query = "SELECT c FROM Compte c WHERE c.typeCompte = :typeCompte")})
-public class Compte implements Serializable {
+    @NamedQuery(name = "Compte.findByTypeCompte", query = "SELECT c FROM Compte c WHERE c.typeCompte = :typeCompte")
+})
+public class Compte implements Serializable
+{
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
     @Column(name = "ID_COMPTE")
     private Integer idCompte;
@@ -44,69 +39,82 @@ public class Compte implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "TYPE_COMPTE")
     private String typeCompte;
-    @OneToMany(mappedBy = "idCompte")
+    @OneToMany(mappedBy = "compte")
     private List<Client> clientList;
 
-    public Compte() {
+    public Compte()
+    {
     }
 
-    public Compte(Integer idCompte) {
+    public Compte(Integer idCompte)
+    {
         this.idCompte = idCompte;
     }
 
-    public Compte(Integer idCompte, String typeCompte) {
+    public Compte(Integer idCompte, String typeCompte)
+    {
         this.idCompte = idCompte;
         this.typeCompte = typeCompte;
     }
 
-    public Integer getIdCompte() {
+    public Integer getIdCompte()
+    {
         return idCompte;
     }
 
-    public void setIdCompte(Integer idCompte) {
+    public void setIdCompte(Integer idCompte)
+    {
         this.idCompte = idCompte;
     }
 
-    public String getTypeCompte() {
+    public String getTypeCompte()
+    {
         return typeCompte;
     }
 
-    public void setTypeCompte(String typeCompte) {
+    public void setTypeCompte(String typeCompte)
+    {
         this.typeCompte = typeCompte;
     }
 
     @XmlTransient
-    public List<Client> getClientList() {
+    public List<Client> getClientList()
+    {
         return clientList;
     }
 
-    public void setClientList(List<Client> clientList) {
+    public void setClientList(List<Client> clientList)
+    {
         this.clientList = clientList;
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         int hash = 0;
         hash += (idCompte != null ? idCompte.hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
+    public boolean equals(Object object)
+    {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Compte)) {
+        if (!(object instanceof Compte))
+        {
             return false;
         }
         Compte other = (Compte) object;
-        if ((this.idCompte == null && other.idCompte != null) || (this.idCompte != null && !this.idCompte.equals(other.idCompte))) {
+        if ((this.idCompte == null && other.idCompte != null) || (this.idCompte != null && !this.idCompte.equals(other.idCompte)))
+        {
             return false;
         }
         return true;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "Jpa.Classes.Compte[ idCompte=" + idCompte + " ]";
     }
-    
 }

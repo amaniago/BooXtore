@@ -9,5 +9,5 @@ public interface CompteEJBRemote
 
     void inscription(String login, String mdp, String nom, String prenom, String mail, String adr);
 
-    void modifierCompte(String login);
+    void modifierCompte(String login, String mdp, String nom, String prenom, String mail, String adr);
 }

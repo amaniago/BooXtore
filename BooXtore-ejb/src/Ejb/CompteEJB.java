@@ -18,7 +18,7 @@ public class CompteEJB implements CompteEJBRemote
     }
 
     @Override
-    public void modifierCompte(String login)
+    public void modifierCompte(String login, String mdp, String nom, String prenom, String mail, String adr)
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }

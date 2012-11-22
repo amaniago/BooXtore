@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Jpa.Classes;
 
 import java.io.Serializable;
@@ -15,19 +11,18 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author MANIAGO
- */
 @Entity
 @Table(name = "CONTENIR")
 @XmlRootElement
-@NamedQueries({
+@NamedQueries(
+{
     @NamedQuery(name = "Contenir.findAll", query = "SELECT c FROM Contenir c"),
     @NamedQuery(name = "Contenir.findByIdCommande", query = "SELECT c FROM Contenir c WHERE c.contenirPK.idCommande = :idCommande"),
     @NamedQuery(name = "Contenir.findByIdLivre", query = "SELECT c FROM Contenir c WHERE c.contenirPK.idLivre = :idLivre"),
-    @NamedQuery(name = "Contenir.findByQuantiteCommander", query = "SELECT c FROM Contenir c WHERE c.quantiteCommander = :quantiteCommander")})
-public class Contenir implements Serializable {
+    @NamedQuery(name = "Contenir.findByQuantiteCommander", query = "SELECT c FROM Contenir c WHERE c.quantiteCommander = :quantiteCommander")
+})
+public class Contenir implements Serializable
+{
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected ContenirPK contenirPK;
@@ -40,72 +35,87 @@ public class Contenir implements Serializable {
     @ManyToOne(optional = false)
     private Commande commande;
 
-    public Contenir() {
+    public Contenir()
+    {
     }
 
-    public Contenir(ContenirPK contenirPK) {
+    public Contenir(ContenirPK contenirPK)
+    {
         this.contenirPK = contenirPK;
     }
 
-    public Contenir(int idCommande, int idLivre) {
+    public Contenir(int idCommande, int idLivre)
+    {
         this.contenirPK = new ContenirPK(idCommande, idLivre);
     }
 
-    public ContenirPK getContenirPK() {
+    public ContenirPK getContenirPK()
+    {
         return contenirPK;
     }
 
-    public void setContenirPK(ContenirPK contenirPK) {
+    public void setContenirPK(ContenirPK contenirPK)
+    {
         this.contenirPK = contenirPK;
     }
 
-    public Integer getQuantiteCommander() {
+    public Integer getQuantiteCommander()
+    {
         return quantiteCommander;
     }
 
-    public void setQuantiteCommander(Integer quantiteCommander) {
+    public void setQuantiteCommander(Integer quantiteCommander)
+    {
         this.quantiteCommander = quantiteCommander;
     }
 
-    public Livre getLivre() {
+    public Livre getLivre()
+    {
         return livre;
     }
 
-    public void setLivre(Livre livre) {
+    public void setLivre(Livre livre)
+    {
         this.livre = livre;
     }
 
-    public Commande getCommande() {
+    public Commande getCommande()
+    {
         return commande;
     }
 
-    public void setCommande(Commande commande) {
+    public void setCommande(Commande commande)
+    {
         this.commande = commande;
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         int hash = 0;
         hash += (contenirPK != null ? contenirPK.hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
+    public boolean equals(Object object)
+    {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Contenir)) {
+        if (!(object instanceof Contenir))
+        {
             return false;
         }
         Contenir other = (Contenir) object;
-        if ((this.contenirPK == null && other.contenirPK != null) || (this.contenirPK != null && !this.contenirPK.equals(other.contenirPK))) {
+        if ((this.contenirPK == null && other.contenirPK != null) || (this.contenirPK != null && !this.contenirPK.equals(other.contenirPK)))
+        {
             return false;
         }
         return true;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "Jpa.Classes.Contenir[ contenirPK=" + contenirPK + " ]";
     }
-    
 }

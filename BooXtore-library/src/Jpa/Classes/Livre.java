@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Jpa.Classes;
 
 import java.io.Serializable;
@@ -27,14 +23,11 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author MANIAGO
- */
 @Entity
 @Table(name = "LIVRE")
 @XmlRootElement
-@NamedQueries({
+@NamedQueries(
+{
     @NamedQuery(name = "Livre.findAll", query = "SELECT l FROM Livre l"),
     @NamedQuery(name = "Livre.findByIdLivre", query = "SELECT l FROM Livre l WHERE l.idLivre = :idLivre"),
     @NamedQuery(name = "Livre.findByTitre", query = "SELECT l FROM Livre l WHERE l.titre = :titre"),
@@ -45,11 +38,13 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Livre.findByAuteur", query = "SELECT l FROM Livre l WHERE l.auteur = :auteur"),
     @NamedQuery(name = "Livre.findByEditeur", query = "SELECT l FROM Livre l WHERE l.editeur = :editeur"),
     @NamedQuery(name = "Livre.findByPrix", query = "SELECT l FROM Livre l WHERE l.prix = :prix"),
-    @NamedQuery(name = "Livre.findByEtat", query = "SELECT l FROM Livre l WHERE l.etat = :etat")})
-public class Livre implements Serializable {
+    @NamedQuery(name = "Livre.findByEtat", query = "SELECT l FROM Livre l WHERE l.etat = :etat")
+})
+public class Livre implements Serializable
+{
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
     @Column(name = "ID_LIVRE")
     private Integer idLivre;
@@ -85,133 +80,163 @@ public class Livre implements Serializable {
     @ManyToOne(optional = false)
     private Categorie idCategorie;
 
-    public Livre() {
+    public Livre()
+    {
     }
 
-    public Livre(Integer idLivre) {
+    public Livre(Integer idLivre)
+    {
         this.idLivre = idLivre;
     }
 
-    public Integer getIdLivre() {
+    public Integer getIdLivre()
+    {
         return idLivre;
     }
 
-    public void setIdLivre(Integer idLivre) {
+    public void setIdLivre(Integer idLivre)
+    {
         this.idLivre = idLivre;
     }
 
-    public String getTitre() {
+    public String getTitre()
+    {
         return titre;
     }
 
-    public void setTitre(String titre) {
+    public void setTitre(String titre)
+    {
         this.titre = titre;
     }
 
-    public Date getDateParution() {
+    public Date getDateParution()
+    {
         return dateParution;
     }
 
-    public void setDateParution(Date dateParution) {
+    public void setDateParution(Date dateParution)
+    {
         this.dateParution = dateParution;
     }
 
-    public String getResume() {
+    public String getResume()
+    {
         return resume;
     }
 
-    public void setResume(String resume) {
+    public void setResume(String resume)
+    {
         this.resume = resume;
     }
 
-    public String getSommaire() {
+    public String getSommaire()
+    {
         return sommaire;
     }
 
-    public void setSommaire(String sommaire) {
+    public void setSommaire(String sommaire)
+    {
         this.sommaire = sommaire;
     }
 
-    public Integer getQuantiterDisponible() {
+    public Integer getQuantiterDisponible()
+    {
         return quantiterDisponible;
     }
 
-    public void setQuantiterDisponible(Integer quantiterDisponible) {
+    public void setQuantiterDisponible(Integer quantiterDisponible)
+    {
         this.quantiterDisponible = quantiterDisponible;
     }
 
-    public String getAuteur() {
+    public String getAuteur()
+    {
         return auteur;
     }
 
-    public void setAuteur(String auteur) {
+    public void setAuteur(String auteur)
+    {
         this.auteur = auteur;
     }
 
-    public String getEditeur() {
+    public String getEditeur()
+    {
         return editeur;
     }
 
-    public void setEditeur(String editeur) {
+    public void setEditeur(String editeur)
+    {
         this.editeur = editeur;
     }
 
-    public BigDecimal getPrix() {
+    public BigDecimal getPrix()
+    {
         return prix;
     }
 
-    public void setPrix(BigDecimal prix) {
+    public void setPrix(BigDecimal prix)
+    {
         this.prix = prix;
     }
 
-    public String getEtat() {
+    public String getEtat()
+    {
         return etat;
     }
 
-    public void setEtat(String etat) {
+    public void setEtat(String etat)
+    {
         this.etat = etat;
     }
 
     @XmlTransient
-    public List<Contenir> getContenirList() {
+    public List<Contenir> getContenirList()
+    {
         return contenirList;
     }
 
-    public void setContenirList(List<Contenir> contenirList) {
+    public void setContenirList(List<Contenir> contenirList)
+    {
         this.contenirList = contenirList;
     }
 
-    public Categorie getIdCategorie() {
+    public Categorie getCategorie()
+    {
         return idCategorie;
     }
 
-    public void setIdCategorie(Categorie idCategorie) {
-        this.idCategorie = idCategorie;
+    public void setCategorie(Categorie categorie)
+    {
+        this.idCategorie = categorie;
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         int hash = 0;
         hash += (idLivre != null ? idLivre.hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
+    public boolean equals(Object object)
+    {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Livre)) {
+        if (!(object instanceof Livre))
+        {
             return false;
         }
         Livre other = (Livre) object;
-        if ((this.idLivre == null && other.idLivre != null) || (this.idLivre != null && !this.idLivre.equals(other.idLivre))) {
+        if ((this.idLivre == null && other.idLivre != null) || (this.idLivre != null && !this.idLivre.equals(other.idLivre)))
+        {
             return false;
         }
         return true;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "Jpa.Classes.Livre[ idLivre=" + idLivre + " ]";
     }
-    
 }

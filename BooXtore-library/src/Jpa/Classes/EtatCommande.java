@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Jpa.Classes;
 
 import java.io.Serializable;
@@ -19,18 +15,17 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author MANIAGO
- */
 @Entity
 @Table(name = "ETAT_COMMANDE")
 @XmlRootElement
-@NamedQueries({
+@NamedQueries(
+{
     @NamedQuery(name = "EtatCommande.findAll", query = "SELECT e FROM EtatCommande e"),
     @NamedQuery(name = "EtatCommande.findByIdEtatCommande", query = "SELECT e FROM EtatCommande e WHERE e.idEtatCommande = :idEtatCommande"),
-    @NamedQuery(name = "EtatCommande.findByTypeEtat", query = "SELECT e FROM EtatCommande e WHERE e.typeEtat = :typeEtat")})
-public class EtatCommande implements Serializable {
+    @NamedQuery(name = "EtatCommande.findByTypeEtat", query = "SELECT e FROM EtatCommande e WHERE e.typeEtat = :typeEtat")
+})
+public class EtatCommande implements Serializable
+{
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -44,61 +39,73 @@ public class EtatCommande implements Serializable {
     @OneToMany(mappedBy = "idEtatCommande")
     private List<Commande> commandeList;
 
-    public EtatCommande() {
+    public EtatCommande()
+    {
     }
 
-    public EtatCommande(String idEtatCommande) {
+    public EtatCommande(String idEtatCommande)
+    {
         this.idEtatCommande = idEtatCommande;
     }
 
-    public String getIdEtatCommande() {
+    public String getIdEtatCommande()
+    {
         return idEtatCommande;
     }
 
-    public void setIdEtatCommande(String idEtatCommande) {
+    public void setIdEtatCommande(String idEtatCommande)
+    {
         this.idEtatCommande = idEtatCommande;
     }
 
-    public String getTypeEtat() {
+    public String getTypeEtat()
+    {
         return typeEtat;
     }
 
-    public void setTypeEtat(String typeEtat) {
+    public void setTypeEtat(String typeEtat)
+    {
         this.typeEtat = typeEtat;
     }
 
     @XmlTransient
-    public List<Commande> getCommandeList() {
+    public List<Commande> getCommandeList()
+    {
         return commandeList;
     }
 
-    public void setCommandeList(List<Commande> commandeList) {
+    public void setCommandeList(List<Commande> commandeList)
+    {
         this.commandeList = commandeList;
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         int hash = 0;
         hash += (idEtatCommande != null ? idEtatCommande.hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
+    public boolean equals(Object object)
+    {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof EtatCommande)) {
+        if (!(object instanceof EtatCommande))
+        {
             return false;
         }
         EtatCommande other = (EtatCommande) object;
-        if ((this.idEtatCommande == null && other.idEtatCommande != null) || (this.idEtatCommande != null && !this.idEtatCommande.equals(other.idEtatCommande))) {
+        if ((this.idEtatCommande == null && other.idEtatCommande != null) || (this.idEtatCommande != null && !this.idEtatCommande.equals(other.idEtatCommande)))
+        {
             return false;
         }
         return true;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "Jpa.Classes.EtatCommande[ idEtatCommande=" + idEtatCommande + " ]";
     }
-    
 }

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Jpa.Classes;
 
 import java.io.Serializable;
@@ -23,21 +19,20 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author MANIAGO
- */
 @Entity
 @Table(name = "COMMANDE")
 @XmlRootElement
-@NamedQueries({
+@NamedQueries(
+{
     @NamedQuery(name = "Commande.findAll", query = "SELECT c FROM Commande c"),
     @NamedQuery(name = "Commande.findByIdCommande", query = "SELECT c FROM Commande c WHERE c.idCommande = :idCommande"),
-    @NamedQuery(name = "Commande.findByTotal", query = "SELECT c FROM Commande c WHERE c.total = :total")})
-public class Commande implements Serializable {
+    @NamedQuery(name = "Commande.findByTotal", query = "SELECT c FROM Commande c WHERE c.total = :total")
+})
+public class Commande implements Serializable
+{
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
     @Column(name = "ID_COMMANDE")
     private Integer idCommande;
@@ -48,82 +43,98 @@ public class Commande implements Serializable {
     private List<Contenir> contenirList;
     @JoinColumn(name = "ID_ETAT_COMMANDE", referencedColumnName = "ID_ETAT_COMMANDE")
     @ManyToOne
-    private EtatCommande idEtatCommande;
+    private EtatCommande etatCommande;
     @JoinColumn(name = "LOGIN", referencedColumnName = "LOGIN")
     @ManyToOne(optional = false)
     private Client login;
 
-    public Commande() {
+    public Commande()
+    {
     }
 
-    public Commande(Integer idCommande) {
+    public Commande(Integer idCommande)
+    {
         this.idCommande = idCommande;
     }
 
-    public Integer getIdCommande() {
+    public Integer getIdCommande()
+    {
         return idCommande;
     }
 
-    public void setIdCommande(Integer idCommande) {
+    public void setIdCommande(Integer idCommande)
+    {
         this.idCommande = idCommande;
     }
 
-    public BigDecimal getTotal() {
+    public BigDecimal getTotal()
+    {
         return total;
     }
 
-    public void setTotal(BigDecimal total) {
+    public void setTotal(BigDecimal total)
+    {
         this.total = total;
     }
 
     @XmlTransient
-    public List<Contenir> getContenirList() {
+    public List<Contenir> getContenirList()
+    {
         return contenirList;
     }
 
-    public void setContenirList(List<Contenir> contenirList) {
+    public void setContenirList(List<Contenir> contenirList)
+    {
         this.contenirList = contenirList;
     }
 
-    public EtatCommande getIdEtatCommande() {
-        return idEtatCommande;
+    public EtatCommande getEtatCommande()
+    {
+        return etatCommande;
     }
 
-    public void setIdEtatCommande(EtatCommande idEtatCommande) {
-        this.idEtatCommande = idEtatCommande;
+    public void setEtatCommande(EtatCommande etatCommande)
+    {
+        this.etatCommande = etatCommande;
     }
 
-    public Client getLogin() {
+    public Client getLogin()
+    {
         return login;
     }
 
-    public void setLogin(Client login) {
+    public void setLogin(Client login)
+    {
         this.login = login;
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         int hash = 0;
         hash += (idCommande != null ? idCommande.hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
+    public boolean equals(Object object)
+    {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Commande)) {
+        if (!(object instanceof Commande))
+        {
             return false;
         }
         Commande other = (Commande) object;
-        if ((this.idCommande == null && other.idCommande != null) || (this.idCommande != null && !this.idCommande.equals(other.idCommande))) {
+        if ((this.idCommande == null && other.idCommande != null) || (this.idCommande != null && !this.idCommande.equals(other.idCommande)))
+        {
             return false;
         }
         return true;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "Jpa.Classes.Commande[ idCommande=" + idCommande + " ]";
     }
-    
 }

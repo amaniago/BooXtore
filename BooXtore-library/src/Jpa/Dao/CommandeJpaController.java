@@ -1,263 +1,320 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Jpa.Dao;
 
-import java.io.Serializable;
-import javax.persistence.Query;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import Jpa.Classes.EtatCommande;
 import Jpa.Classes.Client;
 import Jpa.Classes.Commande;
 import Jpa.Classes.Contenir;
+import Jpa.Classes.EtatCommande;
 import Jpa.Dao.exceptions.IllegalOrphanException;
 import Jpa.Dao.exceptions.NonexistentEntityException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import javax.transaction.UserTransaction;
 
-/**
- *
- * @author MANIAGO
- */
-public class CommandeJpaController implements Serializable {
-
-    public CommandeJpaController(UserTransaction utx, EntityManagerFactory emf) {
+public class CommandeJpaController implements Serializable
+{
+    public CommandeJpaController(UserTransaction utx, EntityManagerFactory emf)
+    {
         this.utx = utx;
         this.emf = emf;
     }
     private UserTransaction utx = null;
     private EntityManagerFactory emf = null;
 
-    public EntityManager getEntityManager() {
+    public EntityManager getEntityManager()
+    {
         return emf.createEntityManager();
     }
 
-    public void create(Commande commande) {
-        if (commande.getContenirList() == null) {
+    public void create(Commande commande)
+    {
+        if (commande.getContenirList() == null)
+        {
             commande.setContenirList(new ArrayList<Contenir>());
         }
         EntityManager em = null;
-        try {
+        try
+        {
             em = getEntityManager();
             em.getTransaction().begin();
-            EtatCommande idEtatCommande = commande.getIdEtatCommande();
-            if (idEtatCommande != null) {
+            EtatCommande idEtatCommande = commande.getEtatCommande();
+            if (idEtatCommande != null)
+            {
                 idEtatCommande = em.getReference(idEtatCommande.getClass(), idEtatCommande.getIdEtatCommande());
-                commande.setIdEtatCommande(idEtatCommande);
+                commande.setEtatCommande(idEtatCommande);
             }
             Client login = commande.getLogin();
-            if (login != null) {
+            if (login != null)
+            {
                 login = em.getReference(login.getClass(), login.getLogin());
                 commande.setLogin(login);
             }
-            List<Contenir> attachedContenirList = new ArrayList<Contenir>();
-            for (Contenir contenirListContenirToAttach : commande.getContenirList()) {
+            List<Contenir> attachedContenirList = new ArrayList<>();
+            for (Contenir contenirListContenirToAttach : commande.getContenirList())
+            {
                 contenirListContenirToAttach = em.getReference(contenirListContenirToAttach.getClass(), contenirListContenirToAttach.getContenirPK());
                 attachedContenirList.add(contenirListContenirToAttach);
             }
             commande.setContenirList(attachedContenirList);
             em.persist(commande);
-            if (idEtatCommande != null) {
+            if (idEtatCommande != null)
+            {
                 idEtatCommande.getCommandeList().add(commande);
                 idEtatCommande = em.merge(idEtatCommande);
             }
-            if (login != null) {
+            if (login != null)
+            {
                 login.getCommandeList().add(commande);
                 login = em.merge(login);
             }
-            for (Contenir contenirListContenir : commande.getContenirList()) {
+            for (Contenir contenirListContenir : commande.getContenirList())
+            {
                 Commande oldCommandeOfContenirListContenir = contenirListContenir.getCommande();
                 contenirListContenir.setCommande(commande);
                 contenirListContenir = em.merge(contenirListContenir);
-                if (oldCommandeOfContenirListContenir != null) {
+                if (oldCommandeOfContenirListContenir != null)
+                {
                     oldCommandeOfContenirListContenir.getContenirList().remove(contenirListContenir);
                     oldCommandeOfContenirListContenir = em.merge(oldCommandeOfContenirListContenir);
                 }
             }
             em.getTransaction().commit();
-        } finally {
-            if (em != null) {
+        }
+        finally
+        {
+            if (em != null)
+            {
                 em.close();
             }
         }
     }
 
-    public void edit(Commande commande) throws IllegalOrphanException, NonexistentEntityException, Exception {
+    public void edit(Commande commande) throws IllegalOrphanException, NonexistentEntityException, Exception
+    {
         EntityManager em = null;
-        try {
+        try
+        {
             em = getEntityManager();
             em.getTransaction().begin();
             Commande persistentCommande = em.find(Commande.class, commande.getIdCommande());
-            EtatCommande idEtatCommandeOld = persistentCommande.getIdEtatCommande();
-            EtatCommande idEtatCommandeNew = commande.getIdEtatCommande();
+            EtatCommande idEtatCommandeOld = persistentCommande.getEtatCommande();
+            EtatCommande idEtatCommandeNew = commande.getEtatCommande();
             Client loginOld = persistentCommande.getLogin();
             Client loginNew = commande.getLogin();
             List<Contenir> contenirListOld = persistentCommande.getContenirList();
             List<Contenir> contenirListNew = commande.getContenirList();
             List<String> illegalOrphanMessages = null;
-            for (Contenir contenirListOldContenir : contenirListOld) {
-                if (!contenirListNew.contains(contenirListOldContenir)) {
-                    if (illegalOrphanMessages == null) {
-                        illegalOrphanMessages = new ArrayList<String>();
+            for (Contenir contenirListOldContenir : contenirListOld)
+            {
+                if (!contenirListNew.contains(contenirListOldContenir))
+                {
+                    if (illegalOrphanMessages == null)
+                    {
+                        illegalOrphanMessages = new ArrayList<>();
                     }
                     illegalOrphanMessages.add("You must retain Contenir " + contenirListOldContenir + " since its commande field is not nullable.");
                 }
             }
-            if (illegalOrphanMessages != null) {
+            if (illegalOrphanMessages != null)
+            {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            if (idEtatCommandeNew != null) {
+            if (idEtatCommandeNew != null)
+            {
                 idEtatCommandeNew = em.getReference(idEtatCommandeNew.getClass(), idEtatCommandeNew.getIdEtatCommande());
-                commande.setIdEtatCommande(idEtatCommandeNew);
+                commande.setEtatCommande(idEtatCommandeNew);
             }
-            if (loginNew != null) {
+            if (loginNew != null)
+            {
                 loginNew = em.getReference(loginNew.getClass(), loginNew.getLogin());
                 commande.setLogin(loginNew);
             }
-            List<Contenir> attachedContenirListNew = new ArrayList<Contenir>();
-            for (Contenir contenirListNewContenirToAttach : contenirListNew) {
+            List<Contenir> attachedContenirListNew = new ArrayList<>();
+            for (Contenir contenirListNewContenirToAttach : contenirListNew)
+            {
                 contenirListNewContenirToAttach = em.getReference(contenirListNewContenirToAttach.getClass(), contenirListNewContenirToAttach.getContenirPK());
                 attachedContenirListNew.add(contenirListNewContenirToAttach);
             }
             contenirListNew = attachedContenirListNew;
             commande.setContenirList(contenirListNew);
             commande = em.merge(commande);
-            if (idEtatCommandeOld != null && !idEtatCommandeOld.equals(idEtatCommandeNew)) {
+            if (idEtatCommandeOld != null && !idEtatCommandeOld.equals(idEtatCommandeNew))
+            {
                 idEtatCommandeOld.getCommandeList().remove(commande);
                 idEtatCommandeOld = em.merge(idEtatCommandeOld);
             }
-            if (idEtatCommandeNew != null && !idEtatCommandeNew.equals(idEtatCommandeOld)) {
+            if (idEtatCommandeNew != null && !idEtatCommandeNew.equals(idEtatCommandeOld))
+            {
                 idEtatCommandeNew.getCommandeList().add(commande);
                 idEtatCommandeNew = em.merge(idEtatCommandeNew);
             }
-            if (loginOld != null && !loginOld.equals(loginNew)) {
+            if (loginOld != null && !loginOld.equals(loginNew))
+            {
                 loginOld.getCommandeList().remove(commande);
                 loginOld = em.merge(loginOld);
             }
-            if (loginNew != null && !loginNew.equals(loginOld)) {
+            if (loginNew != null && !loginNew.equals(loginOld))
+            {
                 loginNew.getCommandeList().add(commande);
                 loginNew = em.merge(loginNew);
             }
-            for (Contenir contenirListNewContenir : contenirListNew) {
-                if (!contenirListOld.contains(contenirListNewContenir)) {
+            for (Contenir contenirListNewContenir : contenirListNew)
+            {
+                if (!contenirListOld.contains(contenirListNewContenir))
+                {
                     Commande oldCommandeOfContenirListNewContenir = contenirListNewContenir.getCommande();
                     contenirListNewContenir.setCommande(commande);
                     contenirListNewContenir = em.merge(contenirListNewContenir);
-                    if (oldCommandeOfContenirListNewContenir != null && !oldCommandeOfContenirListNewContenir.equals(commande)) {
+                    if (oldCommandeOfContenirListNewContenir != null && !oldCommandeOfContenirListNewContenir.equals(commande))
+                    {
                         oldCommandeOfContenirListNewContenir.getContenirList().remove(contenirListNewContenir);
                         oldCommandeOfContenirListNewContenir = em.merge(oldCommandeOfContenirListNewContenir);
                     }
                 }
             }
             em.getTransaction().commit();
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             String msg = ex.getLocalizedMessage();
-            if (msg == null || msg.length() == 0) {
+            if (msg == null || msg.length() == 0)
+            {
                 Integer id = commande.getIdCommande();
-                if (findCommande(id) == null) {
+                if (findCommande(id) == null)
+                {
                     throw new NonexistentEntityException("The commande with id " + id + " no longer exists.");
                 }
             }
             throw ex;
-        } finally {
-            if (em != null) {
+        }
+        finally
+        {
+            if (em != null)
+            {
                 em.close();
             }
         }
     }
 
-    public void destroy(Integer id) throws IllegalOrphanException, NonexistentEntityException {
+    public void destroy(Integer id) throws IllegalOrphanException, NonexistentEntityException
+    {
         EntityManager em = null;
-        try {
+        try
+        {
             em = getEntityManager();
             em.getTransaction().begin();
             Commande commande;
-            try {
+            try
+            {
                 commande = em.getReference(Commande.class, id);
                 commande.getIdCommande();
-            } catch (EntityNotFoundException enfe) {
+            }
+            catch (EntityNotFoundException enfe)
+            {
                 throw new NonexistentEntityException("The commande with id " + id + " no longer exists.", enfe);
             }
             List<String> illegalOrphanMessages = null;
             List<Contenir> contenirListOrphanCheck = commande.getContenirList();
-            for (Contenir contenirListOrphanCheckContenir : contenirListOrphanCheck) {
-                if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
+            for (Contenir contenirListOrphanCheckContenir : contenirListOrphanCheck)
+            {
+                if (illegalOrphanMessages == null)
+                {
+                    illegalOrphanMessages = new ArrayList<>();
                 }
                 illegalOrphanMessages.add("This Commande (" + commande + ") cannot be destroyed since the Contenir " + contenirListOrphanCheckContenir + " in its contenirList field has a non-nullable commande field.");
             }
-            if (illegalOrphanMessages != null) {
+            if (illegalOrphanMessages != null)
+            {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            EtatCommande idEtatCommande = commande.getIdEtatCommande();
-            if (idEtatCommande != null) {
+            EtatCommande idEtatCommande = commande.getEtatCommande();
+            if (idEtatCommande != null)
+            {
                 idEtatCommande.getCommandeList().remove(commande);
                 idEtatCommande = em.merge(idEtatCommande);
             }
             Client login = commande.getLogin();
-            if (login != null) {
+            if (login != null)
+            {
                 login.getCommandeList().remove(commande);
                 login = em.merge(login);
             }
             em.remove(commande);
             em.getTransaction().commit();
-        } finally {
-            if (em != null) {
+        }
+        finally
+        {
+            if (em != null)
+            {
                 em.close();
             }
         }
     }
 
-    public List<Commande> findCommandeEntities() {
+    public List<Commande> findCommandeEntities()
+    {
         return findCommandeEntities(true, -1, -1);
     }
 
-    public List<Commande> findCommandeEntities(int maxResults, int firstResult) {
+    public List<Commande> findCommandeEntities(int maxResults, int firstResult)
+    {
         return findCommandeEntities(false, maxResults, firstResult);
     }
 
-    private List<Commande> findCommandeEntities(boolean all, int maxResults, int firstResult) {
+    private List<Commande> findCommandeEntities(boolean all, int maxResults, int firstResult)
+    {
         EntityManager em = getEntityManager();
-        try {
+        try
+        {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
             cq.select(cq.from(Commande.class));
             Query q = em.createQuery(cq);
-            if (!all) {
+            if (!all)
+            {
                 q.setMaxResults(maxResults);
                 q.setFirstResult(firstResult);
             }
             return q.getResultList();
-        } finally {
+        }
+        finally
+        {
             em.close();
         }
     }
 
-    public Commande findCommande(Integer id) {
+    public Commande findCommande(Integer id)
+    {
         EntityManager em = getEntityManager();
-        try {
+        try
+        {
             return em.find(Commande.class, id);
-        } finally {
+        }
+        finally
+        {
             em.close();
         }
     }
 
-    public int getCommandeCount() {
+    public int getCommandeCount()
+    {
         EntityManager em = getEntityManager();
-        try {
+        try
+        {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
             Root<Commande> rt = cq.from(Commande.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
-        } finally {
+        }
+        finally
+        {
             em.close();
         }
     }
-    
 }
