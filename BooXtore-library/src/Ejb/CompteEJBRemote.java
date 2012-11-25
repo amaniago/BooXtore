@@ -5,9 +5,9 @@ import javax.ejb.Remote;
 @Remote
 public interface CompteEJBRemote
 {
-    boolean authentification(String login, String mdp);
+    public boolean authentification(String login, String mdp);
 
-    void inscription(String login, String mdp, String nom, String prenom, String mail, String adr);
+    public void inscription(String login, String mdp, String nom, String prenom, String mail, String adr);
 
-    void modifierCompte(String login, String mdp, String nom, String prenom, String mail, String adr);
+    public void modifierCompte(String login, String mdp, String nom, String prenom, String mail, String adr);
 }

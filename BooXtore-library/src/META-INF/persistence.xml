@@ -11,13 +11,5 @@
         <class>Jpa.Classes.EtatCommande</class>
         <class>Jpa.Classes.Categorie</class>
         <class>Jpa.Classes.EtatLivre</class>
-<!--        <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:h2://C:\Users\Kevin\Documents\NetBeansProjects\BooXtore\BDD\BooXtore"/>
-            <property name="javax.persistence.jdbc.password" value=""/>
-            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
-            <property name="javax.persistence.jdbc.user" value=""/>
-            <property name="eclipselink.ddl-generation" value="create-tables"/>
-            <property name="eclipselink.target-database" value="org.eclipse.persistence.platform.database.H2Platform"/>
-        </properties>-->
     </persistence-unit>
 </persistence>

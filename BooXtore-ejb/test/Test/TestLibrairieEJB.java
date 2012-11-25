@@ -1,9 +1,15 @@
 package Test;
 
 import Ejb.LibrairieEJBRemote;
+import Jpa.Classes.EtatLivre;
+import Jpa.Classes.Livre;
+import java.math.BigDecimal;
+import java.sql.Date;
 import javax.ejb.embeddable.EJBContainer;
-import javax.naming.Context;
 import javax.naming.NamingException;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -11,12 +17,16 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+/**
+ * Classe regroupant les tests unitaires de l'EJB LibrairieEJB
+ */
 public class TestLibrairieEJB
 {
-//    LibrairieEJBRemote librairieEJB = lookupLibrairieEJBRemote();
     private EJBContainer container;
-    private Context context;
     private LibrairieEJBRemote ejb;
+    private final int idLivreTest = 130;
+    private static EntityManagerFactory emf;
+    private Livre livreInsert;
 
     public TestLibrairieEJB()
     {
@@ -26,8 +36,8 @@ public class TestLibrairieEJB
     public void setUpClass() throws NamingException
     {
         container = EJBContainer.createEJBContainer();
-        context = container.getContext();
-        ejb = (LibrairieEJBRemote) context.lookup("java:global/BooXtore/BooXtore-ejb/LibrairieEJB!Ejb.LibrairieEJBRemote");
+        ejb = (LibrairieEJBRemote) container.getContext().lookup("java:global/classes/LibrairieEJB");
+        emf = Persistence.createEntityManagerFactory("BooXtorePU");
     }
 
     @AfterClass
@@ -46,6 +56,9 @@ public class TestLibrairieEJB
     {
     }
 
+    /**
+     * Test de la méthode getListe, de l'EJB LibrairieEJB.
+     */
     @Test
     public void getListeTest()
     {
@@ -53,53 +66,61 @@ public class TestLibrairieEJB
         Assert.assertNotEquals(ejb.getListe().size(), 0);
     }
 
+    /**
+     * Test de la méthode getTop10, de l'EJB LibrairieEJB.
+     */
     @Test
     public void getTop10Test()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Assert.assertNotNull(ejb.getTop10());
     }
 
+    /**
+     * Test de la méthode getLivre, de l'EJB LibrairieEJB.
+     */
     @Test
     public void getLivreTest()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Assert.assertEquals(ejb.getLivre(idLivreTest).getTitre(), "Test");
     }
 
-    @Test
-    public void setStockTest()
-    {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
+    /**
+     * Test de la méthode ajouterLivre, de l'EJB LibrairieEJB.
+     */
     @Test
     public void ajouterLivreTest()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        livreInsert = ejb.ajouterLivre("Test", new Date(System.currentTimeMillis()), null, null, 5, null, null, BigDecimal.ZERO, "N", 1);
+        Assert.assertNotNull(livreInsert);
+        Assert.assertEquals(livreInsert.getTitre(), "Test");
     }
 
+    /**
+     * Test de la méthode modifierLivre, de l'EJB LibrairieEJB.
+     */
     @Test
     public void modifierLivreTest()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        EntityManager em = emf.createEntityManager();
+        livreInsert.setEtatLivre(em.find(EtatLivre.class, "S"));
+        ejb.modifierLivre(livreInsert);
+        emf.getCache().evictAll();  //Synchro du contexte
+        Livre livre = em.find(Livre.class, livreInsert.getIdLivre());
+        Assert.assertEquals(livreInsert, livre);
+        em.close();
     }
 
+    /**
+     * Test de la méthode supprimerLivre, de l'EJB LibrairieEJB.
+     */
     @Test
     public void supprimerLivreTest()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        int id = livreInsert.getIdLivre();
+        ejb.supprimerLivre(livreInsert);
+        emf.getCache().evictAll();  //Synchro du contexte
+        EntityManager em = emf.createEntityManager();
+        Assert.assertNull(em.find(Livre.class, id));
+        em.close();
     }
-
-//    private LibrairieEJBRemote lookupLibrairieEJBRemote()
-//    {
-//        try
-//        {
-//            Context c = new InitialContext();
-//            return (LibrairieEJBRemote) c.lookup("java:global/BooXtore/BooXtore-ejb/LibrairieEJB!Ejb.LibrairieEJBRemote");
-//        }
-//        catch (NamingException ne)
-//        {
-//            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
-//            throw new RuntimeException(ne);
-//        }
-//    }
 }
