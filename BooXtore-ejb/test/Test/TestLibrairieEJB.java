@@ -93,6 +93,7 @@ public class TestLibrairieEJB
         livreInsert = ejb.ajouterLivre("Test", new Date(System.currentTimeMillis()), null, null, 5, null, null, BigDecimal.ZERO, "N", 1);
         Assert.assertNotNull(livreInsert);
         Assert.assertEquals(livreInsert.getTitre(), "Test");
+        Assert.assertNotNull(livreInsert.getIdLivre());
     }
 
     /**
@@ -106,8 +107,8 @@ public class TestLibrairieEJB
         ejb.modifierLivre(livreInsert);
         emf.getCache().evictAll();  //Synchro du contexte
         Livre livre = em.find(Livre.class, livreInsert.getIdLivre());
-        Assert.assertEquals(livreInsert, livre);
         em.close();
+        Assert.assertEquals(livreInsert, livre);
     }
 
     /**
@@ -120,7 +121,8 @@ public class TestLibrairieEJB
         ejb.supprimerLivre(livreInsert);
         emf.getCache().evictAll();  //Synchro du contexte
         EntityManager em = emf.createEntityManager();
-        Assert.assertNull(em.find(Livre.class, id));
+        Livre livre = em.find(Livre.class, id);
         em.close();
+        Assert.assertNull(livre);
     }
 }
