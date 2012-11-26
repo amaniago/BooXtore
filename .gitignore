@@ -10,4 +10,7 @@
 /BooXtore-ejb/nbproject/private/
 /BooXtore-library/nbproject/private/
 dist/gfdeploy/BooXtore/
-BDD/BooXtore.trace.db
+BooXtore-library/src/META-INF/persistence.xml
+/BooXtore-admin/nbproject/private/
+/BooXtore-admin/build/
+/BooXtore-admin/dist/
