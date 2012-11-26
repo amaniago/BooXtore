@@ -1,6 +1,7 @@
 package Test;
 
 import Ejb.LibrairieEJBRemote;
+import Jpa.Classes.Categorie;
 import Jpa.Classes.EtatLivre;
 import Jpa.Classes.Livre;
 import java.math.BigDecimal;
@@ -27,6 +28,7 @@ public class TestLibrairieEJB
     private final int idLivreTest = 130;
     private static EntityManagerFactory emf;
     private Livre livreInsert;
+    private Categorie categorieInsert;
 
     public TestLibrairieEJB()
     {
@@ -99,7 +101,7 @@ public class TestLibrairieEJB
     /**
      * Test de la méthode modifierLivre, de l'EJB LibrairieEJB.
      */
-    @Test (dependsOnMethods= { "ajouterLivreTest" })
+    @Test(dependsOnMethods = { "ajouterLivreTest" })
     public void modifierLivreTest()
     {
         EntityManager em = emf.createEntityManager();
@@ -114,7 +116,7 @@ public class TestLibrairieEJB
     /**
      * Test de la méthode supprimerLivre, de l'EJB LibrairieEJB.
      */
-    @Test (dependsOnMethods= { "ajouterLivreTest" })
+    @Test(dependsOnMethods = { "ajouterLivreTest" })
     public void supprimerLivreTest()
     {
         int id = livreInsert.getIdLivre();
@@ -132,24 +134,39 @@ public class TestLibrairieEJB
     @Test
     public void ajouterCategorieTest()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        categorieInsert = ejb.ajouterCategorie("Test");
+        Assert.assertNotNull(categorieInsert);
+        Assert.assertEquals(categorieInsert.getNomCategorie(), "Test");
+        Assert.assertNotNull(categorieInsert.getIdCategorie());
     }
 
     /**
      * Test de la méthode modifierCategorie, de l'EJB LibrairieEJB.
      */
-    @Test (dependsOnMethods= { "ajouterCategorieTest" })
+    @Test(dependsOnMethods = { "ajouterCategorieTest" })
     public void modifierCategorieTest()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        EntityManager em = emf.createEntityManager();
+        categorieInsert.setNomCategorie("TestModif");
+        ejb.modifierCategorie(categorieInsert);
+        emf.getCache().evictAll();  //Synchro du contexte
+        Categorie categorie = em.find(Categorie.class, categorieInsert.getIdCategorie());
+        em.close();
+        Assert.assertEquals(categorieInsert.getNomCategorie(), categorie.getNomCategorie());
     }
 
     /**
      * Test de la méthode supprimerCategorie, de l'EJB LibrairieEJB.
      */
-    @Test (dependsOnMethods= { "ajouterCategorieTest" })
+    @Test(dependsOnMethods = { "ajouterCategorieTest" })
     public void supprimerCategorieTest()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        int id = categorieInsert.getIdCategorie();
+        ejb.supprimerCategorie(categorieInsert);
+        emf.getCache().evictAll();  //Synchro du contexte
+        EntityManager em = emf.createEntityManager();
+        Categorie categorie = em.find(Categorie.class, id);
+        em.close();
+        Assert.assertNull(categorie);
     }
 }

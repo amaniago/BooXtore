@@ -123,7 +123,10 @@ public class LibrairieEJB implements LibrairieEJBRemote
     @Override
     public Categorie ajouterCategorie(String nom)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Categorie categorie = new Categorie();
+        categorie.setNomCategorie(nom);
+        em.persist(categorie);
+        return categorie;
     }
 
     /**
@@ -133,7 +136,7 @@ public class LibrairieEJB implements LibrairieEJBRemote
     @Override
     public void modifierCategorie(Categorie categorie)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        em.merge(categorie);
     }
 
     /**
@@ -143,6 +146,7 @@ public class LibrairieEJB implements LibrairieEJBRemote
     @Override
     public void supprimerCategorie(Categorie categorie)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        categorie = em.merge(categorie);
+        em.remove(categorie);
     }
 }
