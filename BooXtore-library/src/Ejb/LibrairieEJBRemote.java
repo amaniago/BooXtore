@@ -1,5 +1,6 @@
 package Ejb;
 
+import Jpa.Classes.Categorie;
 import Jpa.Classes.Livre;
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -20,4 +21,10 @@ public interface LibrairieEJBRemote
     public void modifierLivre(Livre livre);
 
     public void supprimerLivre(Livre livre);
+
+    public Categorie ajouterCategorie(String nom);
+
+    public void modifierCategorie(Categorie categorie);
+
+    public void supprimerCategorie(Categorie categorie);
 }

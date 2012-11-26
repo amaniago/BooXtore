@@ -97,7 +97,7 @@ public class Client implements Serializable
 
     public void setMotDePasse(String motDePasse)
     {
-        this.motDePasse = motDePasse;
+        this.motDePasse = motDePasse;   //TODO : Déplacer SHA1 ici
     }
 
     public String getNom()

@@ -11,7 +11,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 /**
  * Classe regroupant les tests unitaires de l'EJB CommandeEJB
@@ -70,7 +74,7 @@ public class TestCommandeEJB
     /**
      * Test de la méthode getCommande, de l'EJB CommandeEJB.
      */
-    @Test
+    @Test (dependsOnMethods= { "creationCommandeTest" })
     public void getCommandeTest()
     {
         Commande commande = ejb.getCommande(commandeInsert.getIdCommande());
@@ -80,7 +84,7 @@ public class TestCommandeEJB
     /**
      * Test de la méthode setEtatCommande, de l'EJB CommandeEJB.
      */
-    @Test
+    @Test (dependsOnMethods= { "creationCommandeTest" })
     public void setEtatCommandeTest()
     {
         ejb.setEtatCommande(commandeInsert, "A");

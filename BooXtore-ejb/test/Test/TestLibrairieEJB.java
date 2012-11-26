@@ -99,7 +99,7 @@ public class TestLibrairieEJB
     /**
      * Test de la méthode modifierLivre, de l'EJB LibrairieEJB.
      */
-    @Test
+    @Test (dependsOnMethods= { "ajouterLivreTest" })
     public void modifierLivreTest()
     {
         EntityManager em = emf.createEntityManager();
@@ -114,7 +114,7 @@ public class TestLibrairieEJB
     /**
      * Test de la méthode supprimerLivre, de l'EJB LibrairieEJB.
      */
-    @Test
+    @Test (dependsOnMethods= { "ajouterLivreTest" })
     public void supprimerLivreTest()
     {
         int id = livreInsert.getIdLivre();
@@ -124,5 +124,32 @@ public class TestLibrairieEJB
         Livre livre = em.find(Livre.class, id);
         em.close();
         Assert.assertNull(livre);
+    }
+
+    /**
+     * Test de la méthode ajouterCategorie, de l'EJB LibrairieEJB.
+     */
+    @Test
+    public void ajouterCategorieTest()
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    /**
+     * Test de la méthode modifierCategorie, de l'EJB LibrairieEJB.
+     */
+    @Test (dependsOnMethods= { "ajouterCategorieTest" })
+    public void modifierCategorieTest()
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    /**
+     * Test de la méthode supprimerCategorie, de l'EJB LibrairieEJB.
+     */
+    @Test (dependsOnMethods= { "ajouterCategorieTest" })
+    public void supprimerCategorieTest()
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

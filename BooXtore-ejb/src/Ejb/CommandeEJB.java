@@ -13,6 +13,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+/**
+ * EJB gérant les commandes et permettant la récupération de celles-ci, et leurs gestions
+ */
 @Stateless
 public class CommandeEJB implements CommandeEJBRemote
 {
@@ -24,8 +27,8 @@ public class CommandeEJB implements CommandeEJBRemote
 
     /**
      * Permet la création d'une nouvelle commande
-     * @param idClient Identifiant du client rattaché à la commande
-     * @param lstContenir Liste des livres et quantités correspondantes de ceux ci
+     * @param client Client rattaché à la commande
+     * @param panier Liste des livres et quantités correspondantes de ceux ci
      * @return Commande crée
      */
     @Override
@@ -69,7 +72,7 @@ public class CommandeEJB implements CommandeEJBRemote
 
     /**
      * Permet de modifier l'état de la commande
-     * @param IdCommande Identifiant de la commande à modifier
+     * @param commande Commande à modifier
      * @param idEtatCommande Identifiant du nouvel état de la commande
      */
     @Override

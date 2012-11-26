@@ -73,6 +73,7 @@ public class LibrairieEJB implements LibrairieEJBRemote
      * @param editeur Editeur du livre
      * @param prix Prix du livre
      * @param idEtat Etat actuel du livre
+     * @param idCategorie Categorie du livre
      * @return Livre crée
      */
     @Override
@@ -112,5 +113,36 @@ public class LibrairieEJB implements LibrairieEJBRemote
     {
         livre = em.merge(livre);
         em.remove(livre);
+    }
+
+    /**
+     * Permet d'ajouter une catégorie en base de données
+     * @param nom Nom de la catégorie
+     * @return Catégorie crée
+     */
+    @Override
+    public Categorie ajouterCategorie(String nom)
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    /**
+     * Permet de modifier une catégorie en base de données
+     * @param categorie Catégorie à modifier
+     */
+    @Override
+    public void modifierCategorie(Categorie categorie)
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    /**
+     * Permet de supprimer une catégorie en base de données
+     * @param categorie Catégorie à supprimer
+     */
+    @Override
+    public void supprimerCategorie(Categorie categorie)
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
