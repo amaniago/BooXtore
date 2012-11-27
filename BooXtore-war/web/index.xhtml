@@ -67,7 +67,7 @@
                 </p:layoutUnit>
 
                 <p:layoutUnit position="center">
-                <p:treeTable value="#{LibrairieMBean.Top10}" var="top10">  
+                <p:treeTable value="#{LibrairieMBean.Top10}" var="p">  
                     <f:facet name="header">  
                         Top 10 des ventes  
                     </f:facet>  
@@ -107,7 +107,7 @@
                          
                     </p:column>
                 </p:treeTable>  
-                    <h:dataTable border="0" rules="all" value="#{LibrarieMBean.top10}" var="p">
+                    <h:dataTable border="0" rules="all" value="#{librairieMBean.top10}" var="p">
  
                 <h:column>
                         <f:facet name="header">
@@ -124,4 +124,5 @@
         
     </f:view>
 </html>
+
 
