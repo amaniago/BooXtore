@@ -59,13 +59,13 @@ public class TestLibrairieEJB
     }
 
     /**
-     * Test de la méthode getListe, de l'EJB LibrairieEJB.
+     * Test de la méthode getLivres, de l'EJB LibrairieEJB.
      */
     @Test
-    public void getListeTest()
+    public void getLivresTest()
     {
-        Assert.assertNotNull(ejb.getListe());
-        Assert.assertNotEquals(ejb.getListe().size(), 0);
+        Assert.assertNotNull(ejb.getLivres());
+        Assert.assertNotEquals(ejb.getLivres().size(), 0);
     }
 
     /**

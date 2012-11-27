@@ -81,4 +81,14 @@ public class CommandeEJB implements CommandeEJBRemote
         commande.setEtatCommande(em.find(EtatCommande.class, idEtatCommande));
         em.merge(commande);
     }
+
+    /*
+     * Permet d'obtenir la liste de toutes les commandes
+     * @return liste des commandes
+     */
+    @Override
+    public List<Commande> getCommandes()
+    {
+        return em.createNamedQuery("Categorie.findAll").getResultList();
+    }
 }
