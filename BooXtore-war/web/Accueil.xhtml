@@ -23,7 +23,6 @@
                     <h:inputText value="#{null}" />
                     <h:inputSecret value="#{null}" />
                     <h:commandButton value="login"/>
-                    <h:outputText value="#{LibrairieMBean.Top10.titre}" /> 
                     </h:form>
                     <h:form id="noninscit">
                     <p:commandLink id="creacompte" actionListener="#{pprBean.creacompte}" style="margin-right:20px;" ajax="false">  
@@ -48,7 +47,7 @@
                         <h:outputText value="Qui sommes-nous ?" />  
                     </p:commandLink>  
                     <p:commandLink id="conditionu" actionListener="#{pprBean.conditonu}" style="margin-right:20px;" ajax="false">  
-                        <h:outputText value="Condition général de vente" />  
+                        <h:outputText value="Conditions générales de vente" />  
                     </p:commandLink>  
                     </h:form>
                     
@@ -108,7 +107,15 @@
                          
                     </p:column>
                 </p:treeTable>  
-                    
+                    <h:dataTable border="0" rules="all" value="#{LibrarieMBean.top10}" var="p">
+ 
+                <h:column>
+                        <f:facet name="header">
+                                <h:outputText value="Titre" />
+                        </f:facet>
+                        <h:outputText value="#{p.titre}" />
+                </h:column>
+                </h:dataTable>
                 </p:layoutUnit>
                 
             </p:layout>

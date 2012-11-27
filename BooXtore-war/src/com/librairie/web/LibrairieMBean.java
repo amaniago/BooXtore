@@ -16,17 +16,16 @@ import javax.ejb.EJB;
     public class LibrairieMBean {
     @EJB
     private LibrairieEJBRemote librairieEJB;
-
-    private List<Livre> Top10;
-        
+    
+    private List<Livre> top10;
     /**
      * Creates a new instance of LibrairieMBean
      */
     public LibrairieMBean() {
     }
     
-    public List<Livre> Top10(){
-        Top10 = librairieEJB.getTop10();
-        return Top10; 
+    public List<Livre> getTop10(){
+        top10 = librairieEJB.getTop10();
+        return top10;
     }
 }

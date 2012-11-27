@@ -47,7 +47,7 @@
                         <h:outputText value="Qui sommes-nous ?" />  
                     </p:commandLink>  
                     <p:commandLink id="conditionu" actionListener="#{pprBean.conditonu}" style="margin-right:20px;" ajax="false">  
-                        <h:outputText value="Condition général de vente" />  
+                        <h:outputText value="Conditions générales de vente" />  
                     </p:commandLink>  
                     </h:form>
                     
@@ -67,7 +67,7 @@
                 </p:layoutUnit>
 
                 <p:layoutUnit position="center">
-                <p:treeTable value="#{LibrairieMBean.Top10}" var="top10">  
+                <p:treeTable value="#{LibrairieMBean.Top10}" var="p">  
                     <f:facet name="header">  
                         Top 10 des ventes  
                     </f:facet>  
@@ -107,7 +107,15 @@
                          
                     </p:column>
                 </p:treeTable>  
-                    
+                    <h:dataTable border="0" rules="all" value="#{librairieMBean.top10}" var="p">
+ 
+                <h:column>
+                        <f:facet name="header">
+                                <h:outputText value="Titre" />
+                        </f:facet>
+                        <h:outputText value="#{p.titre}" />
+                </h:column>
+                </h:dataTable>
                 </p:layoutUnit>
                 
             </p:layout>
@@ -116,4 +124,5 @@
         
     </f:view>
 </html>
+
 
