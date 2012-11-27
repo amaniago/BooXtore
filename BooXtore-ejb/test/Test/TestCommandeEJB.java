@@ -74,7 +74,7 @@ public class TestCommandeEJB
     /**
      * Test de la méthode getCommande, de l'EJB CommandeEJB.
      */
-    @Test (dependsOnMethods= { "creationCommandeTest" })
+    @Test(dependsOnMethods = { "creationCommandeTest" })
     public void getCommandeTest()
     {
         Commande commande = ejb.getCommande(commandeInsert.getIdCommande());
@@ -84,7 +84,7 @@ public class TestCommandeEJB
     /**
      * Test de la méthode setEtatCommande, de l'EJB CommandeEJB.
      */
-    @Test (dependsOnMethods= { "creationCommandeTest" })
+    @Test(dependsOnMethods = { "creationCommandeTest" })
     public void setEtatCommandeTest()
     {
         ejb.setEtatCommande(commandeInsert, "A");
@@ -93,5 +93,15 @@ public class TestCommandeEJB
         Commande commande = em.find(Commande.class, commandeInsert.getIdCommande());
         em.close();
         Assert.assertEquals(commande.getEtatCommande().getIdEtatCommande(), "A");
+    }
+
+    /**
+     * Test de la méthode getCommandes, de l'EJB CommandeEJB.
+     */
+    @Test
+    public void getCommandesTest()
+    {
+        Assert.assertNotNull(ejb.getCommandes());
+        Assert.assertNotEquals(ejb.getCommandes().size(), 0);
     }
 }

@@ -28,7 +28,7 @@ public class LibrairieEJB implements LibrairieEJBRemote
      * @return liste des livres du catalogue
      */
     @Override
-    public List<Livre> getListe()
+    public List<Livre> getLivres()
     {
         return em.createNamedQuery("Livre.findAll").getResultList();
     }

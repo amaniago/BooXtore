@@ -11,5 +11,8 @@
         <class>Jpa.Classes.EtatCommande</class>
         <class>Jpa.Classes.Categorie</class>
         <class>Jpa.Classes.EtatLivre</class>
+        <properties>
+            <property name="eclipselink.target-database" value="org.eclipse.persistence.platform.database.H2Platform"/>
+        </properties>
     </persistence-unit>
 </persistence>

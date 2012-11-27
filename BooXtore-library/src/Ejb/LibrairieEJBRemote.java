@@ -10,7 +10,7 @@ import javax.ejb.Remote;
 @Remote
 public interface LibrairieEJBRemote
 {
-    public List<Livre> getListe();
+    public List<Livre> getLivres();
 
     public List<Livre> getTop10();
 
