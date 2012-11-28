@@ -44,7 +44,7 @@ public class LibrairieEJB implements LibrairieEJBRemote
                 + "FROM LIVRE L "
                 + "INNER JOIN CONTENIR C ON L.ID_LIVRE = C.ID_LIVRE "
                 + "GROUP BY L.ID_LIVRE "
-                + "ORDER BY qu DESC");
+                + "ORDER BY qu DESC", Livre.class);
         query.setMaxResults(10);
         return query.getResultList();
     }

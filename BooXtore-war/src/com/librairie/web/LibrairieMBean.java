@@ -1,31 +1,31 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.librairie.web;
 
 import Ejb.LibrairieEJBRemote;
 import Jpa.Classes.Livre;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
-/**
- *
- * @author Guillaume
- */
-    public class LibrairieMBean {
+@ManagedBean(name = "LibrairieBean")
+@ViewScoped
+public class LibrairieMBean
+{
     @EJB
     private LibrairieEJBRemote librairieEJB;
-    
-    private List<Livre> top10;
-    /**
-     * Creates a new instance of LibrairieMBean
-     */
-    public LibrairieMBean() {
+
+    private List<Livre> top;
+
+    public List<Livre> getTop()
+    {
+        top = librairieEJB.getTop10();
+        return top;
     }
-    
-    public List<Livre> getTop10(){
-        top10 = librairieEJB.getTop10();
-        return top10;
+
+    /**
+     * Constructeur du bean manager
+     */
+    public LibrairieMBean()
+    {
     }
 }
