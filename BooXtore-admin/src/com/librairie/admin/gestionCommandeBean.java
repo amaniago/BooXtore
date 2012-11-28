@@ -22,9 +22,12 @@ public class gestionCommandeBean
     @EJB
     private CommandeEJBRemote commandeEJB;
 
+    private List<Commande> listeCommande;
+
     public List<Commande> getAllCommande()
     {
-        return commandeEJB.getCommandes();
+        listeCommande = commandeEJB.getCommandes();
+        return listeCommande;
     }
     /** Creates a new instance of gestionCommandeBean */
     public gestionCommandeBean()
