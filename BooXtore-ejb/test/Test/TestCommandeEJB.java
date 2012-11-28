@@ -3,6 +3,7 @@ package Test;
 import Ejb.CommandeEJBRemote;
 import Jpa.Classes.Client;
 import Jpa.Classes.Commande;
+import Jpa.Classes.EtatCommande;
 import Jpa.Classes.Livre;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -108,4 +109,16 @@ public class TestCommandeEJB
         Assert.assertFalse(ejb.getCommandes().isEmpty());
         Assert.assertEquals(ejb.getCommandes().getClass(), lst.getClass());
     }
+
+    /**
+     * Test de la méthode getEtats, de l'EJB CommandeEJB.
+     */
+   @Test
+   public void getEtatsTest()
+   {
+       List<EtatCommande> lst = new ArrayList<>();
+       Assert.assertNotNull(ejb.getEtats());
+       Assert.assertFalse(ejb.getEtats().isEmpty());
+       Assert.assertEquals(ejb.getEtats().getClass(), lst.getClass());
+   }
 }

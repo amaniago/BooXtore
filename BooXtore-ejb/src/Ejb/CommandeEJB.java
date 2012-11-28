@@ -60,7 +60,7 @@ public class CommandeEJB implements CommandeEJBRemote
     /**
      * Obtient la commande dont l'identifiant correspond à celui spécifié
      * @param idCommande Identifiant de la commande recherché
-     * @return Commande recherché
+     * @return Commande recherchée
      */
     @Override
     public Commande getCommande(int idCommande)
@@ -84,13 +84,26 @@ public class CommandeEJB implements CommandeEJBRemote
 
     /**
      * Permet d'obtenir la liste de toutes les commandes
-     * @return liste des commandes
+     * @return Liste des commandes
      */
     @Override
     public List<Commande> getCommandes()
     {
         List<Commande> lst = new ArrayList<>();
         Query query = em.createNamedQuery("Commande.findAll");
+        query.setHint("eclipselink.result-collection-type", java.util.ArrayList.class);
+        return query.getResultList();
+    }
+
+    /**
+     * Permet d'obtenir la liste de tout les états possible
+     * @return Liste des états
+     */
+    @Override
+    public List<EtatCommande> getEtats()
+    {
+        List<EtatCommande> lst = new ArrayList<>();
+        Query query = em.createNamedQuery("EtatCommande.findAll");
         query.setHint("eclipselink.result-collection-type", java.util.ArrayList.class);
         return query.getResultList();
     }
