@@ -1,12 +1,32 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      template="index.xhtml">
-    
-	<ui:define name="content">
-            <h:outputText value="Test" />
-        </ui:define>
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="index.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="content">
+        <p:dataTable var="commande" value="#{gestionCommandeBean.allCommande}">
+            <f:facet name="header">
+                Liste des commandes
+            </f:facet>
+            <p:column headerText="Numéro de commande">
+                <h:outputText value="#{commande.idCommande}" />
+            </p:column>
+            <p:column headerText="Client">
+                <h:outputText value="#{commande.login}" />
+            </p:column>
+            <p:column headerText="Etat">
+                <p:selectOneMenu id="etatCommande" value="#{commande.etatCommande}">
+                    <f:selectItem itemLabel="Select City" itemValue="" />
+                    <f:selectItems value="#{pprBean.cities}" />
+                    <p:ajax update="suburbs"
+                            listener="#{pprBean.handleCityChange}" />
+                </p:selectOneMenu>
+
+            </p:column>
+        </p:dataTable>
+    </ui:define>
 </ui:composition>
 
 
