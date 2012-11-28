@@ -22,6 +22,8 @@ public interface LibrairieEJBRemote
 
     public void supprimerLivre(Livre livre);
 
+    public List<Categorie> getCategories();
+
     public Categorie ajouterCategorie(String nom);
 
     public void modifierCategorie(Categorie categorie);

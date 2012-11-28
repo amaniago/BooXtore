@@ -24,18 +24,20 @@ public class LibrairieEJB implements LibrairieEJBRemote
     EntityManager em;
 
     /**
-     * Retourne les livres présent dans la base
-     * @return liste des livres du catalogue
+     * Retourne les livres présents dans la base de données
+     * @return Liste des livres du catalogue
      */
     @Override
     public List<Livre> getLivres()
     {
-        return em.createNamedQuery("Livre.findAll").getResultList();
+        Query query = em.createNamedQuery("Livre.findAll");
+        query.setHint("eclipselink.result-collection-type", java.util.ArrayList.class);
+        return query.getResultList();
     }
 
     /**
      * Retourne les dix livres les plus vendus
-     * @return liste des dix livres les plus vendus
+     * @return Liste des dix livres les plus vendus
      */
     @Override
     public List<Livre> getTop10()
@@ -46,6 +48,7 @@ public class LibrairieEJB implements LibrairieEJBRemote
                 + "GROUP BY L.ID_LIVRE "
                 + "ORDER BY qu DESC", Livre.class);
         query.setMaxResults(10);
+        query.setHint("eclipselink.result-collection-type", java.util.ArrayList.class);
         return query.getResultList();
     }
 
@@ -96,7 +99,7 @@ public class LibrairieEJB implements LibrairieEJBRemote
 
     /**
      * Permet de modifier un livre en base de données
-     * @param livre Livre à modifier
+     * @param Livre Livre à modifier
      */
     @Override
     public void modifierLivre(Livre livre)
@@ -113,6 +116,18 @@ public class LibrairieEJB implements LibrairieEJBRemote
     {
         livre = em.merge(livre);
         em.remove(livre);
+    }
+
+    /**
+     * Retourne les catégories présentes dans la base de données
+     * @return Liste des catégories
+     */
+    @Override
+    public List<Categorie> getCategories()
+    {
+        Query query = em.createNamedQuery("Categorie.findAll");
+        query.setHint("eclipselink.result-collection-type", java.util.ArrayList.class);
+        return query.getResultList();
     }
 
     /**
