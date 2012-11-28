@@ -4,7 +4,9 @@ import Ejb.CommandeEJBRemote;
 import Jpa.Classes.Client;
 import Jpa.Classes.Commande;
 import Jpa.Classes.Livre;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.ejb.embeddable.EJBContainer;
 import javax.persistence.EntityManager;
@@ -101,7 +103,9 @@ public class TestCommandeEJB
     @Test
     public void getCommandesTest()
     {
+        List<Commande> lst = new ArrayList<>();
         Assert.assertNotNull(ejb.getCommandes());
-        Assert.assertNotEquals(ejb.getCommandes().size(), 0);
+        Assert.assertFalse(ejb.getCommandes().isEmpty());
+        Assert.assertEquals(ejb.getCommandes().getClass(), lst.getClass());
     }
 }

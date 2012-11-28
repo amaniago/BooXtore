@@ -6,6 +6,8 @@ import Jpa.Classes.EtatLivre;
 import Jpa.Classes.Livre;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.embeddable.EJBContainer;
 import javax.naming.NamingException;
 import javax.persistence.EntityManager;
@@ -64,8 +66,10 @@ public class TestLibrairieEJB
     @Test
     public void getLivresTest()
     {
+        List<Livre> lst = new ArrayList<>();
         Assert.assertNotNull(ejb.getLivres());
-        Assert.assertNotEquals(ejb.getLivres().size(), 0);
+        Assert.assertFalse(ejb.getLivres().isEmpty());
+        Assert.assertEquals(ejb.getLivres().getClass(), lst.getClass());
     }
 
     /**
@@ -74,7 +78,9 @@ public class TestLibrairieEJB
     @Test
     public void getTop10Test()
     {
+        List<Livre> lst = new ArrayList<>();
         Assert.assertNotNull(ejb.getTop10());
+        Assert.assertEquals(ejb.getLivres().getClass(), lst.getClass());
     }
 
     /**
@@ -126,6 +132,18 @@ public class TestLibrairieEJB
         Livre livre = em.find(Livre.class, id);
         em.close();
         Assert.assertNull(livre);
+    }
+
+    /**
+     * Test de la méthode getCategories, de l'EJB LibrairieEJB.
+     */
+    @Test
+    public void getCategoriesTest()
+    {
+        List<Livre> lst = new ArrayList<>();
+        Assert.assertNotNull(ejb.getCategories());
+        Assert.assertFalse(ejb.getCategories().isEmpty());
+        Assert.assertEquals(ejb.getCategories().getClass(), lst.getClass());
     }
 
     /**
