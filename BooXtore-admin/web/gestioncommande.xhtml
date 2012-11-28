@@ -2,10 +2,18 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      template="index.xhtml">
-    
+      template="index.xhtml"
+      xmlns:f="http://java.sun.com/jsf/core">
+
 	<ui:define name="content">
-            <h:outputText value="Test" />
+            <p:treeTable value="#{gestionCommandeBean.allCommande}" var="commande">
+                    <p:column style="width:100">
+                        <f:facet name="header">
+                            Commande
+                        </f:facet>
+                        <h:outputText value="#{commande.idCommande}" />
+                    </p:column>
+                </p:treeTable>
         </ui:define>
 </ui:composition>
 

@@ -89,6 +89,6 @@ public class CommandeEJB implements CommandeEJBRemote
     @Override
     public List<Commande> getCommandes()
     {
-        return em.createNamedQuery("Categorie.findAll").getResultList();
+        return em.createNamedQuery("Commande.findAll").getResultList();
     }
 }
