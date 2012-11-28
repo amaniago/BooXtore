@@ -45,14 +45,21 @@
                 </p:layoutUnit>
                 <p:layoutUnit position="west" size="200" header="BooXtore">
                     <h:form>
-                        <p:accordionPanel>
-                            <p:tab title="Recherche par catégorie">
-                                <p:commandLink id="sf" actionListener="#{pprBean.categorie}" style="margin-right:20px;" ajax="false">
-                                    <h:outputText value="Science-Fiction" />
-                                </p:commandLink>
-                                <p:separator />
-                            </p:tab>
-                        </p:accordionPanel>
+                        <p:menu>
+                            <p:submenu>
+                                <p:menuitem value="Liste globale" url=""/>
+                            </p:submenu>
+                            <p:accordionPanel>
+                                <p:dataTable var="categories" value="#{LibrairieBean.categories}">
+                                    <p:column headerText="Catégories">
+                                        <p:commandLink id="categorie">
+                                            <h:outputText value="#{categories.nomCategorie}" />
+                                        </p:commandLink>
+                                    </p:column>
+                                 </p:dataTable>
+                            </p:accordionPanel>
+                        </p:menu>
+
                     </h:form>
                 </p:layoutUnit>
                 <p:layoutUnit position="center">

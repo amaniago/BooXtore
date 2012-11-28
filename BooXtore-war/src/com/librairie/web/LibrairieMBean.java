@@ -1,6 +1,7 @@
 package com.librairie.web;
 
 import Ejb.LibrairieEJBRemote;
+import Jpa.Classes.Categorie;
 import Jpa.Classes.Livre;
 import java.util.List;
 import javax.ejb.EJB;
@@ -15,11 +16,18 @@ public class LibrairieMBean
     private LibrairieEJBRemote librairieEJB;
 
     private List<Livre> top;
+    private List<Categorie> categories;
 
     public List<Livre> getTop()
     {
         top = librairieEJB.getTop10();
         return top;
+    }
+
+        public List<Categorie> getCategories()
+    {
+        categories = librairieEJB.getCategories();
+        return categories;
     }
 
     /**
