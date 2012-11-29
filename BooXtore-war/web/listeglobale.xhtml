@@ -8,7 +8,7 @@
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>BooXtore Accueil</title>
+                <title>BooXtore Bibliothèque</title>
             </f:facet>
         </h:head>
         <h:body>
@@ -20,8 +20,8 @@
                         <h:commandButton value="login"/>
                     </h:form>
                     <h:form id="noninscit">
-                        <h:outputLink value="http://localhost:8080/BooXtore-war/inscription.xhtml" >
-                            <h:outputText value="Vous n'êtes pas inscrit ?"/>
+                        <h:outputLink value="http://localhost:8080/BooXtore-war/inscription.xhtml">
+                            <h:outputText value="Vous n'êtes pas inscrit" />
                         </h:outputLink>
                     </h:form>
                 </p:layoutUnit>
@@ -48,29 +48,46 @@
                 </p:layoutUnit>
                 <p:layoutUnit position="center">
                     <h:form>
-                        <p:dataTable var="livre" value="#{LibrairieBean.top}">
+                        <p:dataTable var="livres" value="#{LibrairieBean.livres}" widgetVar="livresTable" emptyMessage="Aucun livre ne correspond à la recherche">
                             <f:facet name="header">
-                                Top 10 des ventes
+                                <p:outputPanel>
+                                    <h:outputText value="Chercher: " />
+                                    <p:inputText id="globalFilter" onkeyup="livresTable.filter()" style="width:150px" />
+                                </p:outputPanel>
                             </f:facet>
-                            <p:column headerText="Titre">
-                                <h:outputLink value="http://localhost:8080/BooXtore-war/fiche.xhtml?idLivre=#{livre.idLivre}" >
-                                    <h:outputText value="#{livre.titre}"/>
-                                </h:outputLink>
+
+                            <p:column id="LivreTitre" filterBy="#{livres.titre}" headerText="Titre" filterMatchMode="contains">
+                                    <h:outputLink value="http://localhost:8080/BooXtore-war/fiche.xhtml?idLivre=#{livres.idLivre}">
+                                        <h:outputText value="#{livres.titre}" />
+                                    </h:outputLink>
                             </p:column>
-                            <p:column headerText="Parution">
-                                <h:outputText value="#{livre.dateParution}" >
+
+                            <p:column id="LivreCategorie" filterBy="#{livres.categorie.nomCategorie}" headerText="Catégorie" filterMatchMode="contains">
+                                <h:outputText value="#{livres.categorie}" />
+                            </p:column>
+
+                            <p:column id="LivreAuteur" filterBy="#{livres.auteur}" headerText="Auteur" filterMatchMode="contains">
+                                <h:outputText value="#{livres.auteur}" />
+                            </p:column>
+
+                            <p:column id="LivreParution" headerText="Date de Parution">
+                                 <h:outputText value="#{livres.dateParution}" >
                                     <f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
                                 </h:outputText>
                             </p:column>
-                            <p:column headerText="Auteur">
-                                <h:outputText value="#{livre.auteur}" />
+
+                            <p:column id="LivreEditeur" filterBy="#{livres.editeur}" headerText="Editeur" filterMatchMode="contains">
+                                <h:outputText value="#{livres.editeur}" />
                             </p:column>
-                            <p:column headerText="Editeur">
-                                <h:outputText value="#{livre.editeur}" />
+
+                            <p:column id="LivrePrix" headerText="Prix">
+                                <h:outputText value="#{livres.prix} €" />
                             </p:column>
-                            <p:column headerText="Prix">
-                                <h:outputText value="#{livre.prix} €" />
+
+                            <p:column id="LivreEtat" headerText="Disponibilité">
+                                <h:outputText value="#{livres.etatLivre}" />
                             </p:column>
+
                         </p:dataTable>
                     </h:form>
                 </p:layoutUnit>

@@ -99,6 +99,6 @@ public class EtatLivre implements Serializable
     @Override
     public String toString()
     {
-        return "Jpa.Classes.EtatLivre[ idEtatLivre=" + idEtatLivre + " ]";
+        return valeurEtat;
     }
 }

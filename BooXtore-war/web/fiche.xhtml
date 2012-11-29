@@ -3,15 +3,16 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core">
     <f:view contentType="text/html">
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>BooXtore Accueil</title>
+                <title>BooXtore Fiche Livre</title>
             </f:facet>
         </h:head>
         <h:body>
+
             <p:layout fullPage="true">
                 <p:layoutUnit position="north" size="120">
                     <h:form id="authentif">
@@ -20,9 +21,9 @@
                         <h:commandButton value="login"/>
                     </h:form>
                     <h:form id="noninscit">
-                        <h:outputLink value="http://localhost:8080/BooXtore-war/inscription.xhtml" >
-                            <h:outputText value="Vous n'êtes pas inscrit ?"/>
-                        </h:outputLink>
+                        <p:commandLink id="creacompte" actionListener="#{pprBean.creacompte}" style="margin-right:20px;" ajax="false">
+                            <h:outputText value="Vous n'êtes pas inscrit ?" />
+                        </p:commandLink>
                     </h:form>
                 </p:layoutUnit>
                 <p:layoutUnit position="south" size="100">
@@ -48,33 +49,34 @@
                 </p:layoutUnit>
                 <p:layoutUnit position="center">
                     <h:form>
-                        <p:dataTable var="livre" value="#{LibrairieBean.top}">
-                            <f:facet name="header">
-                                Top 10 des ventes
-                            </f:facet>
-                            <p:column headerText="Titre">
-                                <h:outputLink value="http://localhost:8080/BooXtore-war/fiche.xhtml?idLivre=#{livre.idLivre}" >
-                                    <h:outputText value="#{livre.titre}"/>
-                                </h:outputLink>
-                            </p:column>
-                            <p:column headerText="Parution">
-                                <h:outputText value="#{livre.dateParution}" >
-                                    <f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
-                                </h:outputText>
-                            </p:column>
-                            <p:column headerText="Auteur">
-                                <h:outputText value="#{livre.auteur}" />
-                            </p:column>
-                            <p:column headerText="Editeur">
-                                <h:outputText value="#{livre.editeur}" />
-                            </p:column>
-                            <p:column headerText="Prix">
-                                <h:outputText value="#{livre.prix} €" />
-                            </p:column>
-                        </p:dataTable>
+                        <h:outputText value="#{LibrairieBean.getLivre(param.idLivre).titre}" />
+                        <br/>
+                        <h:outputText value="de: #{LibrairieBean.getLivre(param.idLivre).auteur}" />
+                        <p:separator></p:separator>
+                        <h:outputText value="#{LibrairieBean.getLivre(param.idLivre).etatLivre}" />
+                        <br/>
+                        <h:outputText value="Prix: #{LibrairieBean.getLivre(param.idLivre).prix} €" />
+                        <br/>
+                        <h:outputText value="Plus que #{LibrairieBean.getLivre(param.idLivre).quantiterDisponible} exemplaires de disponible !"/>
+                        <p:separator></p:separator>
+                        <h:outputText value="Détails:" style="font-weight: bold"/>
+                        <br/>
+                        <br/>
+                        <h:outputText value="• #{LibrairieBean.getLivre(param.idLivre).categorie}" />
+                        <br/>
+                        <h:outputText value="• #{LibrairieBean.getLivre(param.idLivre).editeur}" />
+                        <br/>
+                        <h:outputText value="• Résumé: " />
+                        <br/>
+                        <h:outputText value="#{LibrairieBean.getLivre(param.idLivre).resume}" style="font-style: italic" />
+                        <br/>
+                        <h:outputText value="• Sommaire: " />
+                        <br/>
+                        <h:outputText value="#{LibrairieBean.getLivre(param.idLivre).resume}" style="font-style: italic" />
                     </h:form>
                 </p:layoutUnit>
             </p:layout>
         </h:body>
     </f:view>
 </html>
+
