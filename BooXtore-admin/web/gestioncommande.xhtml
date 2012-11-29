@@ -17,13 +17,9 @@
                 <h:outputText value="#{commande.login}" />
             </p:column>
             <p:column headerText="Etat">
-                <p:selectOneMenu id="etatCommande" value="#{commande.etatCommande}">
-                    <f:selectItem itemLabel="Select City" itemValue="" />
-                    <f:selectItems value="#{pprBean.cities}" />
-                    <p:ajax update="suburbs"
-                            listener="#{pprBean.handleCityChange}" />
+                <p:selectOneMenu value="#{gestionCommandeBean.etatCommande}">
+                    <f:selectItems value="#{gestionCommandeBean.etats}" var="etat" itemValue="#{etat.idEtatCommande}" itemLabel="#{etat.typeEtat}"/>
                 </p:selectOneMenu>
-
             </p:column>
         </p:dataTable>
     </ui:define>
