@@ -1,11 +1,13 @@
 package Ejb;
 
 import Jpa.Classes.Client;
+import Jpa.Classes.Livre;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  * EJB gérant les comptes et permettant la création, la modification et l'authentification des comptes
@@ -57,7 +59,20 @@ public class CompteEJB implements CompteEJBRemote
          client.setAdresse(adr);
          client.setCodePostal(codePostal);
          client.setVille(ville);
+         em.persist(client);
          return client;
+    }
+
+    /**
+     * Obtient les informations de l'utilisateur en fonction de son login
+     * @return login
+     */
+    @Override
+    public Client getLogin(String login)
+    {
+        Query query = em.createNamedQuery("Client.findByLogin", Livre.class);
+        query.setParameter("login", login);
+        return (Client) query.getSingleResult();
     }
 
     /**

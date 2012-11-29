@@ -2,7 +2,6 @@ package Test;
 
 import Ejb.CompteEJBRemote;
 import Jpa.Classes.Client;
-import javax.ejb.embeddable.EJBContainer;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -18,7 +17,6 @@ import org.testng.annotations.Test;
  */
 public class TestCompteEJB
 {
-    private EJBContainer container;
     private CompteEJBRemote ejb;
     private static EntityManagerFactory emf;
     private Client clientInsert;
@@ -30,8 +28,7 @@ public class TestCompteEJB
     @BeforeClass
     public void setUpClass() throws Exception
     {
-        container = EJBContainer.createEJBContainer();
-        ejb = (CompteEJBRemote) container.getContext().lookup("java:global/classes/CompteEJB");
+        ejb = (CompteEJBRemote) TestSuite.container.getContext().lookup("java:global/classes/CompteEJB");
         emf = Persistence.createEntityManagerFactory("BooXtorePU");
     }
 
@@ -41,8 +38,13 @@ public class TestCompteEJB
         EntityManager em = emf.createEntityManager();
         Client client = em.find(Client.class, "test");
         if (client != null)
+        {
+            em.getTransaction().begin();
             em.remove(client);
+            em.getTransaction().commit();
+        }
         em.close();
+        emf.close();
     }
 
     @BeforeMethod
@@ -58,7 +60,7 @@ public class TestCompteEJB
     /**
      * Test de la méthode authentification, de l'EJB CompteEJB.
      */
-    @Test (dependsOnMethods= { "inscriptionTest" })
+    @Test(dependsOnMethods = { "inscriptionTest" })
     public void authentificationTest()
     {
         Assert.assertTrue(ejb.authentification("test", "mdp"));
@@ -76,17 +78,26 @@ public class TestCompteEJB
     }
 
     /**
+     * Test de la méthode getLogin, de l'EJB CompteEJB.
+     */
+    @Test(dependsOnMethods = { "inscriptionTest" })
+    public void getLoginTest()
+    {
+        Assert.assertNotNull(ejb.getLogin("test"));
+    }
+
+    /**
      * Test de la méthode modifierCompte, de l'EJB CompteEJB.
      */
-    @Test (dependsOnMethods= { "inscriptionTest" })
+    @Test(dependsOnMethods = { "inscriptionTest" })
     public void modifierCompteTest()
     {
         EntityManager em = emf.createEntityManager();
         clientInsert.setNom("modif");
         ejb.modifierCompte(clientInsert);
-        emf.getCache().evictAll();  //Synchro du contexte
-        Client client = em.find(Client.class, clientInsert.getLogin());
+        clientInsert = em.merge(clientInsert);
+        em.refresh(clientInsert);
         em.close();
-        Assert.assertEquals(clientInsert, client);
+        Assert.assertEquals(clientInsert.getNom(), "modif");
     }
 }

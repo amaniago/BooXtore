@@ -10,7 +10,7 @@
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>PrimeFaces</title>
+                <title>Administration</title>
             </f:facet>
         </h:head>
 
@@ -23,12 +23,10 @@
                 </p:layoutUnit>
 
                 <p:layoutUnit position="west" size="175">
-                    
+
                     <p:menu>
                         <p:submenu label="Menu">
-                            <p:menuitem value="Gestion des commandes" url="./gestioncommande.xhtml"  />
-                            <p:menuitem value="Gestion des stocks" url="gestioncommande.xhtml" />
-                            <p:menuitem value="Gestion du catalogue" url="http://forum.primefaces.org/" />
+                            <p:menuitem value="Gestion des commandes" url="gestioncommande.xhtml"  />
                         </p:submenu>
 
                     </p:menu>
@@ -36,6 +34,7 @@
 
                 <p:layoutUnit position="center">
                     <ui:insert name="content"/>
+
                 </p:layoutUnit>
 
             </p:layout>

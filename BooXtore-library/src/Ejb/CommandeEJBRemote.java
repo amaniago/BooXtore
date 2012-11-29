@@ -2,6 +2,7 @@ package Ejb;
 
 import Jpa.Classes.Client;
 import Jpa.Classes.Commande;
+import Jpa.Classes.EtatCommande;
 import Jpa.Classes.Livre;
 import java.util.List;
 import java.util.Map;
@@ -17,4 +18,6 @@ public interface CommandeEJBRemote
     public void setEtatCommande(Commande commande, String idEtatCommande);
 
     public List<Commande> getCommandes();
+
+    public List<EtatCommande> getEtats();
 }

@@ -10,5 +10,7 @@ public interface CompteEJBRemote
 
     public Client inscription(String login, String mdp, String nom, String prenom, String mail, String adr, String codePostal, String ville);
 
+    public Client getLogin(String login);
+
     public void modifierCompte(Client client);
 }

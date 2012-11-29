@@ -3,12 +3,12 @@ package Test;
 import Ejb.CommandeEJBRemote;
 import Jpa.Classes.Client;
 import Jpa.Classes.Commande;
+import Jpa.Classes.EtatCommande;
 import Jpa.Classes.Livre;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.ejb.embeddable.EJBContainer;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -24,7 +24,6 @@ import org.testng.annotations.Test;
  */
 public class TestCommandeEJB
 {
-    private EJBContainer container;
     private CommandeEJBRemote ejb;
     private static EntityManagerFactory emf;
     private Commande commandeInsert;
@@ -36,14 +35,14 @@ public class TestCommandeEJB
     @BeforeClass
     public void setUpClass() throws Exception
     {
-        container = EJBContainer.createEJBContainer();
-        ejb = (CommandeEJBRemote) container.getContext().lookup("java:global/classes/CommandeEJB");
+        ejb = (CommandeEJBRemote) TestSuite.container.getContext().lookup("java:global/classes/CommandeEJB");
         emf = Persistence.createEntityManagerFactory("BooXtorePU");
     }
 
     @AfterClass
     public void tearDownClass() throws Exception
     {
+        emf.close();
     }
 
     @BeforeMethod
@@ -90,11 +89,11 @@ public class TestCommandeEJB
     public void setEtatCommandeTest()
     {
         ejb.setEtatCommande(commandeInsert, "A");
-        emf.getCache().evictAll();  //Synchro du contexte
         EntityManager em = emf.createEntityManager();
-        Commande commande = em.find(Commande.class, commandeInsert.getIdCommande());
+        commandeInsert = em.merge(commandeInsert);
+        em.refresh(commandeInsert);
         em.close();
-        Assert.assertEquals(commande.getEtatCommande().getIdEtatCommande(), "A");
+        Assert.assertEquals(commandeInsert.getEtatCommande().getIdEtatCommande(), "A");
     }
 
     /**
@@ -107,5 +106,17 @@ public class TestCommandeEJB
         Assert.assertNotNull(ejb.getCommandes());
         Assert.assertFalse(ejb.getCommandes().isEmpty());
         Assert.assertEquals(ejb.getCommandes().getClass(), lst.getClass());
+    }
+
+    /**
+     * Test de la méthode getEtats, de l'EJB CommandeEJB.
+     */
+    @Test
+    public void getEtatsTest()
+    {
+        List<EtatCommande> lst = new ArrayList<>();
+        Assert.assertNotNull(ejb.getEtats());
+        Assert.assertFalse(ejb.getEtats().isEmpty());
+        Assert.assertEquals(ejb.getEtats().getClass(), lst.getClass());
     }
 }

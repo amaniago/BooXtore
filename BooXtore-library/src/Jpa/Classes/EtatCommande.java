@@ -106,6 +106,6 @@ public class EtatCommande implements Serializable
     @Override
     public String toString()
     {
-        return "Jpa.Classes.EtatCommande[ idEtatCommande=" + idEtatCommande + " ]";
+        return typeEtat;
     }
 }

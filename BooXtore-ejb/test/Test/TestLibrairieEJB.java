@@ -8,8 +8,6 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-import javax.ejb.embeddable.EJBContainer;
-import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -25,7 +23,6 @@ import org.testng.annotations.Test;
  */
 public class TestLibrairieEJB
 {
-    private EJBContainer container;
     private LibrairieEJBRemote ejb;
     private final int idLivreTest = 130;
     private static EntityManagerFactory emf;
@@ -37,17 +34,16 @@ public class TestLibrairieEJB
     }
 
     @BeforeClass
-    public void setUpClass() throws NamingException
+    public void setUpClass() throws Exception
     {
-        container = EJBContainer.createEJBContainer();
-        ejb = (LibrairieEJBRemote) container.getContext().lookup("java:global/classes/LibrairieEJB");
+        ejb = (LibrairieEJBRemote) TestSuite.container.getContext().lookup("java:global/classes/LibrairieEJB");
         emf = Persistence.createEntityManagerFactory("BooXtorePU");
     }
 
     @AfterClass
     public void tearDownClass() throws Exception
     {
-        container.close();
+        emf.close();
     }
 
     @BeforeMethod
@@ -113,10 +109,10 @@ public class TestLibrairieEJB
         EntityManager em = emf.createEntityManager();
         livreInsert.setEtatLivre(em.find(EtatLivre.class, "S"));
         ejb.modifierLivre(livreInsert);
-        emf.getCache().evictAll();  //Synchro du contexte
-        Livre livre = em.find(Livre.class, livreInsert.getIdLivre());
+        livreInsert = em.merge(livreInsert);
+        em.refresh(livreInsert);
         em.close();
-        Assert.assertEquals(livreInsert, livre);
+        Assert.assertEquals(livreInsert.getEtatLivre().getIdEtatLivre(), "S");
     }
 
     /**
@@ -125,13 +121,11 @@ public class TestLibrairieEJB
     @Test(dependsOnMethods = { "ajouterLivreTest" })
     public void supprimerLivreTest()
     {
-        int id = livreInsert.getIdLivre();
         ejb.supprimerLivre(livreInsert);
-        emf.getCache().evictAll();  //Synchro du contexte
         EntityManager em = emf.createEntityManager();
-        Livre livre = em.find(Livre.class, id);
+        boolean manage = em.contains(livreInsert);
         em.close();
-        Assert.assertNull(livre);
+        Assert.assertFalse(manage);
     }
 
     /**
@@ -167,10 +161,10 @@ public class TestLibrairieEJB
         EntityManager em = emf.createEntityManager();
         categorieInsert.setNomCategorie("TestModif");
         ejb.modifierCategorie(categorieInsert);
-        emf.getCache().evictAll();  //Synchro du contexte
-        Categorie categorie = em.find(Categorie.class, categorieInsert.getIdCategorie());
+        categorieInsert = em.merge(categorieInsert);
+        em.refresh(categorieInsert);
         em.close();
-        Assert.assertEquals(categorieInsert.getNomCategorie(), categorie.getNomCategorie());
+        Assert.assertEquals(categorieInsert.getNomCategorie(), "TestModif");
     }
 
     /**
@@ -179,12 +173,10 @@ public class TestLibrairieEJB
     @Test(dependsOnMethods = { "ajouterCategorieTest" })
     public void supprimerCategorieTest()
     {
-        int id = categorieInsert.getIdCategorie();
         ejb.supprimerCategorie(categorieInsert);
-        emf.getCache().evictAll();  //Synchro du contexte
         EntityManager em = emf.createEntityManager();
-        Categorie categorie = em.find(Categorie.class, id);
+        boolean manage = em.contains(categorieInsert);
         em.close();
-        Assert.assertNull(categorie);
+        Assert.assertFalse(manage);
     }
 }

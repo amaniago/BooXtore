@@ -99,7 +99,7 @@ public class LibrairieEJB implements LibrairieEJBRemote
 
     /**
      * Permet de modifier un livre en base de données
-     * @param Livre Livre à modifier
+     * @param livre Livre à modifier
      */
     @Override
     public void modifierLivre(Livre livre)
