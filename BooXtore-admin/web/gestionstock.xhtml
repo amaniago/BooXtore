@@ -15,6 +15,7 @@
                 </f:facet>
 
                 <p:ajax event="rowEdit" listener="#{gestionStockBean.onEdit(event)}" update=":form:messages" />
+                
 
                 <p:column headerText="ID">
                     <h:outputText value="#{livre.idLivre}" />

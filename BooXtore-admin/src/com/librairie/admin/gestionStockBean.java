@@ -37,6 +37,7 @@ public class gestionStockBean
 
     public void onEdit(RowEditEvent event)
     {
+        
         FacesMessage msg = new FacesMessage("Quantité Modifiée");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
