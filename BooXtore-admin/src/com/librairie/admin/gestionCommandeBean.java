@@ -44,9 +44,8 @@ public class gestionCommandeBean
 
     public void changeEtatCommande()
     {
-//        commandeModifie.setIdCommande(1);
-//        commandeEJB.setEtatCommande(commandeModifie, etatCommande);
-        System.out.println(etatCommande);
+        commandeModifie.setIdCommande(1);
+        commandeEJB.setEtatCommande(commandeModifie, etatCommande);
     }
 
     public String getEtatCommande()
