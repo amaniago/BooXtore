@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="BooXtore-ejb">
+    <!-- see examples at http://testng.org/doc/documentation-main.html#testng-xml -->
+    <test name="Test suite">
+        <packages>
+            <package name="Test"/>
+        </packages>
+    </test>
+</suite>
