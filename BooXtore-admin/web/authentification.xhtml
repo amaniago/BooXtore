@@ -1,0 +1,23 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="index.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="content">
+        <h:form id="form">
+            <p:panel id="panel" header="Authentification">
+                <p:messages id="msgs"/>
+                <h:panelGrid columns="3">
+                    <h:outputLabel for="login" value="Login " />
+                    <p:inputText id="login" value="#{loginBean.login}" required="true" label="login"/>
+                    <p:message for="login" display="icon"/>
+
+                    <h:outputText value="Mot de passe " />
+                    <p:password id="nonFeedback" value="#{loginBean.mdp}" />
+                </h:panelGrid>
+                <p:commandButton id="btn" value="S'identifier" update="panel" actionListener="#{loginBean.authentification}"/>
+            </p:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>
