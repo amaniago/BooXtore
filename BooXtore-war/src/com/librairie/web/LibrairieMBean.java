@@ -17,17 +17,26 @@ public class LibrairieMBean
 
     private List<Livre> top;
     private List<Categorie> categories;
+    private List<Livre> livres;
+    private Livre livre;
 
     public List<Livre> getTop()
     {
-        top = librairieEJB.getTop10();
-        return top;
+        return top = librairieEJB.getTop10();
     }
 
-        public List<Categorie> getCategories()
+    public List<Livre> getLivres()
     {
-        categories = librairieEJB.getCategories();
-        return categories;
+        return livres = librairieEJB.getLivres();
+    }
+
+    public Livre getLivre(int idLivre){
+        return livre = librairieEJB.getLivre(idLivre);
+    }
+
+    public List<Categorie> getCategories()
+    {
+        return categories = librairieEJB.getCategories();
     }
 
     /**

@@ -107,6 +107,6 @@ public class Categorie implements Serializable
     @Override
     public String toString()
     {
-        return "Jpa.Classes.Categorie[ idCategorie=" + idCategorie + " ]";
+        return nomCategorie;
     }
 }
