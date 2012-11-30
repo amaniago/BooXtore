@@ -51,25 +51,25 @@
                         <p:panel header="Inscription">
                         <h:panelGrid columns="2"  id="inscription">
                         <h:outputText value="Login: " />
-                        <p:inputText id="login"/>
+                        <p:inputText value="#{CompteBean.login}"/>
                         <h:outputLabel value="Mot de passe: " />
-                        <p:password id="pwd1" value="mdp" match="pwd2" label="Password 1" required="true"/>
+                        <p:password id="pwd" value="#{CompteBean.pwd}" match="pwd2" label="Password 1" required="true"/>
                         <h:outputLabel for="pwd2" value="Vérification: " />
                         <p:password id="pwd2" value="mdp2" label="Password 2" required="true"/>
                         <h:outputText value="Nom: " />
-                        <p:inputText id="nom"/>
+                        <p:inputText value="#{CompteBean.nom}"/>
                         <h:outputText value="Prénom: " />
-                        <p:inputText id="prenom"/>
+                        <p:inputText value="#{CompteBean.prenom}"/>
                         <h:outputText value="Email: " />
-                        <p:inputText id="mail"/>
+                        <p:inputText value="#{CompteBean.mail}"/>
                         <h:outputText value="Adresse: " />
-                        <p:inputText id="adr"/>
+                        <p:inputText value="#{CompteBean.adr}"/>
                         <h:outputText value="Code Postal: " />
-                        <p:inputMask id="codePostal" mask="99999"/>
+                        <p:inputMask value="#{CompteBean.codePostal}" mask="99999"/>
                         <h:outputText value="Ville: " />
-                        <p:inputText id="ville"/>
+                        <p:inputText value="#{CompteBean.ville}"/>
                         <p:commandButton value="Reset" type="reset" />
-                        <p:commandButton value="S'enregistrer" action="#{CompteBean.inscription(login, pwd1, nom, prenom, mail, adr, codePostal, ville)}"/>
+                        <p:commandButton value="S'enregistrer" action="#{CompteBean.inscription()}"/>
                         </h:panelGrid>
                         </p:panel>
                     </h:form>
