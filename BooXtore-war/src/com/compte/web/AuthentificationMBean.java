@@ -6,11 +6,11 @@ package com.compte.web;
 
 import Ejb.CompteEJBRemote;
 import Jpa.Classes.Client;
-import java.io.IOException;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.event.ActionEvent;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -22,19 +22,30 @@ public class AuthentificationMBean
 {
     @EJB
     private CompteEJBRemote compteEJB;
-    private String login;
-    private String mdp;
-    private Client client;
 
-    /** Creates a new instance of loginBean */
+    /** Creates a new instance of AuthentificationMBean */
     public AuthentificationMBean()
     {
     }
 
-    public void authentification(ActionEvent actionEvent) throws IOException
-    {
-            this.client = compteEJB.getLogin(login);
+    private String login;
+    private String mdp;
+    private Client client;
 
+
+    public String authentifiation() {
+
+        if(compteEJB.authentification(login, mdp))
+        {
+            client = compteEJB.getLogin(login);
+        }
+
+        if (client == null) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Mauvais Login et/ou mot de passe"));
+            return (login = mdp = null);
+        } else {
+            return "/index.xhtml";
+        }
     }
 
     public String getLogin()
@@ -55,5 +66,14 @@ public class AuthentificationMBean
     public void setMdp(String mdp)
     {
         this.mdp = mdp;
+    }
+
+    public String logout() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "index.xhtml?faces-redirect=true";
+    }
+
+    public boolean isLoggedIn() {
+        return client != null;
     }
 }

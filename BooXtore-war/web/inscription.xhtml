@@ -51,25 +51,25 @@
                         <p:panel header="Inscription">
                         <h:panelGrid columns="2"  id="inscription">
                         <h:outputText value="Login: " />
-                        <p:inputText value="#{CompteBean.login}"/>
+                        <p:inputText value="#{CompteBean.login}" required="true"/>
                         <h:outputLabel value="Mot de passe: " />
                         <p:password id="pwd" value="#{CompteBean.pwd}" match="pwd2" label="Password 1" required="true"/>
                         <h:outputLabel for="pwd2" value="Vérification: " />
                         <p:password id="pwd2" value="mdp2" label="Password 2" required="true"/>
                         <h:outputText value="Nom: " />
-                        <p:inputText value="#{CompteBean.nom}"/>
+                        <p:inputText value="#{CompteBean.nom}" required="true"/>
                         <h:outputText value="Prénom: " />
-                        <p:inputText value="#{CompteBean.prenom}"/>
+                        <p:inputText value="#{CompteBean.prenom}" required="true"/>
                         <h:outputText value="Email: " />
-                        <p:inputText value="#{CompteBean.mail}"/>
+                        <p:inputText value="#{CompteBean.mail}" required="true"/>
                         <h:outputText value="Adresse: " />
-                        <p:inputText value="#{CompteBean.adr}"/>
+                        <p:inputText value="#{CompteBean.adr}" required="true"/>
                         <h:outputText value="Code Postal: " />
-                        <p:inputMask value="#{CompteBean.codePostal}" mask="99999"/>
+                        <p:inputMask value="#{CompteBean.codePostal}" mask="99999" required="true"/>
                         <h:outputText value="Ville: " />
-                        <p:inputText value="#{CompteBean.ville}"/>
+                        <p:inputText value="#{CompteBean.ville}" required="true"/>
                         <p:commandButton value="Reset" type="reset" />
-                        <p:commandButton value="S'enregistrer" action="#{CompteBean.inscription()}"/>
+                        <p:commandButton id="btn" value="S'inscrire" actionListener="#{CompteBean.inscription(actionEvent)}"/>
                         </h:panelGrid>
                         </p:panel>
                     </h:form>
