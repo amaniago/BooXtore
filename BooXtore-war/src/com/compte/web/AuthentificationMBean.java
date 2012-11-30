@@ -6,11 +6,13 @@ package com.compte.web;
 
 import Ejb.CompteEJBRemote;
 import Jpa.Classes.Client;
+import java.io.IOException;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 /**
  *
@@ -33,7 +35,7 @@ public class AuthentificationMBean
     private Client client;
 
 
-    public String authentifiation() {
+    public String authentifiation(ActionEvent actionEvent) throws IOException {
 
         if(compteEJB.authentification(login, mdp))
         {
