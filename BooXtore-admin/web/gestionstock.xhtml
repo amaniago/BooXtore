@@ -1,0 +1,44 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="index.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="content">
+
+        <h:form id="form">
+            <p:growl id="messages" showDetail="true"/>
+            <p:dataTable var="livre" value="#{gestionStockBean.allLivres}" editable="true">
+                <f:facet name="header">
+                    Liste Livres/Quantités
+                </f:facet>
+
+                <p:ajax event="rowEdit" listener="#{gestionStockBean.onEdit(event)}" update=":form:messages" />
+                
+
+                <p:column headerText="ID">
+                    <h:outputText value="#{livre.idLivre}" />
+                </p:column>
+                <p:column headerText="Titre">
+                    <h:outputText value="#{livre.titre}" />
+                </p:column>
+                <p:column headerText="Quantité disponible">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{livre.quantiterDisponible}" />
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{livre.quantiterDisponible}" />
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column headerText="Modifier" >
+                    <p:rowEditor />
+                </p:column>
+
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>
+

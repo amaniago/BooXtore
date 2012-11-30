@@ -23,13 +23,22 @@
                 </p:layoutUnit>
 
                 <p:layoutUnit position="west" size="175">
-
-                    <p:menu>
-                        <p:submenu label="Menu">
-                            <p:menuitem value="Gestion des commandes" url="gestioncommande.xhtml"  />
-                        </p:submenu>
-
-                    </p:menu>
+                    <h:form>
+                        <p:menu>
+                            <p:submenu label="Gestion des commandes">
+                                <p:menuitem value="Mettre à jour" url="gestioncommande.xhtml"  />
+                            </p:submenu>
+                            <p:submenu label="Gestion des stocks">
+                                <p:menuitem value="Gestion des quantités" url="gestionstock.xhtml" />
+                            </p:submenu>
+                            <p:submenu label="Gestion du catalogue">
+                                <p:menuitem value="Créer un livre" />
+                                <p:menuitem value="Gérer les livres"  url="gestionlivre.xhtml"/>
+                                <p:menuitem value="Créer une catégorie"   />
+                                <p:menuitem value="Gérer les catégories" url="gestioncategorie.xhtml"/>
+                            </p:submenu>
+                        </p:menu>
+                    </h:form>
                 </p:layoutUnit>
 
                 <p:layoutUnit position="center">

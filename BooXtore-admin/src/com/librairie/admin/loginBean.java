@@ -34,11 +34,15 @@ public class loginBean
 
     public void authentification(ActionEvent actionEvent) throws IOException
     {
-//        if(compteEJB.authentification(login, mdp))
-//        {
-//
-//        }
-        FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+        if(compteEJB.authentification(login, mdp))
+        {
+            this.admin = compteEJB.getLogin(login);
+            if(admin.getCompte().getTypeCompte().equals("Administrateur"))
+            {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+            }
+        }
+
     }
 
     public String getLogin()
