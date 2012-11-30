@@ -13,13 +13,13 @@
         </h:head>
         <h:body>
             <p:layout fullPage="true">
-                <p:layoutUnit position="north" size="120">
+                <p:layoutUnit id="authentifLayout" position="north" size="120">
                     <h:form id="authentif">
-                        <h:inputText value="#{null}" />
-                        <h:inputSecret value="#{null}" />
-                        <h:commandButton value="login"/>
-                    </h:form>
-                    <h:form id="noninscit">
+                        <p:inputText id="login" value="#{authentificationMBean.login}" required="true" label="login"/>
+                        <p:password id="nonFeedback" value="#{authentificationMBean.mdp}" />
+                        <h:outputText value="" />
+                        <p:commandButton id="btn" value="Login" update="authentif" actionListener="#{authentificationMBean.authentification}"/>
+                        <br/>
                         <h:outputLink value="http://localhost:8080/BooXtore-war/inscription.xhtml" >
                             <h:outputText value="Vous n'êtes pas inscrit ?"/>
                         </h:outputLink>
