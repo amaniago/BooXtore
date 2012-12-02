@@ -6,6 +6,57 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="content">
-        
+        <h:form>
+            <p:panel id="panel" header="Nouveau livre">
+                <h:panelGrid  columns="3" cellpadding="5">
+
+                    <h:outputLabel for="titre" value="Titre" style="font-weight:bold"/>
+                    <p:inputText id="titre" value="#{creationLivreBean.titre}" required="true"/>
+                    <h:outputText value="#{creationLivreBean.titre}"/>
+
+                    <h:outputLabel for="auteur" value="Auteur" style="font-weight:bold"/>
+                    <p:inputText id="auteur" value="#{creationLivreBean.auteur}" required="true"/>
+                    <h:outputText value="#{creationLivreBean.auteur}"/>
+
+                    <h:outputLabel for="editeur" value="Editeur" style="font-weight:bold"/>
+                    <p:inputText id="editeur" value="#{creationLivreBean.editeur}" required="true"/>
+                    <h:outputText value="#{creationLivreBean.editeur}"/>
+
+                    <h:outputText value="Date de parution" style="font-weight:bold"/>
+                    <p:calendar value="#{creationLivreBean.dateDeParution}" id="popupCal" />
+                    <h:outputText />
+
+<!--                    <h:outputLabel for="prix" value="Prix" style="font-weight:bold"/>
+                    <p:inputText id="prix" value="#{creationLivreBean.prix}" required="true"/>
+                    <h:outputText value="#{creationLivreBean.prix}"/>-->
+
+                    <h:outputText value="Sommaire" style="font-weight:bold"/>
+                    <p:inputTextarea rows="3" cols="100" maxlength="10" autoResize="false"/>
+                    <h:outputText />
+
+                    <h:outputText value="Résumé" style="font-weight:bold"/>
+                    <p:inputTextarea rows="3" cols="100" maxlength="10" autoResize="false"/>
+                    <h:outputText />
+
+                    <h:outputText value="Catégorie" style="font-weight:bold"/>
+                    <h:selectOneMenu value="#{creationLivreBean.categorie}" >
+                        <f:selectItem itemLabel="Selectionner une catégorie" itemValue="" />
+                        <f:selectItems value="#{creationLivreBean.allCategories}" />
+                    </h:selectOneMenu>
+                    <h:outputText />
+
+<!--                    <h:outputText value="Etat du livre" style="font-weight:bold"/>
+                    <h:selectOneMenu value="#{creationLivreBean.categorie}" >
+                        <f:selectItem itemLabel="Selectionner un état" itemValue="" />
+                        <f:selectItems value="#{creationLivreBean.allCategories}" />
+                    </h:selectOneMenu>-->
+                    <h:outputText />
+                    <h:outputText />
+
+                    <h:outputText />
+                    <p:commandButton id="btn" value="Créer un livre" actionListener="#{creationLivreBean.creerLivre(actionEvent)}"/>
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
     </ui:define>
 </ui:composition>

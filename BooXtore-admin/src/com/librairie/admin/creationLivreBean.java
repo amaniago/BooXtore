@@ -5,10 +5,12 @@
 package com.librairie.admin;
 
 import Ejb.LibrairieEJBRemote;
+import Jpa.Classes.Categorie;
 import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -44,13 +46,24 @@ public class creationLivreBean implements Serializable
     {
     }
 
-    public void creerCategorie(ActionEvent actionEvent) throws IOException
+    public void creerLivre(ActionEvent actionEvent) throws IOException
     {
         //Création de la catégorie en base
         //librairieEJB.ajouterLivre(titre, dateDeParution, resume, sommaire, quantite, auteur, editeur, prix, etatLivre, categorie);
         //Redirection vers la page de gestion des catégories
-        FacesContext.getCurrentInstance().getExternalContext().redirect("gestioncategorie.xhtml");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("gestionlivre.xhtml");
     }
+
+    /**
+     * Retourne une liste de catégorie
+     * @return
+     */
+    public List<Categorie> getAllCategories()
+    {
+        return librairieEJB.getCategories();
+    }
+
+
 
     public String getTitre()
     {
