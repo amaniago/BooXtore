@@ -13,16 +13,20 @@
         </h:head>
         <h:body>
             <p:layout fullPage="true">
-                <p:layoutUnit position="north" size="120">
+                <p:layoutUnit id="authentifLayout" position="north" size="120">
                     <h:form id="authentif">
-                        <h:inputText value="#{null}" />
-                        <h:inputSecret value="#{null}" />
-                        <h:commandButton value="login"/>
-                    </h:form>
-                    <h:form id="noninscit">
+                        <h:inputText value="#{authentificationMBean.login}" />
+                        <h:inputSecret value="#{authentificationMBean.mdp}" />
+                        <h:commandButton value="login" actionListener="#{authentificationMBean.authentification}" />
+                        <br/>
                         <h:outputLink value="http://localhost:8080/BooXtore-war/inscription.xhtml" >
                             <h:outputText value="Vous n'êtes pas inscrit ?"/>
                         </h:outputLink>
+                        <h:form>
+                            <h:outputText value="Connecté en temps que #{authentificationMBean.login}"/>
+                            <br/>
+                            <h:commandLink id="Logout" action="#{authentificationMBean.logout()}" value="(Se déconnecter)" />
+                        </h:form>
                     </h:form>
                 </p:layoutUnit>
                 <p:layoutUnit position="south" size="100">
