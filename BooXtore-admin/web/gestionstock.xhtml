@@ -26,7 +26,7 @@
                 </p:column>
             </p:dataTable>
 
-            <p:dialog header="Detail commande" widgetVar="livreDialog" resizable="true"
+            <p:dialog header="Livre" widgetVar="livreDialog" resizable="true"
                       showEffect="clip" hideEffect="fold" id="dialog">
 
                 <h:panelGrid id="display" columns="2" cellpadding="2">
@@ -34,7 +34,7 @@
                     <h:outputText value="Livre :" />
                     <h:outputText value="#{gestionStockBean.livreModifie.titre}" style="font-weight:bold"/>
 
-                    <h:outputText value="Quantite :" />
+                    <h:outputText value="Quantité disponible :" />
                     <h:inputText id="quantité" value="#{gestionStockBean.quantiteDisponible}" size="3" label="Quantité" >
                         <f:convertNumber minFractionDigits="0" />
                     </h:inputText>
