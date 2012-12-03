@@ -1,23 +1,18 @@
 package com.compte.web;
 
-import Jpa.Classes.Client;
 import Ejb.CompteEJBRemote;
+import Jpa.Classes.Client;
 import java.io.IOException;
+import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 
-/**
- *
- * @author Kevin
- */
 @ManagedBean(name = "CompteBean")
 @ViewScoped
-public class CompteMBean
+public class CompteMBean implements Serializable
 {
-
     @EJB
     private CompteEJBRemote CompteEJB;
 
@@ -26,7 +21,6 @@ public class CompteMBean
     /** Creates a new instance of CompteMBean */
     public CompteMBean()
     {
-
     }
 
     private String login;
@@ -38,12 +32,11 @@ public class CompteMBean
     private String codePostal;
     private String ville;
 
-
-    public void inscription() throws IOException{
+    public void inscription() throws IOException
+    {
         CompteEJB.inscription(login, adr, nom, prenom, mail, adr, codePostal, ville);
         FacesContext.getCurrentInstance().getExternalContext().redirect("top10.xhtml");
     }
-
 
     public String getLogin()
     {
@@ -124,6 +117,4 @@ public class CompteMBean
     {
         this.ville = ville;
     }
-
-
 }

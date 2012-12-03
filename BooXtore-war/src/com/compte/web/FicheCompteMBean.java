@@ -2,6 +2,7 @@ package com.compte.web;
 
 import Ejb.CompteEJBRemote;
 import Jpa.Classes.Client;
+import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -9,7 +10,7 @@ import javax.faces.bean.RequestScoped;
 
 @ManagedBean(name = "CompteFicheBean")
 @RequestScoped
-public class FicheCompteMBean
+public class FicheCompteMBean implements Serializable
 {
     @EJB
     private CompteEJBRemote compteEJB;

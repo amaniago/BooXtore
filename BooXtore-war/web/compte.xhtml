@@ -5,24 +5,24 @@
                 template="index.xhtml"
                 xmlns:f="http://java.sun.com/jsf/core">
     <ui:define name="content">
-                    <h:form>
-                        <h:outputText value="#{authentificationMBean.login}" />
-                        <p:separator></p:separator>
-                        <h:outputText value="Nom:  #{CompteFicheBean.getLogin(param.login).nom}" />
-                        <br/>
-                        <h:outputText value="Prenom: #{CompteFicheBean.getLogin(param.login).prenom}" />
-                        <br/>
-                        <h:outputText value="Mail: #{CompteFicheBean.getLogin(param.login).email}" />
-                        <br/>
-                        <h:outputText value="Adresse: #{CompteFicheBean.getLogin(param.login).adresse}" />
-                        <br/>
-                        <h:outputText value="Code Postal: #{CompteFicheBean.getLogin(param.login).codePostal}" />
-                        <br/>
-                        <h:outputText value="Ville: #{CompteFicheBean.getLogin(param.login).ville}" />
-                        <br/>
-                        <h:outputLink value="http://localhost:8080/BooXtore-war/fiche.xhtml?login=#{authentificationMBean.login}" >
-                            <h:outputText value="Modifier le compte"/>
-                        </h:outputLink>
-                    </h:form>
+        <h:form>
+            <h:outputText value="#{authentificationMBean.login}"/>
+            <p:separator></p:separator>
+            <h:outputText value="Nom:  #{CompteFicheBean.getLogin(param.login).nom}"/>
+            <br/>
+            <h:outputText value="Prenom: #{CompteFicheBean.getLogin(param.login).prenom}"/>
+            <br/>
+            <h:outputText value="Mail: #{CompteFicheBean.getLogin(param.login).email}"/>
+            <br/>
+            <h:outputText value="Adresse: #{CompteFicheBean.getLogin(param.login).adresse}"/>
+            <br/>
+            <h:outputText value="Code Postal: #{CompteFicheBean.getLogin(param.login).codePostal}"/>
+            <br/>
+            <h:outputText value="Ville: #{CompteFicheBean.getLogin(param.login).ville}"/>
+            <br/>
+            <h:outputLink value="./fiche.xhtml?login=#{authentificationMBean.login}">
+                <h:outputText value="Modifier le compte"/>
+            </h:outputLink>
+        </h:form>
     </ui:define>
 </ui:composition>

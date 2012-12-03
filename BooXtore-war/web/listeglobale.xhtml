@@ -5,51 +5,44 @@
                 template="index.xhtml"
                 xmlns:f="http://java.sun.com/jsf/core">
     <ui:define name="content">
-                    <h:form>
-                        <p:dataTable var="livres" value="#{LibrairieBean.livres}" widgetVar="livresTable" emptyMessage="Aucun livre ne correspond à la recherche" paginator="true" rows="25"
-                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
-                            <f:facet name="header">
-                                <p:outputPanel>
-                                    <h:outputText value="Chercher: " />
-                                    <p:inputText id="globalFilter" onkeyup="livresTable.filter()" style="width:150px" />
-                                </p:outputPanel>
-                            </f:facet>
-
-                            <p:column id="LivreTitre" filterBy="#{livres.titre}" headerText="Titre" filterMatchMode="contains">
-                                    <h:outputLink value="http://localhost:8080/BooXtore-war/fiche.xhtml?idLivre=#{livres.idLivre}">
-                                        <h:outputText value="#{livres.titre}" />
-                                    </h:outputLink>
-                            </p:column>
-
-                            <p:column id="LivreCategorie" filterBy="#{livres.categorie.nomCategorie}" headerText="Catégorie" filterMatchMode="contains">
-                                <h:outputText value="#{livres.categorie}" />
-                            </p:column>
-
-                            <p:column id="LivreAuteur" filterBy="#{livres.auteur}" headerText="Auteur" filterMatchMode="contains">
-                                <h:outputText value="#{livres.auteur}" />
-                            </p:column>
-
-                            <p:column id="LivreParution" headerText="Date de Parution">
-                                 <h:outputText value="#{livres.dateParution}" >
-                                    <f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
-                                </h:outputText>
-                            </p:column>
-
-                            <p:column id="LivreEditeur" filterBy="#{livres.editeur}" headerText="Editeur" filterMatchMode="contains">
-                                <h:outputText value="#{livres.editeur}" />
-                            </p:column>
-
-                            <p:column id="LivrePrix" headerText="Prix">
-                                <h:outputText value="#{livres.prix} €" />
-                            </p:column>
-
-                            <p:column id="LivreEtat" headerText="Disponibilité">
-                                <h:outputText value="#{livres.etatLivre}" />
-                            </p:column>
-                            <p:column>
-                                <p:commandButton action="addP" icon="ui-icon-cart" style="height: 20px" rendered="#{LibrairieBean.isStock(livres)}"/>
-                            </p:column>
-                        </p:dataTable>
-                    </h:form>
+        <h:form>
+            <p:dataTable var="livre" value="#{LibrairieBean.livres}" widgetVar="livreTable" emptyMessage="Aucun livre ne correspond à la recherche" paginator="true" rows="25"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <h:outputText value="Chercher: "/>
+                        <p:inputText id="globalFilter" onkeyup="livreTable.filter()" style="width:150px"/>
+                    </p:outputPanel>
+                </f:facet>
+                <p:column id="LivreTitre" filterBy="#{livre.titre}" headerText="Titre" filterMatchMode="contains">
+                    <h:outputLink value="./fiche.xhtml?idLivre=#{livre.idLivre}">
+                        <h:outputText value="#{livre.titre}"/>
+                    </h:outputLink>
+                </p:column>
+                <p:column id="LivreCategorie" filterBy="#{livre.categorie.nomCategorie}" headerText="Catégorie" filterMatchMode="contains">
+                    <h:outputText value="#{livre.categorie}"/>
+                </p:column>
+                <p:column id="LivreAuteur" filterBy="#{livre.auteur}" headerText="Auteur" filterMatchMode="contains">
+                    <h:outputText value="#{livre.auteur}"/>
+                </p:column>
+                <p:column id="LivreParution" headerText="Date de Parution">
+                    <h:outputText value="#{livre.dateParution}">
+                        <f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+                    </h:outputText>
+                </p:column>
+                <p:column id="LivreEditeur" filterBy="#{livre.editeur}" headerText="Editeur" filterMatchMode="contains">
+                    <h:outputText value="#{livre.editeur}"/>
+                </p:column>
+                <p:column id="LivrePrix" headerText="Prix">
+                    <h:outputText value="#{livre.prix} €"/>
+                </p:column>
+                <p:column id="LivreEtat" headerText="Disponibilité">
+                    <h:outputText value="#{livre.etatLivre}"/>
+                </p:column>
+                <p:column>
+                    <p:commandButton action="#{panierMBean.ajouterLivre(livre, 1)}" update=":panierForm:panier" icon="ui-icon-cart" style="height: 20px" rendered="#{LibrairieBean.isStock(livre)}"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
     </ui:define>
 </ui:composition>

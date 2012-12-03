@@ -1,4 +1,5 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
@@ -7,7 +8,7 @@
     <f:view contentType="text/html">
         <h:head>
             <f:facet name="first">
-                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
                 <title>BooXtore Accueil</title>
             </f:facet>
         </h:head>
@@ -15,33 +16,34 @@
             <p:layout fullPage="true">
                 <p:layoutUnit id="authentifLayout" position="north" size="120">
                     <h:form id="authentif" rendered="#{!authentificationMBean.loggedIn}">
-                    <p:inputText id="login" value="#{authentificationMBean.login}" required="true" label="login"/>
-                    <p:password id="nonFeedback" value="#{authentificationMBean.mdp}" />
-                    <h:commandButton value="login" actionListener="#{authentificationMBean.authentifiation(actionEvent)}" />
-                    <br/>
-                        <h:outputLink value="http://localhost:8080/BooXtore-war/inscription.xhtml" >
+                        <p:inputText id="login" value="#{authentificationMBean.login}" required="true" label="login"/>
+                        <p:password id="nonFeedback" value="#{authentificationMBean.mdp}"/>
+                        <h:commandButton value="login" action="#{authentificationMBean.authentification()}"/>
+                        <br/>
+                        <h:outputLink value="./inscription.xhtml">
                             <h:outputText value="Vous n'êtes pas inscrit ?"/>
                         </h:outputLink>
                     </h:form>
                     <h:form rendered="#{authentificationMBean.loggedIn}">
                         <h:outputText value="Connecté en temps que "/>
-                        <h:outputLink value="http://localhost:8080/BooXtore-war/compte.xhtml?login=#{authentificationMBean.login}" >
+                        <h:outputLink value="./compte.xhtml?login=#{authentificationMBean.login}">
                             <h:outputText value="#{authentificationMBean.login}"/>
                         </h:outputLink>
                         <br/>
-                        <h:commandLink id="Logout" action="#{authentificationMBean.logout()}" value="(Se déconnecter)" />
+                        <h:commandLink id="Logout" action="#{authentificationMBean.logout()}" value="(Se déconnecter)"/>
                     </h:form>
+                    <h:outputLink value="./inscription.xhtml"/>
                 </p:layoutUnit>
                 <p:layoutUnit position="south" size="100">
                     <h:form id="footer">
-                        <p:commandLink id="plan" >
-                            <h:outputText value="Plan du site " />
+                        <p:commandLink id="plan">
+                            <h:outputText value="Plan du site "/>
                         </p:commandLink>
-                        <p:commandLink id="qui" >
-                            <h:outputText value="Qui sommes-nous ? " />
+                        <p:commandLink id="qui">
+                            <h:outputText value="Qui sommes-nous ? "/>
                         </p:commandLink>
-                        <p:commandLink id="conditionu" >
-                            <h:outputText value="Conditions générales de vente" />
+                        <p:commandLink id="conditions">
+                            <h:outputText value="Conditions générales de vente"/>
                         </p:commandLink>
                     </h:form>
                 </p:layoutUnit>
@@ -51,6 +53,20 @@
                     </h:form>
                     <h:form>
                         <p:button value="Liste Globale" outcome="listeglobale" style="width: 159px"/>
+                    </h:form>
+                </p:layoutUnit>
+                <p:layoutUnit position="east" size="250" header="Panier">
+                    <h:form id="panierForm">
+                        <p:dataTable id="panier" var="entreeLivre" value="#{panierMBean.panier}" emptyMessage="Le panier est vide">
+                            <p:column headerText="Livre">
+                                <h:outputText value="#{entreeLivre.key.titre}"/>
+                            </p:column>
+                            <p:column headerText="Qu." style="width: 10px">
+                                <h:outputText value="#{entreeLivre.value}" style="float: right"/>
+                            </p:column>
+                        </p:dataTable>
+                        <br/>
+                        <h:link value="Voir le panier" outcome="panier" styleClass="ui-icon-cart"/>
                     </h:form>
                 </p:layoutUnit>
                 <p:layoutUnit position="center">

@@ -5,34 +5,34 @@
                 template="index.xhtml"
                 xmlns:f="http://java.sun.com/jsf/core">
     <ui:define name="content">
-                    <h:form>
-                        <p:dataTable var="livre" value="#{LibrairieBean.top}">
-                            <f:facet name="header">
-                                Top 10 des ventes
-                            </f:facet>
-                            <p:column headerText="Titre">
-                                <h:outputLink value="http://localhost:8080/BooXtore-war/fiche.xhtml?idLivre=#{livre.idLivre}" >
-                                    <h:outputText value="#{livre.titre}"/>
-                                </h:outputLink>
-                            </p:column>
-                            <p:column headerText="Parution">
-                                <h:outputText value="#{livre.dateParution}" >
-                                    <f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
-                                </h:outputText>
-                            </p:column>
-                            <p:column headerText="Auteur">
-                                <h:outputText value="#{livre.auteur}" />
-                            </p:column>
-                            <p:column headerText="Editeur">
-                                <h:outputText value="#{livre.editeur}" />
-                            </p:column>
-                            <p:column headerText="Prix">
-                                <h:outputText value="#{livre.prix} €" />
-                            </p:column>
-                            <p:column>
-                                <p:commandButton action="addP" icon="ui-icon-cart" style="height: 20px" rendered="#{LibrairieBean.isStock(livre)}"/>
-                            </p:column>
-                        </p:dataTable>
-                    </h:form>
+        <h:form>
+            <p:dataTable var="livre" value="#{LibrairieBean.top}">
+                <f:facet name="header">
+                    Top 10 des ventes
+                </f:facet>
+                <p:column headerText="Titre">
+                    <h:outputLink value="./fiche.xhtml?idLivre=#{livre.idLivre}">
+                        <h:outputText value="#{livre.titre}"/>
+                    </h:outputLink>
+                </p:column>
+                <p:column headerText="Parution">
+                    <h:outputText value="#{livre.dateParution}">
+                        <f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="Auteur">
+                    <h:outputText value="#{livre.auteur}"/>
+                </p:column>
+                <p:column headerText="Editeur">
+                    <h:outputText value="#{livre.editeur}"/>
+                </p:column>
+                <p:column headerText="Prix">
+                    <h:outputText value="#{livre.prix} €"/>
+                </p:column>
+                <p:column>
+                    <p:commandButton action="#{panierMBean.ajouterLivre(livre, 1)}" update=":panierForm:panier" icon="ui-icon-cart" style="height: 20px" rendered="#{LibrairieBean.isStock(livre)}"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
     </ui:define>
 </ui:composition>
