@@ -60,10 +60,7 @@ public class TestCompteEJB
     /**
      * Test de la méthode authentification, de l'EJB CompteEJB.
      */
-    @Test(dependsOnMethods =
-    {
-        "inscriptionTest"
-    })
+    @Test(dependsOnMethods = { "inscriptionTest" })
     public void authentificationTest()
     {
         Assert.assertTrue(ejb.authentification("test", "mdp"));
@@ -89,6 +86,15 @@ public class TestCompteEJB
         Client client = ejb.getLogin("test");
         Assert.assertNotNull(client);
         Assert.assertNotNull(client.getLogin());
+    }
+
+    /**
+    * Test de la méthode getLogin, de l'EJB CompteEJB.
+    */
+    @Test
+    public void getLoginFailTest()
+    {
+        Assert.assertNull(ejb.getLogin("_"));
     }
 
     /**
