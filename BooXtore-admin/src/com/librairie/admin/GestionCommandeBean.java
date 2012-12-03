@@ -20,7 +20,7 @@ import javax.faces.event.ActionEvent;
  *
  * @author Kevin
  */
-@ManagedBean(name = "gestionCommandeBean")
+@ManagedBean(name = "GestionCommandeBean")
 @ViewScoped
 public class GestionCommandeBean implements Serializable
 {
@@ -36,7 +36,7 @@ public class GestionCommandeBean implements Serializable
     public GestionCommandeBean() throws IOException
     {
         //Verification si la session a été démarrée
-        LoginBean login = (LoginBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("LoginBean");
+        LoginBean login = (LoginBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("loginBean");
         if (login.getAdmin() == null)
         {
             //Redirection vers l'authentification si l'utilisateur n'est pas authentifié

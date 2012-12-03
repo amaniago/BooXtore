@@ -18,7 +18,7 @@ import javax.faces.event.ActionEvent;
  *
  * @author Kevin
  */
-@ManagedBean(name = "LoginBean")
+@ManagedBean(name = "loginBean")
 @SessionScoped
 public class LoginBean implements Serializable
 {
@@ -31,7 +31,7 @@ public class LoginBean implements Serializable
     /**
      * Constructeur LoginBean
      */
-    public LoginBean()
+    public LoginBean() throws IOException
     {
     }
 
