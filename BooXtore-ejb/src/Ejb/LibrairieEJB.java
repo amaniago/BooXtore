@@ -30,7 +30,7 @@ public class LibrairieEJB implements LibrairieEJBRemote
     @Override
     public List<Livre> getLivres()
     {
-        Query query = em.createNamedQuery("Livre.findAll");
+        Query query = em.createNamedQuery("Livre.findAll", Livre.class);
         query.setHint("eclipselink.result-collection-type", java.util.ArrayList.class);
         return query.getResultList();
     }
@@ -125,7 +125,7 @@ public class LibrairieEJB implements LibrairieEJBRemote
     @Override
     public List<Categorie> getCategories()
     {
-        Query query = em.createNamedQuery("Categorie.findAll");
+        Query query = em.createNamedQuery("Categorie.findAll", Categorie.class);
         query.setHint("eclipselink.result-collection-type", java.util.ArrayList.class);
         return query.getResultList();
     }
@@ -165,10 +165,14 @@ public class LibrairieEJB implements LibrairieEJBRemote
         em.remove(categorie);
     }
 
+    /**
+     * Retourne les états de livre présents dans la base de données
+     * @return Liste des états des livres
+     */
     @Override
     public List<EtatLivre> getEtatsLivre()
     {
-        Query query = em.createNamedQuery("EtatLivre.findAll");
+        Query query = em.createNamedQuery("EtatLivre.findAll", EtatLivre.class);
         query.setHint("eclipselink.result-collection-type", java.util.ArrayList.class);
         return query.getResultList();
     }

@@ -70,7 +70,7 @@ public class CompteEJB implements CompteEJBRemote
     @Override
     public Client getLogin(String login)
     {
-        Query query = em.createNamedQuery("Client.findByLogin", Livre.class);
+        Query query = em.createNamedQuery("Client.findByLogin", Client.class);
         query.setParameter("login", login);
         return (Client) query.getSingleResult();
     }

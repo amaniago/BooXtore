@@ -89,7 +89,7 @@ public class CommandeEJB implements CommandeEJBRemote
     @Override
     public List<Commande> getCommandes()
     {
-        Query query = em.createNamedQuery("Commande.findAll");
+        Query query = em.createNamedQuery("Commande.findAll", Commande.class);
         query.setHint("eclipselink.result-collection-type", java.util.ArrayList.class);
         return query.getResultList();
     }
@@ -101,7 +101,7 @@ public class CommandeEJB implements CommandeEJBRemote
     @Override
     public List<EtatCommande> getEtats()
     {
-        Query query = em.createNamedQuery("EtatCommande.findAll");
+        Query query = em.createNamedQuery("EtatCommande.findAll", EtatCommande.class);
         query.setHint("eclipselink.result-collection-type", java.util.ArrayList.class);
         return query.getResultList();
     }

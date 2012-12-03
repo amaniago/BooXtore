@@ -141,6 +141,18 @@ public class TestLibrairieEJB
     }
 
     /**
+     * Test de la méthode getEtatsLivre, de l'EJB LibrairieEJB.
+     */
+    @Test
+    public void getEtatsLivreTest()
+    {
+        List<Livre> lst = new ArrayList<>();
+        Assert.assertNotNull(ejb.getEtatsLivre());
+        Assert.assertFalse(ejb.getEtatsLivre().isEmpty());
+        Assert.assertEquals(ejb.getEtatsLivre().getClass(), lst.getClass());
+    }
+
+    /**
      * Test de la méthode ajouterCategorie, de l'EJB LibrairieEJB.
      */
     @Test
