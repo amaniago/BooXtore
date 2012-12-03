@@ -13,7 +13,7 @@
         </navigation-case>
         <navigation-case>
             <from-outcome>accueil</from-outcome>
-            <to-view-id>/index.xhtml</to-view-id>
+            <to-view-id>/top10.xhtml</to-view-id>
         </navigation-case>
 </navigation-rule>
 <navigation-rule>
@@ -24,7 +24,7 @@
         </navigation-case>
         <navigation-case>
             <from-outcome>accueil</from-outcome>
-            <to-view-id>/index.xhtml</to-view-id>
+            <to-view-id>/top10.xhtml</to-view-id>
         </navigation-case>
 </navigation-rule>
 <navigation-rule>
@@ -35,7 +35,7 @@
         </navigation-case>
         <navigation-case>
             <from-outcome>accueil</from-outcome>
-            <to-view-id>/index.xhtml</to-view-id>
+            <to-view-id>/top10.xhtml</to-view-id>
         </navigation-case>
 </navigation-rule>
 <navigation-rule>
@@ -46,7 +46,29 @@
         </navigation-case>
         <navigation-case>
             <from-outcome>accueil</from-outcome>
-            <to-view-id>/index.xhtml</to-view-id>
+            <to-view-id>/top10.xhtml</to-view-id>
+        </navigation-case>
+</navigation-rule>
+<navigation-rule>
+        <from-view-id>/compte.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>listeglobale</from-outcome>
+            <to-view-id>/listeglobale.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>accueil</from-outcome>
+            <to-view-id>/top10.xhtml</to-view-id>
+        </navigation-case>
+</navigation-rule>
+<navigation-rule>
+        <from-view-id>/top10.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>listeglobale</from-outcome>
+            <to-view-id>/listeglobale.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>accueil</from-outcome>
+            <to-view-id>/top10.xhtml</to-view-id>
         </navigation-case>
 </navigation-rule>
 </faces-config>

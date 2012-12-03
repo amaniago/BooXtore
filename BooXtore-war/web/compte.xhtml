@@ -1,12 +1,25 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        Hello from Facelets
-    </h:body>
-</html>
-
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="index.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="content">
+                    <h:form>
+                        <h:outputText value="#{authentificationMBean.login}" />
+                        <p:separator></p:separator>
+                        <h:outputText value="Nom:  #{CompteFicheBean.getLogin(param.login).nom}" />
+                        <br/>
+                        <h:outputText value="Prenom: #{CompteFicheBean.getLogin(param.login).prenom}" />
+                        <br/>
+                        <h:outputText value="Mail: #{CompteFicheBean.getLogin(param.login).email}" />
+                        <br/>
+                        <h:outputText value="Adresse: #{CompteFicheBean.getLogin(param.login).adresse}" />
+                        <br/>
+                        <h:outputText value="Code Postal: #{CompteFicheBean.getLogin(param.login).codePostal}" />
+                        <br/>
+                        <h:outputText value="Ville: #{CompteFicheBean.getLogin(param.login).ville}" />
+                        <br/>
+                    </h:form>
+    </ui:define>
+</ui:composition>
