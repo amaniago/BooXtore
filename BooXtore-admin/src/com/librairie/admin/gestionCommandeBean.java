@@ -7,10 +7,13 @@ package com.librairie.admin;
 import Ejb.CommandeEJBRemote;
 import Jpa.Classes.Commande;
 import Jpa.Classes.EtatCommande;
+import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 /**
  *
@@ -42,10 +45,10 @@ public class gestionCommandeBean
         return commandeEJB.getEtats();
     }
 
-    public void changeEtatCommande()
+    public void changeEtatCommande(ActionEvent actionEvent) throws IOException
     {
-        commandeModifie.setIdCommande(1);
         commandeEJB.setEtatCommande(commandeModifie, etatCommande);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("gestioncommande.xhtml");
     }
 
     public String getEtatCommande()

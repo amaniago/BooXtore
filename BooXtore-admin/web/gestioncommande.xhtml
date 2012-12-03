@@ -7,7 +7,11 @@
 
     <ui:define name="content">
         <h:form id="form">
-            <p:dataTable var="commande" value="#{gestionCommandeBean.allCommande}">
+            <p:contextMenu for="commandes">
+                <p:menuitem value="Modifier" update="display" oncomplete="commandeDialog.show()"/>
+            </p:contextMenu>
+
+            <p:dataTable id="commandes" var="commande" value="#{gestionCommandeBean.allCommande}" selection="#{gestionCommandeBean.commandeModifie}" rowKey="#{commande.idCommande}" selectionMode="single">
                 <f:facet name="header">
                     Liste des commandes
                 </f:facet>
@@ -18,11 +22,27 @@
                     <h:outputText value="#{commande.login}" />
                 </p:column>
                 <p:column headerText="Etat">
-                    <p:selectOneMenu value="#{gestionCommandeBean.etatCommande}" onchange="this.form.submit" valueChangeListener="#{gestionCommandeBean.changeEtatCommande}">
-                        <f:selectItems value="#{gestionCommandeBean.etats}" var="etat" itemValue="#{etat.idEtatCommande}" itemLabel="#{etat.typeEtat}"/>
-                    </p:selectOneMenu>
+                    <h:outputText value="#{commande.etatCommande}" />
                 </p:column>
             </p:dataTable>
+
+            <p:dialog header="Detail commande" widgetVar="commandeDialog" resizable="true"
+                      showEffect="clip" hideEffect="fold" id="dialog">
+
+                <h:panelGrid id="display" columns="2" cellpadding="2">
+
+                    <h:outputText value="Commande :" />
+                    <h:outputText value="#{gestionCommandeBean.commandeModifie.idCommande}" style="font-weight:bold"/>
+
+                    <h:outputText value="Etat :" />
+                    <h:selectOneMenu value="#{gestionCommandeBean.etatCommande}" >
+                        <f:selectItems value="#{gestionCommandeBean.etats}" var="etatCommande" itemValue="#{etatCommande.idEtatCommande}" itemLabel="#{etatCommande.typeEtat}"/>
+                    </h:selectOneMenu>
+
+                    <p:commandButton id="btn" value="Enregistrer" actionListener="#{gestionCommandeBean.changeEtatCommande(actionEvent)}"/>
+                </h:panelGrid>
+            </p:dialog>
+
         </h:form>
     </ui:define>
 </ui:composition>
