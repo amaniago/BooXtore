@@ -39,12 +39,9 @@ public class CompteMBean
     private String ville;
 
 
-    public void Inscription(ActionEvent actionEvent) throws IOException
-    {
-        //Création de la catégorie en base
-        CompteEJB.inscription(login, pwd, nom, prenom, mail, adr, codePostal, ville);
-        //Redirection vers la page de gestion des catégories
-        FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+    public void inscription() throws IOException{
+        CompteEJB.inscription(login, adr, nom, prenom, mail, adr, codePostal, ville);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("top10.xhtml");
     }
 
 

@@ -5,29 +5,41 @@
                 template="index.xhtml"
                 xmlns:f="http://java.sun.com/jsf/core">
     <ui:define name="content">
-                    <h:form>
-                        <p:panel header="Inscription">
-                        <h:panelGrid columns="2"  id="inscription">
-                        <h:outputText value="Login: " />
-                        <p:inputText value="#{CompteBean.login}" required="true"/>
-                        <h:outputLabel value="Mot de passe: " />
-                        <p:password id="pwd" value="#{CompteBean.pwd}" label="Password 1" required="true"/>
-                        <h:outputText value="Nom: " />
-                        <p:inputText value="#{CompteBean.nom}" required="true"/>
-                        <h:outputText value="Prenom: " />
-                        <p:inputText value="#{CompteBean.prenom}" required="true"/>
-                        <h:outputText value="Email: " />
-                        <p:inputText value="#{CompteBean.mail}" required="true"/>
-                        <h:outputText value="Adresse: " />
-                        <p:inputText value="#{CompteBean.adr}" required="true"/>
-                        <h:outputText value="Code Postal: " />
-                        <p:inputMask value="#{CompteBean.codePostal}" mask="99999" required="true"/>
-                        <h:outputText value="Ville: " />
-                        <p:inputText value="#{CompteBean.ville}" required="true"/>
-                        <p:commandButton value="Reset" type="reset" />
-                        <p:commandButton id="btn" value="S'inscrire" actionListener="#{CompteBean.inscription(actionEvent)}"/>
-                        </h:panelGrid>
-                        </p:panel>
-                    </h:form>
+        <h:form>
+                <p:panel id="panel" header="Inscription">
+                <h:panelGrid  columns="3" cellpadding="5">
+
+                    <h:outputLabel for="login" value="Login" style="font-weight:bold" />
+                    <p:inputText id="login" value="#{CompteBean.login}" required="true" validatorMessage="#{CompteBean.login} n'est pas valide"/>
+                    <br/>
+                    <h:outputLabel for="auteur" value="Mot de passe" style="font-weight:bold"/>
+                    <p:password id="pwd" value="#{CompteBean.pwd}" required="true"/>
+                    <br/>
+                    <h:outputLabel for="nom" value="Nom" style="font-weight:bold"/>
+                    <p:inputText id="nom" value="#{CompteBean.nom}" required="true" validatorMessage="#{CompteBean.nom} n'est pas valide"/>
+                    <br/>
+                    <h:outputLabel for="prenom" value="Prenom" style="font-weight:bold"/>
+                    <p:inputText id="prenom" value="#{CompteBean.prenom}" required="true" validatorMessage="#{CompteBean.prenom} n'est pas valide"/>
+                    <br/>
+                    <h:outputLabel for="mail" value="Email" style="font-weight:bold"/>
+                    <p:inputText id="mail" value="#{CompteBean.mail}" required="true" validatorMessage="#{CompteBean.mail} n'est pas valide">
+                    <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                    </p:inputText>
+                    <br/>
+                    <h:outputLabel for="adr" value="Adresse" style="font-weight:bold"/>
+                    <p:inputText id="adr" value="#{CompteBean.adr}" required="true" validatorMessage="#{CompteBean.adr} n'est pas valide"/>
+                    <br/>
+                    <h:outputLabel for="codePostal" value="Code Postal" style="font-weight:bold"/>
+                    <p:inputMask id="codePostal" value="#{CompteBean.codePostal}" required="true" mask="99999" validatorMessage="#{CompteBean.codePostal} n'est pas valide"/>
+                    <br/>
+                    <h:outputLabel for="ville" value="Ville" style="font-weight:bold"/>
+                    <p:inputText id="ville" value="#{CompteBean.ville}" required="true" validatorMessage="#{CompteBean.ville} n'est pas valide"/>
+                    <br/>
+
+                    <p:commandButton value="Reset" type="reset" />
+                    <p:commandButton id="btn" value="S'enregistrer" action="#{CompteBean.inscription}"/>
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
     </ui:define>
 </ui:composition>
