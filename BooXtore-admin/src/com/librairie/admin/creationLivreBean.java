@@ -6,10 +6,11 @@ package com.librairie.admin;
 
 import Ejb.LibrairieEJBRemote;
 import Jpa.Classes.Categorie;
+import Jpa.Classes.EtatLivre;
 import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -48,8 +49,12 @@ public class creationLivreBean implements Serializable
 
     public void creerLivre(ActionEvent actionEvent) throws IOException
     {
+        if(quantite == null)
+        {
+            quantite = 20;
+        }
         //Création de la catégorie en base
-        //librairieEJB.ajouterLivre(titre, dateDeParution, resume, sommaire, quantite, auteur, editeur, prix, etatLivre, categorie);
+        librairieEJB.ajouterLivre(titre, (java.sql.Date) dateDeParution, resume, sommaire, quantite, auteur, editeur, prix, etatLivre, categorie);
         //Redirection vers la page de gestion des catégories
         FacesContext.getCurrentInstance().getExternalContext().redirect("gestionlivre.xhtml");
     }
@@ -63,7 +68,14 @@ public class creationLivreBean implements Serializable
         return librairieEJB.getCategories();
     }
 
-
+    /**
+     * Retourne la liste des états
+     * @return
+     */
+    public List<EtatLivre> getAllEtatsLivre()
+    {
+        return librairieEJB.getEtatsLivre();
+    }
 
     public String getTitre()
     {

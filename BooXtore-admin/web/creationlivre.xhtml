@@ -23,35 +23,35 @@
                     <h:outputText value="#{creationLivreBean.editeur}"/>
 
                     <h:outputText value="Date de parution" style="font-weight:bold"/>
-                    <p:calendar value="#{creationLivreBean.dateDeParution}" id="popupCal" />
+                    <p:calendar value="#{creationLivreBean.dateDeParution}" effect="slideDown" />
                     <h:outputText />
 
-<!--                    <h:outputLabel for="prix" value="Prix" style="font-weight:bold"/>
-                    <p:inputText id="prix" value="#{creationLivreBean.prix}" required="true"/>
-                    <h:outputText value="#{creationLivreBean.prix}"/>-->
+                    <!--<h:outputLabel for="prix" value="Prix" style="font-weight:bold"/>-->
+                    <p:inputMask mask="99.99" value="#{creationLivreBean.prix}"/>
 
                     <h:outputText value="Sommaire" style="font-weight:bold"/>
-                    <p:inputTextarea rows="3" cols="100" maxlength="10" autoResize="false"/>
+                    <p:inputTextarea value="#{creationLivreBean.sommaire}" rows="3" cols="100" maxlength="100" autoResize="false"/>
                     <h:outputText />
 
                     <h:outputText value="Résumé" style="font-weight:bold"/>
-                    <p:inputTextarea rows="3" cols="100" maxlength="10" autoResize="false"/>
+                    <p:inputTextarea value="#{creationLivreBean.resume}" rows="3" cols="100" maxlength="100" autoResize="false"/>
                     <h:outputText />
 
                     <h:outputText value="Catégorie" style="font-weight:bold"/>
                     <h:selectOneMenu value="#{creationLivreBean.categorie}" >
-                        <f:selectItem itemLabel="Selectionner une catégorie" itemValue="" />
-                        <f:selectItems value="#{creationLivreBean.allCategories}" />
+                        <f:selectItems value="#{creationLivreBean.allCategories}" var="categorie" itemValue="#{categorie.idCategorie}" itemLabel="#{categorie.nomCategorie}"/>
                     </h:selectOneMenu>
                     <h:outputText />
 
-<!--                    <h:outputText value="Etat du livre" style="font-weight:bold"/>
-                    <h:selectOneMenu value="#{creationLivreBean.categorie}" >
-                        <f:selectItem itemLabel="Selectionner un état" itemValue="" />
-                        <f:selectItems value="#{creationLivreBean.allCategories}" />
-                    </h:selectOneMenu>-->
+                    <h:outputText value="Etats" style="font-weight:bold"/>
+                    <h:selectOneMenu value="#{creationLivreBean.etatLivre}" >
+                        <f:selectItems value="#{creationLivreBean.allEtatsLivre}" var="etatlivre" itemValue="#{etatlivre.idEtatLivre}" itemLabel="#{etatlivre.valeurEtat}"/>
+                    </h:selectOneMenu>
                     <h:outputText />
-                    <h:outputText />
+
+                    <h:inputText id="quantité" value="#{creationLivreBean.quantite}" size="3" label="Quantité" >
+                        <f:convertNumber minFractionDigits="0" />
+                    </h:inputText>
 
                     <h:outputText />
                     <p:commandButton id="btn" value="Créer un livre" actionListener="#{creationLivreBean.creerLivre(actionEvent)}"/>
