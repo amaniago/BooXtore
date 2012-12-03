@@ -1,6 +1,7 @@
 package Ejb;
 
 import Jpa.Classes.Categorie;
+import Jpa.Classes.EtatLivre;
 import Jpa.Classes.Livre;
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -29,4 +30,6 @@ public interface LibrairieEJBRemote
     public void modifierCategorie(Categorie categorie);
 
     public void supprimerCategorie(Categorie categorie);
+
+    public List<EtatLivre> getEtatsLivre();
 }

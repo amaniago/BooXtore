@@ -164,4 +164,12 @@ public class LibrairieEJB implements LibrairieEJBRemote
         categorie = em.merge(categorie);
         em.remove(categorie);
     }
+
+    @Override
+    public List<EtatLivre> getEtatsLivre()
+    {
+        Query query = em.createNamedQuery("EtatLivre.findAll");
+        query.setHint("eclipselink.result-collection-type", java.util.ArrayList.class);
+        return query.getResultList();
+    }
 }

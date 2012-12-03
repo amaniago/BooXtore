@@ -6,22 +6,24 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="content">
-        <p:dataTable var="commande" value="#{gestionCommandeBean.allCommande}">
-            <f:facet name="header">
-                Liste des commandes
-            </f:facet>
-            <p:column headerText="Numéro de commande">
-                <h:outputText value="#{commande.idCommande}" />
-            </p:column>
-            <p:column headerText="Client">
-                <h:outputText value="#{commande.login}" />
-            </p:column>
-            <p:column headerText="Etat">
-                <p:selectOneMenu value="#{gestionCommandeBean.etatCommande}">
-                    <f:selectItems value="#{gestionCommandeBean.etats}" var="etat" itemValue="#{etat.idEtatCommande}" itemLabel="#{etat.typeEtat}"/>
-                </p:selectOneMenu>
-            </p:column>
-        </p:dataTable>
+        <h:form id="form">
+            <p:dataTable var="commande" value="#{gestionCommandeBean.allCommande}">
+                <f:facet name="header">
+                    Liste des commandes
+                </f:facet>
+                <p:column headerText="Numéro de commande">
+                    <h:outputText value="#{commande.idCommande}" />
+                </p:column>
+                <p:column headerText="Client">
+                    <h:outputText value="#{commande.login}" />
+                </p:column>
+                <p:column headerText="Etat">
+                    <p:selectOneMenu value="#{gestionCommandeBean.etatCommande}" onchange="this.form.submit" valueChangeListener="#{gestionCommandeBean.changeEtatCommande}">
+                        <f:selectItems value="#{gestionCommandeBean.etats}" var="etat" itemValue="#{etat.idEtatCommande}" itemLabel="#{etat.typeEtat}"/>
+                    </p:selectOneMenu>
+                </p:column>
+            </p:dataTable>
+        </h:form>
     </ui:define>
 </ui:composition>
 
