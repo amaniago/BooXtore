@@ -7,45 +7,43 @@ package com.compte.web;
 import Ejb.CompteEJBRemote;
 import Jpa.Classes.Client;
 import java.io.IOException;
+import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 
-/**
- *
- * @author Kevin
- */
 @ManagedBean
 @SessionScoped
-public class AuthentificationMBean
+public class AuthentificationMBean implements Serializable
 {
     @EJB
     private CompteEJBRemote compteEJB;
+
+    private String login;
+    private String mdp;
+    private Client client;
 
     /** Creates a new instance of AuthentificationMBean */
     public AuthentificationMBean()
     {
     }
 
-    private String login;
-    private String mdp;
-    private Client client;
-
-
-    public String authentifiation(ActionEvent actionEvent) throws IOException {
-
-        if(compteEJB.authentification(login, mdp))
+    public String authentification() throws IOException
+    {
+        if (compteEJB.authentification(login, mdp))
         {
             client = compteEJB.getLogin(login);
         }
 
-        if (client == null) {
+        if (client == null)
+        {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Mauvais Login et/ou mot de passe"));
             return (login = mdp = null);
-        } else {
+        }
+        else
+        {
             return "/index.xhtml";
         }
     }
@@ -70,12 +68,14 @@ public class AuthentificationMBean
         this.mdp = mdp;
     }
 
-    public String logout() {
+    public String logout()
+    {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "top10?faces-redirect=true";
     }
 
-    public boolean isLoggedIn() {
+    public boolean isLoggedIn()
+    {
         return client != null;
     }
 }

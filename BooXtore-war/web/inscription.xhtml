@@ -6,10 +6,9 @@
                 xmlns:f="http://java.sun.com/jsf/core">
     <ui:define name="content">
         <h:form>
-                <p:panel id="panel" header="Inscription">
+            <p:panel id="panel" header="Inscription">
                 <h:panelGrid  columns="3" cellpadding="5">
-
-                    <h:outputLabel for="login" value="Login" style="font-weight:bold" />
+                    <h:outputLabel for="login" value="Login" style="font-weight:bold"/>
                     <p:inputText id="login" value="#{CompteBean.login}" required="true" validatorMessage="#{CompteBean.login} n'est pas valide"/>
                     <br/>
                     <h:outputLabel for="auteur" value="Mot de passe" style="font-weight:bold"/>
@@ -23,7 +22,7 @@
                     <br/>
                     <h:outputLabel for="mail" value="Email" style="font-weight:bold"/>
                     <p:inputText id="mail" value="#{CompteBean.mail}" required="true" validatorMessage="#{CompteBean.mail} n'est pas valide">
-                    <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                        <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]"/>
                     </p:inputText>
                     <br/>
                     <h:outputLabel for="adr" value="Adresse" style="font-weight:bold"/>
@@ -35,8 +34,7 @@
                     <h:outputLabel for="ville" value="Ville" style="font-weight:bold"/>
                     <p:inputText id="ville" value="#{CompteBean.ville}" required="true" validatorMessage="#{CompteBean.ville} n'est pas valide"/>
                     <br/>
-
-                    <p:commandButton value="Reset" type="reset" />
+                    <p:commandButton value="Reset" type="reset"/>
                     <p:commandButton id="btn" value="S'enregistrer" action="#{CompteBean.inscription}"/>
                 </h:panelGrid>
             </p:panel>

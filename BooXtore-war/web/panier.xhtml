@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="index.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="content">
+        <h:form>
+            <p:dataTable id="panier" var="entreeLivre" value="#{panierMBean.panier}" emptyMessage="Le panier est vide">
+                <f:facet name="header">
+                    Panier
+                </f:facet>
+                <p:column headerText="Livre">
+                    <h:outputText value="#{entreeLivre.key.titre}"/>
+                </p:column>
+                <p:column style="width: 100px">
+                    <p:inputText value="#{panierMBean.plus}" maxlength="2" style="width: 20px;"/>
+                    <p:commandButton title="Ajouter" style="float: right" icon="ui-icon-plus" action="#{panierMBean.ajouterLivre(entreeLivre.key)}" update="@form, :panierForm:panier"/>
+                </p:column>
+                <p:column style="width: 100px">
+                    <p:inputText value="#{panierMBean.moins}" maxlength="2" style="width: 20px"/>
+                    <p:commandButton title="Enlever" style="float: right" icon="ui-icon-minus" action="#{panierMBean.enleverLivre(entreeLivre.key)}" update="@form, :panierForm:panier"/>
+                </p:column>
+                <p:column style="width: 50px">
+                    <p:commandButton title="Supprimer" style="float: right" icon="ui-icon-trash" action="#{panierMBean.supprimerLivre(entreeLivre.key)}" update="@form, :panierForm:panier"/>
+                </p:column>
+            </p:dataTable>
+            <br/>
+            <h:outputText value="Vous devez vous authentifier ou vous inscrire pour passer la commande"/>
+            <p:commandButton value="Passer commande" rendered="#{authentificationMBean.loggedIn}"/>
+        </h:form>
+    </ui:define>
+</ui:composition>

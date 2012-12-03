@@ -2,8 +2,8 @@ package com.librairie.web;
 
 import Ejb.LibrairieEJBRemote;
 import Jpa.Classes.Categorie;
-import Jpa.Classes.EtatLivre;
 import Jpa.Classes.Livre;
+import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -11,7 +11,7 @@ import javax.faces.bean.ViewScoped;
 
 @ManagedBean(name = "LibrairieBean")
 @ViewScoped
-public class LibrairieMBean
+public class LibrairieMBean implements Serializable
 {
     @EJB
     private LibrairieEJBRemote librairieEJB;
