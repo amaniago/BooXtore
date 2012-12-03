@@ -6,39 +6,45 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="content">
-
         <h:form id="form">
-            <p:growl id="messages" showDetail="true"/>
-            <p:dataTable var="livre" value="#{gestionStockBean.allLivres}" editable="true">
+            <p:contextMenu for="livres">
+                <p:menuitem value="Modifier" update="display" oncomplete="livreDialog.show()"/>
+            </p:contextMenu>
+
+            <p:dataTable id="livres" var="livre" value="#{gestionStockBean.allLivres}" selection="#{gestionStockBean.livreModifie}" rowKey="#{livre.idLivre}" selectionMode="single">
                 <f:facet name="header">
                     Liste Livres/Quantités
                 </f:facet>
-
-                <p:ajax event="rowEdit" listener="#{gestionStockBean.onEdit(event)}" update=":form:messages" />
-                
-
                 <p:column headerText="ID">
                     <h:outputText value="#{livre.idLivre}" />
                 </p:column>
                 <p:column headerText="Titre">
                     <h:outputText value="#{livre.titre}" />
                 </p:column>
-                <p:column headerText="Quantité disponible">
-                    <p:cellEditor>
-                        <f:facet name="output">
-                            <h:outputText value="#{livre.quantiterDisponible}" />
-                        </f:facet>
-                        <f:facet name="input">
-                            <p:inputText value="#{livre.quantiterDisponible}" />
-                        </f:facet>
-                    </p:cellEditor>
+                <p:column headerText="Quantite">
+                    <h:outputText value="#{livre.quantiterDisponible}" />
                 </p:column>
-                <p:column headerText="Modifier" >
-                    <p:rowEditor />
-                </p:column>
-
             </p:dataTable>
+
+            <p:dialog header="Livre" widgetVar="livreDialog" resizable="true"
+                      showEffect="clip" hideEffect="fold" id="dialog">
+
+                <h:panelGrid id="display" columns="2" cellpadding="2">
+
+                    <h:outputText value="Livre :" />
+                    <h:outputText value="#{gestionStockBean.livreModifie.titre}" style="font-weight:bold"/>
+
+                    <h:outputText value="Quantité disponible :" />
+                    <h:inputText id="quantité" value="#{gestionStockBean.quantiteDisponible}" size="3" label="Quantité" >
+                        <f:convertNumber minFractionDigits="0" />
+                    </h:inputText>
+
+                    <p:commandButton id="btn" value="Enregistrer" actionListener="#{gestionStockBean.changeQuantite(actionEvent)}"/>
+                </h:panelGrid>
+            </p:dialog>
+
         </h:form>
     </ui:define>
 </ui:composition>
+
 

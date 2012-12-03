@@ -7,29 +7,39 @@
 
     <ui:define name="content">
         <h:form id="form">
-            <p:growl id="messages" showDetail="true"/>
-            <p:dataTable var="categorie" value="#{gestionCategorieBean.allCategories}" editable="true">
+            <p:contextMenu for="categories">
+                <p:menuitem value="Modifier" update="display" oncomplete="categorieDialog.show()"/>
+            </p:contextMenu>
+
+            <p:dataTable id="categories" var="categorie" value="#{gestionCategorieBean.allCategories}" selection="#{gestionCategorieBean.categorieModifie}" rowKey="#{categorie.idCategorie}" selectionMode="single">
                 <f:facet name="header">
-                    Liste des catégories
+                    Liste Catégories
                 </f:facet>
-                <p:ajax event="rowEdit" listener="#{gestionCategorieBean.onEdit(event)}" update=":form:messages" />
                 <p:column headerText="ID">
                     <h:outputText value="#{categorie.idCategorie}" />
                 </p:column>
-                <p:column headerText="Catégorie">
-                    <p:cellEditor>
-                        <f:facet name="output">
-                            <h:outputText value="#{categorie.nomCategorie}" />
-                        </f:facet>
-                        <f:facet name="input">
-                            <p:inputText value="#{categorie.nomCategorie}" />
-                        </f:facet>
-                    </p:cellEditor>
-                </p:column>
-                <p:column headerText="Modifier" >
-                    <p:rowEditor />
+                <p:column headerText="Nom">
+                    <h:outputText value="#{categorie.nomCategorie}" />
                 </p:column>
             </p:dataTable>
+
+            <p:dialog header="Catégorie" widgetVar="categorieDialog" resizable="true"
+                      showEffect="clip" hideEffect="fold" id="dialog">
+
+                <h:panelGrid id="display" columns="2" cellpadding="2">
+
+                    <h:outputText value="ID :" />
+                    <h:outputText value="#{gestionCategorieBean.categorieModifie.idCategorie}" style="font-weight:bold"/>
+
+                    <h:outputText value="Nouveau nom :" />
+                    <h:inputText id="nom" value="#{gestionCategorieBean.nomCategorie}" />
+
+                    <p:commandButton id="btn" value="Enregistrer" actionListener="#{gestionCategorieBean.changeCategorie(actionEvent)}"/>
+                </h:panelGrid>
+            </p:dialog>
+
         </h:form>
     </ui:define>
 </ui:composition>
+
+
