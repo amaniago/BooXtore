@@ -7,6 +7,7 @@ package com.librairie.admin;
 import Ejb.CompteEJBRemote;
 import Jpa.Classes.Client;
 import java.io.IOException;
+import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -17,9 +18,9 @@ import javax.faces.event.ActionEvent;
  *
  * @author Kevin
  */
-@ManagedBean
+@ManagedBean(name = "loginBean")
 @SessionScoped
-public class loginBean
+public class LoginBean implements Serializable
 {
     @EJB
     private CompteEJBRemote compteEJB;
@@ -27,18 +28,29 @@ public class loginBean
     private String mdp;
     private Client admin;
 
-    /** Creates a new instance of loginBean */
-    public loginBean()
+    /**
+     * Constructeur LoginBean
+     */
+    public LoginBean() throws IOException
     {
     }
 
+    /**
+     * Méthode permettant l'authentification
+     * @param actionEvent
+     * @throws IOException
+     */
     public void authentification(ActionEvent actionEvent) throws IOException
     {
-        if(compteEJB.authentification(login, mdp))
+        //Si l'utilisateur est authentifié
+        if (compteEJB.authentification(login, mdp))
         {
+            //Récupération du compte
             this.admin = compteEJB.getLogin(login);
-            if(admin.getCompte().getTypeCompte().equals("Administrateur"))
+            //Vérification si l'utilisateur est administrateur
+            if (admin.getCompte().getTypeCompte().equals("Administrateur"))
             {
+                //Redirection vers la page d'index
                 FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
             }
         }
@@ -63,5 +75,15 @@ public class loginBean
     public void setMdp(String mdp)
     {
         this.mdp = mdp;
+    }
+
+    public Client getAdmin()
+    {
+        return admin;
+    }
+
+    public void setAdmin(Client admin)
+    {
+        this.admin = admin;
     }
 }

@@ -19,27 +19,45 @@ import javax.faces.event.ActionEvent;
  *
  * @author Kevin
  */
-@ManagedBean
+@ManagedBean(name = "GestionStockBean")
 @ViewScoped
-public class gestionStockBean implements Serializable
+public class GestionStockBean implements Serializable
 {
     private Livre livreModifie;
     private Integer quantiteDisponible;
-
     @EJB
     private LibrairieEJBRemote librairieEJB;
 
-    /** Creates a new instance of gestionStockBean */
-    public gestionStockBean()
+    /**
+     * Constructeur GestionStockBean
+     * @throws IOException
+     */
+    public GestionStockBean() throws IOException
     {
+        //Verification si la session a été démarrée
+        LoginBean login = (LoginBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("loginBean");
+        if (login.getAdmin() == null)
+        {
+            //Redirection vers l'authentification si l'utilisateur n'est pas authentifié
+            FacesContext.getCurrentInstance().getExternalContext().redirect("authentification.xhtml");
+        }
     }
 
+    /**
+     * Méthode qui retourne la liste des livres
+     * @return
+     */
     public List<Livre> getAllLivres()
     {
         return librairieEJB.getLivres();
     }
 
-    public void changeQuantite(ActionEvent actionEvent) throws IOException
+    /**
+     * Méthode de modification de la quantité disponible
+     * @param actionEvent
+     * @throws IOException
+     */
+    public void modifierQuantite(ActionEvent actionEvent) throws IOException
     {
         livreModifie.setQuantiterDisponible(quantiteDisponible);
         librairieEJB.modifierLivre(livreModifie);

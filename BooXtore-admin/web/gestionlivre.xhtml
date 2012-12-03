@@ -6,110 +6,42 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="content">
-
         <h:form id="form">
-            <p:growl id="messages" showDetail="true"/>
-            <p:dataTable var="livre" value="#{gestionLivreBean.allLivres}" editable="true">
+            <p:contextMenu for="livres">
+                <p:menuitem value="Modifier" update="display" oncomplete="livreDialog.show()"/>
+            </p:contextMenu>
+
+            <p:dataTable id="livres" var="livre" value="#{GestionLivreBean.allLivres}" selection="#{GestionLivreBean.livreModifie}" rowKey="#{livre.idLivre}" selectionMode="single">
                 <f:facet name="header">
-                    Liste des livres
+                    Liste Livres
                 </f:facet>
-
-                <p:ajax event="rowEdit" listener="#{gestionLivreBean.onEdit(event)}" update=":form:messages" />
-
-
                 <p:column headerText="ID">
                     <h:outputText value="#{livre.idLivre}" />
                 </p:column>
-                <p:column headerText="Titre">
-                    <p:cellEditor>
-                        <f:facet name="output">
-                            <h:outputText value="#{livre.titre}" />
-                        </f:facet>
-                        <f:facet name="input">
-                            <p:inputText value="#{livre.titre}" />
-                        </f:facet>
-                    </p:cellEditor>
+                <p:column headerText="Nom">
+                    <h:outputText value="#{livre.titre}" />
                 </p:column>
-                <p:column headerText="Date de parution">
-                    <p:cellEditor>
-                        <f:facet name="output">
-                            <h:outputText value="#{livre.dateParution}" />
-                        </f:facet>
-                        <f:facet name="input">
-                            <p:inputText value="#{livre.dateParution}" />
-                        </f:facet>
-                    </p:cellEditor>
-                </p:column>
-                <p:column headerText="Auteur">
-                    <p:cellEditor>
-                        <f:facet name="output">
-                            <h:outputText value="#{livre.auteur}" />
-                        </f:facet>
-                        <f:facet name="input">
-                            <p:inputText value="#{livre.auteur}" />
-                        </f:facet>
-                    </p:cellEditor>
-                </p:column>
-                <p:column headerText="Quantité disponible">
-                    <p:cellEditor>
-                        <f:facet name="output">
-                            <h:outputText value="#{livre.editeur}" />
-                        </f:facet>
-                        <f:facet name="input">
-                            <p:inputText value="#{livre.editeur}" />
-                        </f:facet>
-                    </p:cellEditor>
-                </p:column>
-                <p:column headerText="Résumé">
-                    <p:cellEditor>
-                        <f:facet name="output">
-                            <h:outputText value="#{livre.resume}" />
-                        </f:facet>
-                        <f:facet name="input">
-                            <p:inputText value="#{livre.resume}" />
-                        </f:facet>
-                    </p:cellEditor>
-                </p:column>
-                <p:column headerText="Sommaire">
-                    <p:cellEditor>
-                        <f:facet name="output">
-                            <h:outputText value="#{livre.sommaire}" />
-                        </f:facet>
-                        <f:facet name="input">
-                            <p:inputText value="#{livre.sommaire}" />
-                        </f:facet>
-                    </p:cellEditor>
-                </p:column>
-                <p:column headerText="Prix">
-                    <p:cellEditor>
-                        <f:facet name="output">
-                            <h:outputText value="#{livre.prix}" />
-                        </f:facet>
-                        <f:facet name="input">
-                            <p:inputText value="#{livre.prix}" />
-                        </f:facet>
-                    </p:cellEditor>
-                </p:column>
-                <p:column headerText="Quantité disponible">
-                    <p:cellEditor>
-                        <f:facet name="output">
-                            <h:outputText value="#{livre.categorie}" />
-                        </f:facet>
-                        <f:facet name="input">
-                            <h:selectOneMenu value="#{livre.categorie}" >
-                                <f:selectItems value="#{gestionLivreBean.allCategories}"
-                                               var="categorie"
-                                               itemLabel="#{categorie}"
-                                               itemValue="#{categorie}" />
-                            </h:selectOneMenu>
-                        </f:facet>
-                    </p:cellEditor>
-                </p:column>
-                <p:column headerText="Modifier" >
-                    <p:rowEditor />
-                </p:column>
-
             </p:dataTable>
+
+            <p:dialog header="Livre" widgetVar="livreDialog" resizable="true"
+                      showEffect="clip" hideEffect="fold" id="dialog">
+
+                <h:panelGrid id="display" columns="2" cellpadding="2">
+
+                    <h:outputText value="ID :" />
+                    <h:outputText value="#{GestionLivreBean.livreModifie.idLivre}" />
+
+                    <h:outputText value="Titre :" />
+                    <!--<h:outputText value="#{GestionLivreBean.livreModifie.titre}" />-->
+                    <h:inputText value="#{GestionLivreBean.livreModifie.titre}"/>
+
+
+                    <p:commandButton id="btn" value="Enregistrer" actionListener="#{GestionLivreBean.modifierLivre(actionEvent)}"/>
+                </h:panelGrid>
+            </p:dialog>
+
         </h:form>
     </ui:define>
 </ui:composition>
+
+
