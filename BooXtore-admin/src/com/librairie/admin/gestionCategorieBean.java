@@ -6,12 +6,14 @@ package com.librairie.admin;
 
 import Ejb.LibrairieEJBRemote;
 import Jpa.Classes.Categorie;
+import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import org.primefaces.event.RowEditEvent;
 
 /**
@@ -22,6 +24,9 @@ import org.primefaces.event.RowEditEvent;
 @RequestScoped
 public class gestionCategorieBean
 {
+    private Categorie categorieModifie;
+    private String nomCategorie;
+
     @EJB
     private LibrairieEJBRemote librairieEJB;
 
@@ -35,9 +40,30 @@ public class gestionCategorieBean
         return librairieEJB.getCategories();
     }
 
-    public void onEdit(RowEditEvent event)
+    public void changeCategorie(ActionEvent actionEvent) throws IOException
     {
-        FacesMessage msg = new FacesMessage("Catégorie modifiée !");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        categorieModifie.setNomCategorie(nomCategorie);
+        librairieEJB.modifierCategorie(categorieModifie);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("gestioncategorie.xhtml");
+    }
+
+    public String getNomCategorie()
+    {
+        return nomCategorie;
+    }
+
+    public void setNomCategorie(String nomCategorie)
+    {
+        this.nomCategorie = nomCategorie;
+    }
+
+    public Categorie getCategorieModifie()
+    {
+        return categorieModifie;
+    }
+
+    public void setCategorieModifie(Categorie categorieModifie)
+    {
+        this.categorieModifie = categorieModifie;
     }
 }
