@@ -1,6 +1,7 @@
 package Ejb;
 
 import Jpa.Classes.Client;
+import Jpa.Classes.Compte;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import javax.ejb.Stateless;
@@ -55,6 +56,7 @@ public class CompteEJB implements CompteEJBRemote
         client.setAdresse(adr);
         client.setCodePostal(codePostal);
         client.setVille(ville);
+        client.setCompte(em.find(Compte.class, 2));
         em.persist(client);
         return client;
     }
