@@ -14,19 +14,22 @@
         <h:body>
             <p:layout fullPage="true">
                 <p:layoutUnit id="authentifLayout" position="north" size="120">
-                    <h:form id="authentif">
-                        <h:inputText value="#{authentificationMBean.login}" />
-                        <h:inputSecret value="#{authentificationMBean.mdp}" />
-                        <h:commandButton value="login" actionListener="#{authentificationMBean.authentification}" />
-                        <br/>
+                    <h:form id="authentif" rendered="#{!authentificationMBean.loggedIn}">
+                    <p:inputText id="login" value="#{authentificationMBean.login}" required="true" label="login"/>
+                    <p:password id="nonFeedback" value="#{authentificationMBean.mdp}" />
+                    <h:commandButton value="login" actionListener="#{authentificationMBean.authentifiation(actionEvent)}" />
+                    <br/>
                         <h:outputLink value="http://localhost:8080/BooXtore-war/inscription.xhtml" >
                             <h:outputText value="Vous n'êtes pas inscrit ?"/>
                         </h:outputLink>
-                        <h:form>
-                            <h:outputText value="Connecté en temps que #{authentificationMBean.login}"/>
-                            <br/>
-                            <h:commandLink id="Logout" action="#{authentificationMBean.logout()}" value="(Se déconnecter)" />
-                        </h:form>
+                    </h:form>
+                    <h:form rendered="#{authentificationMBean.loggedIn}">
+                        <h:outputText value="Connecté en temps que "/>
+                        <h:outputLink value="http://localhost:8080/BooXtore-war/compte.xhtml?login=#{authentificationMBean.login}" >
+                            <h:outputText value="#{authentificationMBean.login}"/>
+                        </h:outputLink>
+                        <br/>
+                        <h:commandLink id="Logout" action="#{authentificationMBean.logout()}" value="(Se déconnecter)" />
                     </h:form>
                 </p:layoutUnit>
                 <p:layoutUnit position="south" size="100">
@@ -42,7 +45,7 @@
                         </p:commandLink>
                     </h:form>
                 </p:layoutUnit>
-                <p:layoutUnit position="west" size="167" header="BooXtore">
+                <p:layoutUnit position="west" size="171" header="BooXtore">
                     <h:form>
                         <p:button value="Accueil" outcome="accueil" style="width: 159px"/>
                     </h:form>
@@ -51,32 +54,7 @@
                     </h:form>
                 </p:layoutUnit>
                 <p:layoutUnit position="center">
-                    <h:form>
-                        <p:dataTable var="livre" value="#{LibrairieBean.top}">
-                            <f:facet name="header">
-                                Top 10 des ventes
-                            </f:facet>
-                            <p:column headerText="Titre">
-                                <h:outputLink value="http://localhost:8080/BooXtore-war/fiche.xhtml?idLivre=#{livre.idLivre}" >
-                                    <h:outputText value="#{livre.titre}"/>
-                                </h:outputLink>
-                            </p:column>
-                            <p:column headerText="Parution">
-                                <h:outputText value="#{livre.dateParution}" >
-                                    <f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
-                                </h:outputText>
-                            </p:column>
-                            <p:column headerText="Auteur">
-                                <h:outputText value="#{livre.auteur}" />
-                            </p:column>
-                            <p:column headerText="Editeur">
-                                <h:outputText value="#{livre.editeur}" />
-                            </p:column>
-                            <p:column headerText="Prix">
-                                <h:outputText value="#{livre.prix} €" />
-                            </p:column>
-                        </p:dataTable>
-                    </h:form>
+                    <ui:insert name="content"/>
                 </p:layoutUnit>
             </p:layout>
         </h:body>

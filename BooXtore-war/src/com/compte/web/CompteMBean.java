@@ -21,6 +21,8 @@ public class CompteMBean
     @EJB
     private CompteEJBRemote CompteEJB;
 
+    private Client client;
+
     /** Creates a new instance of CompteMBean */
     public CompteMBean()
     {

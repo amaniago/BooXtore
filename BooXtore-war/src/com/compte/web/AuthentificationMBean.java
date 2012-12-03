@@ -72,7 +72,7 @@ public class AuthentificationMBean
 
     public String logout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "index.xhtml?faces-redirect=true";
+        return "top10?faces-redirect=true";
     }
 
     public boolean isLoggedIn() {
