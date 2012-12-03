@@ -8,6 +8,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -73,10 +74,10 @@ public class Livre implements Serializable
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "livre")
     private List<Contenir> contenirList;
     @JoinColumn(name = "ID_ETAT_LIVRE", referencedColumnName = "ID_ETAT_LIVRE")
-    @ManyToOne
+    @ManyToOne(fetch= FetchType.EAGER)
     private EtatLivre etatLivre;
     @JoinColumn(name = "ID_CATEGORIE", referencedColumnName = "ID_CATEGORIE")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false,fetch= FetchType.EAGER)
     private Categorie categorie;
 
     public Livre()

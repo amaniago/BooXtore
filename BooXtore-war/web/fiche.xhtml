@@ -29,7 +29,10 @@
                         <br/>
                         <h:outputText value="• Sommaire: " />
                         <br/>
-                        <h:outputText value="#{LibrairieBean.getLivre(param.idLivre).resume}" style="font-style: italic" />
+                        <h:outputText value="#{LibrairieBean.getLivre(param.idLivre).sommaire}" style="font-style: italic" />
+                        <br/>
+                        <br/>
+                        <p:commandButton action="addP" icon="ui-icon-cart" rendered="#{LibrairieBean.isStock(LibrairieBean.getLivre(param.idLivre))}"/>
                     </h:form>
     </ui:define>
 </ui:composition>

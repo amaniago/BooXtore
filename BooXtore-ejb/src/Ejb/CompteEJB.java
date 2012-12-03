@@ -1,13 +1,12 @@
 package Ejb;
 
 import Jpa.Classes.Client;
-import Jpa.Classes.Livre;
+import Jpa.Classes.Compte;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 /**
  * EJB gérant les comptes et permettant la création, la modification et l'authentification des comptes
@@ -31,9 +30,7 @@ public class CompteEJB implements CompteEJBRemote
     public boolean authentification(String login, String mdp)
     {
         Client client = em.find(Client.class, login);
-        if(client == null)
-            return false;
-        return client.getMotDePasse().equals(sha1(mdp));
+        return client != null ? client.getMotDePasse().equals(sha1(mdp)) : false;
     }
 
     /**
@@ -50,17 +47,18 @@ public class CompteEJB implements CompteEJBRemote
     @Override
     public Client inscription(String login, String mdp, String nom, String prenom, String mail, String adr, String codePostal, String ville)
     {
-         Client client = new Client();
-         client.setLogin(login);
-         client.setMotDePasse(sha1(mdp));
-         client.setNom(nom);
-         client.setPrenom(prenom);
-         client.setEmail(mail);
-         client.setAdresse(adr);
-         client.setCodePostal(codePostal);
-         client.setVille(ville);
-         em.persist(client);
-         return client;
+        Client client = new Client();
+        client.setLogin(login);
+        client.setMotDePasse(sha1(mdp));
+        client.setNom(nom);
+        client.setPrenom(prenom);
+        client.setEmail(mail);
+        client.setAdresse(adr);
+        client.setCodePostal(codePostal);
+        client.setVille(ville);
+        client.setCompte(em.find(Compte.class, 2));
+        em.persist(client);
+        return client;
     }
 
     /**
@@ -70,9 +68,7 @@ public class CompteEJB implements CompteEJBRemote
     @Override
     public Client getLogin(String login)
     {
-        Query query = em.createNamedQuery("Client.findByLogin", Client.class);
-        query.setParameter("login", login);
-        return (Client) query.getSingleResult();
+        return em.find(Client.class, login);
     }
 
     /**
@@ -97,7 +93,7 @@ public class CompteEJB implements CompteEJBRemote
             e.printStackTrace();
         }
         byte[] result = mDigest.digest(input.getBytes());
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < result.length; i++)
             sb.append(Integer.toString((result[i] & 0xff) + 0x100, 16).substring(1));
         return sb.toString();

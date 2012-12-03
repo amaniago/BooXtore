@@ -4,6 +4,7 @@ import Jpa.Classes.Client;
 import Jpa.Classes.Commande;
 import Jpa.Classes.Contenir;
 import Jpa.Classes.EtatCommande;
+import Jpa.Classes.EtatLivre;
 import Jpa.Classes.Livre;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,10 @@ public class CommandeEJB implements CommandeEJBRemote
             contenir.setLivre(livre);
             contenir.setQuantiteCommander(quantite);
             lstContenir.add(contenir);
+            livre.setQuantiterDisponible(livre.getQuantiterDisponible() - quantite);
+            if (livre.getQuantiterDisponible() == 0)
+                livre.setEtatLivre(em.find(EtatLivre.class, "R"));
+            em.merge(livre);
         }
         commande.setContenirList(lstContenir);
         em.merge(commande);
