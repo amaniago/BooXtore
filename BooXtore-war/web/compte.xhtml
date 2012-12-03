@@ -20,7 +20,7 @@
                         <br/>
                         <h:outputText value="Ville: #{CompteFicheBean.getLogin(param.login).ville}" />
                         <br/>
-                        <h:outputLink value="modifcompte.xhtml" >
+                        <h:outputLink value="http://localhost:8080/BooXtore-war/fiche.xhtml?login=#{authentificationMBean.login}" >
                             <h:outputText value="Modifier le compte"/>
                         </h:outputLink>
                     </h:form>

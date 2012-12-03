@@ -2,6 +2,7 @@ package com.librairie.web;
 
 import Ejb.LibrairieEJBRemote;
 import Jpa.Classes.Categorie;
+import Jpa.Classes.EtatLivre;
 import Jpa.Classes.Livre;
 import java.util.List;
 import javax.ejb.EJB;
@@ -44,5 +45,11 @@ public class LibrairieMBean
      */
     public LibrairieMBean()
     {
+    }
+
+    public boolean isStock(Livre l)
+    {
+        String idEtat = l.getEtatLivre().getIdEtatLivre();
+        return idEtat.equals("N") || idEtat.equals("S");
     }
 }

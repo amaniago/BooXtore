@@ -6,7 +6,8 @@
                 xmlns:f="http://java.sun.com/jsf/core">
     <ui:define name="content">
                     <h:form>
-                        <p:dataTable var="livres" value="#{LibrairieBean.livres}" widgetVar="livresTable" emptyMessage="Aucun livre ne correspond à la recherche">
+                        <p:dataTable var="livres" value="#{LibrairieBean.livres}" widgetVar="livresTable" emptyMessage="Aucun livre ne correspond à la recherche" paginator="true" rows="25"
+                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
                             <f:facet name="header">
                                 <p:outputPanel>
                                     <h:outputText value="Chercher: " />
@@ -45,7 +46,9 @@
                             <p:column id="LivreEtat" headerText="Disponibilité">
                                 <h:outputText value="#{livres.etatLivre}" />
                             </p:column>
-
+                            <p:column>
+                                <p:commandButton action="addP" icon="ui-icon-cart" style="height: 20px" rendered="#{LibrairieBean.isStock(livres)}"/>
+                            </p:column>
                         </p:dataTable>
                     </h:form>
     </ui:define>

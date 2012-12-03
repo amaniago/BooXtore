@@ -29,6 +29,9 @@
                             <p:column headerText="Prix">
                                 <h:outputText value="#{livre.prix} €" />
                             </p:column>
+                            <p:column>
+                                <p:commandButton action="addP" icon="ui-icon-cart" style="height: 20px" rendered="#{LibrairieBean.isStock(livre)}"/>
+                            </p:column>
                         </p:dataTable>
                     </h:form>
     </ui:define>
