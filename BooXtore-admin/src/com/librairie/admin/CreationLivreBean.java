@@ -24,11 +24,10 @@ import javax.faces.event.ActionEvent;
  */
 @ManagedBean
 @ViewScoped
-public class creationLivreBean implements Serializable
+public class CreationLivreBean implements Serializable
 {
     @EJB
     private LibrairieEJBRemote librairieEJB;
-
     //Propriétés d'un livre
     private String titre;
     private Date dateDeParution;
@@ -41,15 +40,30 @@ public class creationLivreBean implements Serializable
     private Integer categorie;
     private Integer quantite;
 
-
-    /** Creates a new instance of creationLivreBean */
-    public creationLivreBean()
+    /**
+     * Constructeur CreationLivreBean
+     * @throws IOException
+     */
+    public CreationLivreBean() throws IOException
     {
+        //Verification si la session a été démarrée
+        LoginBean login = (LoginBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("LoginBean");
+        if (login.getAdmin() == null)
+        {
+            //Redirection vers l'authentification si l'utilisateur n'est pas authentifié
+            FacesContext.getCurrentInstance().getExternalContext().redirect("authentification.xhtml");
+        }
     }
 
+    /**
+     * Méthode de création d'un livre
+     * @param actionEvent
+     * @throws IOException
+     */
     public void creerLivre(ActionEvent actionEvent) throws IOException
     {
-        if(quantite == null)
+        //Quantité par défaut a 20 si non spécifiée par l'utilisateur
+        if (quantite == null)
         {
             quantite = 20;
         }
@@ -60,7 +74,7 @@ public class creationLivreBean implements Serializable
     }
 
     /**
-     * Retourne une liste de catégorie
+     * Retourne une liste de catégories
      * @return
      */
     public List<Categorie> getAllCategories()
@@ -69,7 +83,7 @@ public class creationLivreBean implements Serializable
     }
 
     /**
-     * Retourne la liste des états
+     * Retourne la liste des états possible pour un livre
      * @return
      */
     public List<EtatLivre> getAllEtatsLivre()

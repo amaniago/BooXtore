@@ -11,7 +11,7 @@
                 <p:menuitem value="Modifier" update="display" oncomplete="livreDialog.show()"/>
             </p:contextMenu>
 
-            <p:dataTable id="livres" var="livre" value="#{gestionStockBean.allLivres}" selection="#{gestionStockBean.livreModifie}" rowKey="#{livre.idLivre}" selectionMode="single">
+            <p:dataTable id="livres" var="livre" value="#{GestionStockBean.allLivres}" selection="#{GestionStockBean.livreModifie}" rowKey="#{livre.idLivre}" selectionMode="single">
                 <f:facet name="header">
                     Liste Livres/Quantités
                 </f:facet>
@@ -32,14 +32,14 @@
                 <h:panelGrid id="display" columns="2" cellpadding="2">
 
                     <h:outputText value="Livre :" />
-                    <h:outputText value="#{gestionStockBean.livreModifie.titre}" style="font-weight:bold"/>
+                    <h:outputText value="#{GestionStockBean.livreModifie.titre}" style="font-weight:bold"/>
 
                     <h:outputText value="Quantité disponible :" />
-                    <h:inputText id="quantité" value="#{gestionStockBean.quantiteDisponible}" size="3" label="Quantité" >
+                    <h:inputText id="quantité" value="#{GestionStockBean.quantiteDisponible}" size="3" label="Quantité" >
                         <f:convertNumber minFractionDigits="0" />
                     </h:inputText>
 
-                    <p:commandButton id="btn" value="Enregistrer" actionListener="#{gestionStockBean.changeQuantite(actionEvent)}"/>
+                    <p:commandButton id="btn" value="Enregistrer" actionListener="#{GestionStockBean.modifierQuantite(actionEvent)}"/>
                 </h:panelGrid>
             </p:dialog>
 

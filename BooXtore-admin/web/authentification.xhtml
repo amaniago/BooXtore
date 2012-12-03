@@ -14,7 +14,7 @@
                     <h:outputText value="Mot de passe " />
                     <p:password id="nonFeedback" value="#{loginBean.mdp}" />
                 </h:panelGrid>
-                <p:commandButton id="btn" value="S'identifier" update="panel" actionListener="#{loginBean.authentification}"/>
+                <p:commandButton id="btn" value="S'identifier" update="form" actionListener="#{loginBean.authentification(actionEvent)}"/>
             </p:panel>
         </h:form>
     </ui:define>

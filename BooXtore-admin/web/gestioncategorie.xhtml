@@ -11,7 +11,7 @@
                 <p:menuitem value="Modifier" update="display" oncomplete="categorieDialog.show()"/>
             </p:contextMenu>
 
-            <p:dataTable id="categories" var="categorie" value="#{gestionCategorieBean.allCategories}" selection="#{gestionCategorieBean.categorieModifie}" rowKey="#{categorie.idCategorie}" selectionMode="single">
+            <p:dataTable id="categories" var="categorie" value="#{GestionCategorieBean.allCategories}" selection="#{GestionCategorieBean.categorieModifie}" rowKey="#{categorie.idCategorie}" selectionMode="single">
                 <f:facet name="header">
                     Liste Catégories
                 </f:facet>
@@ -29,12 +29,12 @@
                 <h:panelGrid id="display" columns="2" cellpadding="2">
 
                     <h:outputText value="ID :" />
-                    <h:outputText value="#{gestionCategorieBean.categorieModifie.idCategorie}" style="font-weight:bold"/>
+                    <h:outputText value="#{GestionCategorieBean.categorieModifie.idCategorie}" style="font-weight:bold"/>
 
                     <h:outputText value="Nouveau nom :" />
-                    <h:inputText id="nom" value="#{gestionCategorieBean.nomCategorie}" />
+                    <h:inputText id="nom" value="#{GestionCategorieBean.nomCategorie}" />
 
-                    <p:commandButton id="btn" value="Enregistrer" actionListener="#{gestionCategorieBean.changeCategorie(actionEvent)}"/>
+                    <p:commandButton id="btn" value="Enregistrer" actionListener="#{GestionCategorieBean.modifierCategorie(actionEvent)}"/>
                 </h:panelGrid>
             </p:dialog>
 

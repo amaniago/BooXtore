@@ -7,13 +7,14 @@ package com.librairie.admin;
 import Ejb.LibrairieEJBRemote;
 import Jpa.Classes.Categorie;
 import Jpa.Classes.Livre;
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import org.primefaces.event.RowEditEvent;
+import javax.faces.event.ActionEvent;
 
 /**
  *
@@ -21,30 +22,63 @@ import org.primefaces.event.RowEditEvent;
  */
 @ManagedBean
 @ViewScoped
-public class gestionLivreBean
+public class GestionLivreBean implements Serializable
 {
+    private Livre livreModifie;
     @EJB
     private LibrairieEJBRemote librairieEJB;
 
-    /** Creates a new instance of gestionLivreBean */
-    public gestionLivreBean()
+    /**
+     * Constructeur GestionLivreBean
+     * @throws IOException
+     */
+    public GestionLivreBean() throws IOException
     {
+        //Verification si la session a été démarrée
+        LoginBean login = (LoginBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("LoginBean");
+        if (login.getAdmin() == null)
+        {
+            //Redirection vers l'authentification si l'utilisateur n'est pas authentifié
+            FacesContext.getCurrentInstance().getExternalContext().redirect("authentification.xhtml");
+        }
     }
 
+    /**
+     * Méthode de modification d'un livre
+     * @param actionEvent
+     * @throws IOException
+     */
+    public void modifierLivre(ActionEvent actionEvent) throws IOException
+    {
+        librairieEJB.modifierLivre(livreModifie);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("gestioncommande.xhtml");
+    }
+
+    /**
+     * Liste des livres
+     * @return
+     */
     public List<Livre> getAllLivres()
     {
         return librairieEJB.getLivres();
     }
 
+    /**
+     * Liste des catégories
+     * @return
+     */
     public List<Categorie> getAllCategories()
     {
         return librairieEJB.getCategories();
     }
 
-    public void onEdit(RowEditEvent event)
+    public Livre getLivreModifie()
     {
+        return livreModifie;
+    }
 
-        FacesMessage msg = new FacesMessage("Livre modifié !");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+    public void setLivreModifie(Livre livreModifie)
+    {
+        this.livreModifie = livreModifie;
     }
 }

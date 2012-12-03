@@ -10,9 +10,9 @@
             <p:panel id="panel" header="Nouvelle catégorie">
                 <h:panelGrid columns="3" cellpadding="5">
                     <h:outputLabel for="name" value="Nom " style="font-weight:bold"/>
-                    <p:inputText id="name" value="#{creationCategorieBean.nomCategorie}" required="true"/>
-                    <p:commandButton id="btnCreation" value="Créer" actionListener="#{creationCategorieBean.creerCategorie(actionEvent)}"/>
-                    <h:outputText value="#{creationCategorieBean.nomCategorie}"/>
+                    <p:inputText id="name" value="#{CreationCategorieBean.nomCategorie}" required="true"/>
+                    <p:commandButton id="btnCreation" value="Créer" actionListener="#{CreationCategorieBean.creerCategorie(actionEvent)}"/>
+                    <h:outputText value="#{CreationCategorieBean.nomCategorie}"/>
                 </h:panelGrid>
             </p:panel>
         </h:form>

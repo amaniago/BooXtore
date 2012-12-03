@@ -7,14 +7,13 @@ package com.librairie.admin;
 import Ejb.LibrairieEJBRemote;
 import Jpa.Classes.Categorie;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import org.primefaces.event.RowEditEvent;
 
 /**
  *
@@ -22,25 +21,43 @@ import org.primefaces.event.RowEditEvent;
  */
 @ManagedBean
 @RequestScoped
-public class gestionCategorieBean
+public class GestionCategorieBean implements Serializable
 {
     private Categorie categorieModifie;
     private String nomCategorie;
-
     @EJB
     private LibrairieEJBRemote librairieEJB;
 
-    /** Creates a new instance of gestionCategorieBean */
-    public gestionCategorieBean()
+    /**
+     * Constructeur GestionCategorieBean
+     * @throws IOException
+     */
+    public GestionCategorieBean() throws IOException
     {
+        //Verification si la session a été démarrée
+        LoginBean login = (LoginBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("LoginBean");
+        if (login.getAdmin() == null)
+        {
+            //Redirection vers l'authentification si l'utilisateur n'est pas authentifié
+            FacesContext.getCurrentInstance().getExternalContext().redirect("authentification.xhtml");
+        }
     }
 
+    /**
+     * Méthode qui retourne la liste des catégories
+     * @return
+     */
     public List<Categorie> getAllCategories()
     {
         return librairieEJB.getCategories();
     }
 
-    public void changeCategorie(ActionEvent actionEvent) throws IOException
+    /**
+     * Méthode de modification d'une catégorie
+     * @param actionEvent
+     * @throws IOException
+     */
+    public void modifierCategorie(ActionEvent actionEvent) throws IOException
     {
         categorieModifie.setNomCategorie(nomCategorie);
         librairieEJB.modifierCategorie(categorieModifie);
