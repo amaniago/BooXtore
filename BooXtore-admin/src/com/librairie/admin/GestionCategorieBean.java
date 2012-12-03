@@ -64,6 +64,16 @@ public class GestionCategorieBean implements Serializable
         FacesContext.getCurrentInstance().getExternalContext().redirect("gestioncategorie.xhtml");
     }
 
+    /**
+     * Méthode de suppression d'une catégorie
+     * @throws IOException
+     */
+    public void supprimerCategorie() throws IOException
+    {
+        librairieEJB.supprimerCategorie(categorieModifie);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("gestioncategorie.xhtml");
+    }
+
     public String getNomCategorie()
     {
         return nomCategorie;

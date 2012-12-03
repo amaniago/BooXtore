@@ -51,7 +51,17 @@ public class GestionLivreBean implements Serializable
     public void modifierLivre(ActionEvent actionEvent) throws IOException
     {
         librairieEJB.modifierLivre(livreModifie);
-        FacesContext.getCurrentInstance().getExternalContext().redirect("gestioncommande.xhtml");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("gestionlivre.xhtml");
+    }
+
+    /**
+     * Méthode de suppression d'un livre
+     * @throws IOException
+     */
+    public void supprimerLivre() throws IOException
+    {
+        librairieEJB.supprimerLivre(livreModifie);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("gestionlivre.xhtml");
     }
 
     /**

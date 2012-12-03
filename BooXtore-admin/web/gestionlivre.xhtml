@@ -9,6 +9,7 @@
         <h:form id="form">
             <p:contextMenu for="livres">
                 <p:menuitem value="Modifier" update="display" oncomplete="livreDialog.show()"/>
+                <p:menuitem value="Supprimer" actionListener="#{GestionLivreBean.supprimerLivre()}"/>
             </p:contextMenu>
 
             <p:dataTable id="livres" var="livre" value="#{GestionLivreBean.allLivres}" selection="#{GestionLivreBean.livreModifie}" rowKey="#{livre.idLivre}" selectionMode="single">
@@ -33,7 +34,7 @@
 
                     <h:outputText value="Titre :" />
                     <!--<h:outputText value="#{GestionLivreBean.livreModifie.titre}" />-->
-                    <h:inputText value="#{GestionLivreBean.livreModifie.titre}"/>
+                    <!--<h:inputText value="#{GestionLivreBean.livreModifie.titre}"/>-->
 
 
                     <p:commandButton id="btn" value="Enregistrer" actionListener="#{GestionLivreBean.modifierLivre(actionEvent)}"/>

@@ -9,6 +9,7 @@
         <h:form id="form">
             <p:contextMenu for="categories">
                 <p:menuitem value="Modifier" update="display" oncomplete="categorieDialog.show()"/>
+                <p:menuitem value="Supprimer" actionListener="#{GestionCategorieBean.supprimerCategorie()}"/>
             </p:contextMenu>
 
             <p:dataTable id="categories" var="categorie" value="#{GestionCategorieBean.allCategories}" selection="#{GestionCategorieBean.categorieModifie}" rowKey="#{categorie.idCategorie}" selectionMode="single">
