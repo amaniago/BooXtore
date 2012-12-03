@@ -6,13 +6,14 @@ package com.librairie.admin;
 
 import Ejb.LibrairieEJBRemote;
 import Jpa.Classes.Livre;
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import org.primefaces.event.RowEditEvent;
+import javax.faces.event.ActionEvent;
 
 /**
  *
@@ -20,8 +21,11 @@ import org.primefaces.event.RowEditEvent;
  */
 @ManagedBean
 @ViewScoped
-public class gestionStockBean
+public class gestionStockBean implements Serializable
 {
+    private Livre livreModifie;
+    private Integer quantiteDisponible;
+
     @EJB
     private LibrairieEJBRemote librairieEJB;
 
@@ -35,10 +39,30 @@ public class gestionStockBean
         return librairieEJB.getLivres();
     }
 
-    public void onEdit(RowEditEvent event)
+    public void changeQuantite(ActionEvent actionEvent) throws IOException
     {
-        
-        FacesMessage msg = new FacesMessage("Quantité Modifiée");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        livreModifie.setQuantiterDisponible(quantiteDisponible);
+        librairieEJB.modifierLivre(livreModifie);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("gestionstock.xhtml");
+    }
+
+    public Livre getLivreModifie()
+    {
+        return livreModifie;
+    }
+
+    public void setLivreModifie(Livre livreModifie)
+    {
+        this.livreModifie = livreModifie;
+    }
+
+    public Integer getQuantiteDisponible()
+    {
+        return quantiteDisponible;
+    }
+
+    public void setQuantiteDisponible(Integer quantiteDisponible)
+    {
+        this.quantiteDisponible = quantiteDisponible;
     }
 }
