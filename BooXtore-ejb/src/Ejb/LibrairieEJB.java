@@ -176,4 +176,24 @@ public class LibrairieEJB implements LibrairieEJBRemote
         query.setHint("eclipselink.result-collection-type", java.util.ArrayList.class);
         return query.getResultList();
     }
+
+    /**
+     * Obtient la valeur de la pagination
+     * @return Nombre d'article par page
+     */
+    @Override
+    public int getPagination()
+    {
+        return Integer.parseInt(em.createNativeQuery("SELECT VALEUR FROM PARAMETRES WHERE CLE = 'Pagination'").getSingleResult().toString());
+    }
+
+    /**
+     * Défini la valeur de la pagination
+     * @param nb Nombre d'article par page
+     */
+    @Override
+    public void setPagination(int nb)
+    {
+        em.createNativeQuery("UPDATE PARAMETRES SET VALEUR = " + nb + " WHERE CLE = 'Pagination'").executeUpdate();
+    }
 }

@@ -32,4 +32,8 @@ public interface LibrairieEJBRemote
     public void supprimerCategorie(Categorie categorie);
 
     public List<EtatLivre> getEtatsLivre();
+
+    public int getPagination();
+
+    public void setPagination(int nb);
 }
