@@ -9,7 +9,7 @@
         <h:form id="form">
             <p:contextMenu for="categories">
                 <p:menuitem value="Modifier" update="display" oncomplete="categorieDialog.show()"/>
-                <p:menuitem value="Supprimer" actionListener="#{GestionCategorieBean.supprimerCategorie()}"/>
+                <p:menuitem value="Supprimer" oncomplete="confirmation.show()"/>
             </p:contextMenu>
 
             <p:dataTable id="categories" var="categorie" value="#{GestionCategorieBean.allCategories}" selection="#{GestionCategorieBean.categorieModifie}" rowKey="#{categorie.idCategorie}" selectionMode="single">
@@ -38,6 +38,12 @@
                     <p:commandButton id="btn" value="Enregistrer" actionListener="#{GestionCategorieBean.modifierCategorie(actionEvent)}"/>
                 </h:panelGrid>
             </p:dialog>
+
+            <p:confirmDialog id="confirmDialog" message="Voulez-vous vraiment supprimer cette catégorie?"
+                             header="Confirmation de suppression" widgetVar="confirmation">
+                <p:commandButton id="confirm" value="Oui" actionListener="#{GestionCategorieBean.supprimerCategorie()}" />
+                <p:commandButton id="decline" value="Non" onclick="confirmation.hide()" />
+            </p:confirmDialog>
 
         </h:form>
     </ui:define>
