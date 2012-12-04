@@ -14,7 +14,8 @@
             <br/>
             <h:outputText value="Prix: #{LibrairieBean.getLivre(param.idLivre).prix} €"/>
             <br/>
-            <h:outputText value="Plus que #{LibrairieBean.getLivre(param.idLivre).quantiterDisponible} exemplaires de disponible !"/>
+            <h:outputText value="Plus que #{LibrairieBean.getLivre(param.idLivre).quantiterDisponible} exemplaires de disponible !" rendered="#{LibrairieBean.isStock(LibrairieBean.getLivre(param.idLivre))}"/>
+            <h:outputText value="Le produit n'est plus en stock !" rendered="#{!LibrairieBean.isStock(LibrairieBean.getLivre(param.idLivre))}"/>
             <p:separator></p:separator>
             <h:outputText value="Détails:" style="font-weight: bold"/>
             <br/>

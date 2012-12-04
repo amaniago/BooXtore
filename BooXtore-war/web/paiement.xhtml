@@ -1,0 +1,45 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="index.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="content">
+        <h:form>
+            <p:dataTable id="panier" var="entreeLivre" value="#{panierMBean.panier}" emptyMessage="Le panier est vide">
+                <p:column headerText="Livre">
+                    <h:outputText value="#{entreeLivre.key.titre}"/>
+                </p:column>
+                <p:column headerText="Qu." style="width: 30px">
+                    <h:outputText value="#{entreeLivre.value}" style="float: right"/>
+                </p:column>
+            </p:dataTable>
+            <p:panel id="panel" header="Information bancaire">
+                <h:panelGrid  columns="3" cellpadding="5">
+                    <h:outputLabel value="Nom" style="font-weight:bold"/>
+                    <p:inputText id="nom" value="#{CompteBean.nom}" required="true"/>
+                    <br/>
+                    <h:outputLabel value="Prenom" style="font-weight:bold"/>
+                    <p:inputText id="prenom" value="#{CompteBean.prenom}" required="true"/>
+                    <br/>
+                    <h:outputLabel value="Code de carte bancaire" style="font-weight:bold"/>
+                    <p:inputMask id="code" required="true" mask="9999-9999-9999-9999"/>
+                    <br/>
+                    <h:outputLabel value="Cryptogramme visuel" style="font-weight:bold"/>
+                    <p:inputMask id="crypto" required="true" mask="999"/>
+                    <br/>
+                    <h:outputLabel value="Date de validité" style="font-weight:bold"/>
+                    <p:inputMask id="month" required="true" mask="99" style="width: 20px">
+                        Mois <f:validateDoubleRange minimum="1" maximum="12"></f:validateDoubleRange>
+                    </p:inputMask>
+                    <p:inputMask id="years" required="true" mask="9999" style="width: 40px">
+                        Année <f:validateDoubleRange minimum="2012" maximum="2020"></f:validateDoubleRange>
+                    </p:inputMask>
+                    <p:commandButton value="Reset" type="reset"/>
+                    <p:commandButton id="btn" value="Passer la commande" action="#{commandeMBean.commande}"/>
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>
+

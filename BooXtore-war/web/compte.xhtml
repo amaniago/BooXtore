@@ -8,19 +8,19 @@
         <h:form>
             <h:outputText value="#{authentificationMBean.login}"/>
             <p:separator></p:separator>
-            <h:outputText value="Nom:  #{CompteFicheBean.getLogin(param.login).nom}"/>
+            <h:outputText value="Nom:  #{authentificationMBean.client.nom}"/>
             <br/>
-            <h:outputText value="Prenom: #{CompteFicheBean.getLogin(param.login).prenom}"/>
+            <h:outputText value="Prenom: #{authentificationMBean.client.prenom}"/>
             <br/>
-            <h:outputText value="Mail: #{CompteFicheBean.getLogin(param.login).email}"/>
+            <h:outputText value="Mail: #{authentificationMBean.client.email}"/>
             <br/>
-            <h:outputText value="Adresse: #{CompteFicheBean.getLogin(param.login).adresse}"/>
+            <h:outputText value="Adresse: #{authentificationMBean.client.adresse}"/>
             <br/>
-            <h:outputText value="Code Postal: #{CompteFicheBean.getLogin(param.login).codePostal}"/>
+            <h:outputText value="Code Postal: #{authentificationMBean.client.codePostal}"/>
             <br/>
-            <h:outputText value="Ville: #{CompteFicheBean.getLogin(param.login).ville}"/>
+            <h:outputText value="Ville: #{authentificationMBean.client.ville}"/>
             <br/>
-            <h:outputLink value="./fiche.xhtml?login=#{authentificationMBean.login}">
+            <h:outputLink value="./modifcompte.xhtml">
                 <h:outputText value="Modifier le compte"/>
             </h:outputLink>
         </h:form>

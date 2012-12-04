@@ -24,6 +24,7 @@ public class AuthentificationMBean implements Serializable
     //Propriétés de l'authentification
     private String login;
     private String mdp;
+    private String adr;
     private Client client;
 
     /** Creates a new instance of AuthentificationMBean */
@@ -53,7 +54,7 @@ public class AuthentificationMBean implements Serializable
         }
         else
         {
-            return "/index.xhtml";
+            return "/top10.xhtml";
         }
     }
 
@@ -88,8 +89,13 @@ public class AuthentificationMBean implements Serializable
         this.mdp = mdp;
     }
 
+    public Client getClient()
+    {
+        return client;
+    }
+
     public boolean isLoggedIn()
     {
-        return client != null;
+            return client != null;
     }
 }

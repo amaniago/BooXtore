@@ -1,11 +1,13 @@
 package com.panier.web;
 
+import Ejb.CommandeEJBRemote;
 import Jpa.Classes.Livre;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -16,6 +18,9 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class PanierMBean implements Serializable
 {
+    @EJB
+    private CommandeEJBRemote CommandeEJB;
+
     /**
      * Panier modéliser par une HashMap
      */

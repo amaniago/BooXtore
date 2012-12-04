@@ -8,6 +8,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 @ManagedBean(name = "CompteBean")
 @ViewScoped
@@ -16,7 +17,7 @@ public class CompteMBean implements Serializable
     @EJB
     private CompteEJBRemote CompteEJB;
 
-    private Client client;
+    private Client clientmodifie;
 
     /** Creates a new instance of CompteMBean */
     public CompteMBean()
@@ -41,6 +42,17 @@ public class CompteMBean implements Serializable
         //Ajout d'un compte utilisateur
         CompteEJB.inscription(login, adr, nom, prenom, mail, adr, codePostal, ville);
         FacesContext.getCurrentInstance().getExternalContext().redirect("top10.xhtml");
+    }
+
+    /**
+     * Méthode permettant de modifier le compte
+     * @param actionEvent
+     * @throws IOException
+     */
+        public void modifierCompte(ActionEvent actionEvent) throws IOException
+    {
+        CompteEJB.modifierCompte(clientmodifie);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("compte.xhtml");
     }
 
     public String getLogin()
@@ -121,5 +133,14 @@ public class CompteMBean implements Serializable
     public void setVille(String ville)
     {
         this.ville = ville;
+    }
+
+    public Client getClientModifie(){
+        return clientmodifie;
+    }
+
+    public void setCategorieModifie(Client clientmodifie)
+    {
+        this.clientmodifie = clientmodifie;
     }
 }
