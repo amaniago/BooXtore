@@ -22,7 +22,7 @@ public class CompteMBean implements Serializable
     public CompteMBean()
     {
     }
-
+    //Propriétés d'un compte utilisateur
     private String login;
     private String pwd;
     private String nom;
@@ -32,8 +32,13 @@ public class CompteMBean implements Serializable
     private String codePostal;
     private String ville;
 
+    /**
+     * Méthode d'inscription d'un compte utilisateur
+     * @throws IOException
+     */
     public void inscription() throws IOException
     {
+        //Ajout d'un compte utilisateur
         CompteEJB.inscription(login, adr, nom, prenom, mail, adr, codePostal, ville);
         FacesContext.getCurrentInstance().getExternalContext().redirect("top10.xhtml");
     }

@@ -15,6 +15,7 @@ public class FicheCompteMBean implements Serializable
     @EJB
     private CompteEJBRemote compteEJB;
 
+    //Déclaration d'un client
     private Client client;
 
     /** Creates a new instance of FicheCompteMBean */
@@ -22,6 +23,11 @@ public class FicheCompteMBean implements Serializable
     {
     }
 
+    /**
+     * Méthode de récupération des données du client
+     * @param login
+     * @return
+     */
     public Client getLogin(String login){
         return client = compteEJB.getLogin(login);
     }

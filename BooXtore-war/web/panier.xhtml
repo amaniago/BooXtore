@@ -28,7 +28,7 @@
                 </p:column>
             </p:dataTable>
             <br/>
-            <h:outputText value="Vous devez vous authentifier ou vous inscrire pour passer la commande"/>
+            <h:outputText value="Vous devez vous authentifier ou vous inscrire pour passer la commande" rendered="#{!authentificationMBean.loggedIn}"/>
             <p:commandButton value="Passer commande" rendered="#{authentificationMBean.loggedIn}"/>
         </h:form>
     </ui:define>
