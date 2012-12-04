@@ -47,12 +47,14 @@
                         </p:commandLink>
                     </h:form>
                 </p:layoutUnit>
-                <p:layoutUnit position="west" size="171" header="BooXtore">
-                    <h:form>
-                        <p:button value="Accueil" outcome="accueil" style="width: 159px"/>
-                    </h:form>
-                    <h:form>
-                        <p:button value="Liste Globale" outcome="listeglobale" style="width: 159px"/>
+                <p:layoutUnit position="west" size="171">
+                   <h:form>
+                        <p:menu>
+                            <p:submenu label="Menu BooXtore">
+                                <p:menuitem value="Accueil" url="top10.xhtml"/>
+                                <p:menuitem value="Bibliothèque"  url="listeglobale.xhtml"/>
+                            </p:submenu>
+                        </p:menu>
                     </h:form>
                 </p:layoutUnit>
                 <p:layoutUnit position="east" size="250" header="Panier">
