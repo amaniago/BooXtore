@@ -22,6 +22,7 @@ public class LibrairieMBean implements Serializable
     private List<Livre> livres;
     //Déclaration d'un livre
     private Livre livre;
+    private int nb;
 
     /**
      * Constructeur du bean manager
@@ -64,6 +65,11 @@ public class LibrairieMBean implements Serializable
     public List<Categorie> getCategories()
     {
         return categories = librairieEJB.getCategories();
+    }
+
+    public int getPagination()
+    {
+        return nb = librairieEJB.getPagination();
     }
 
     public boolean isStock(Livre l)
