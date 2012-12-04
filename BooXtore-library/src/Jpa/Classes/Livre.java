@@ -20,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -79,6 +80,10 @@ public class Livre implements Serializable
     @JoinColumn(name = "ID_CATEGORIE", referencedColumnName = "ID_CATEGORIE")
     @ManyToOne(optional = false,fetch= FetchType.EAGER)
     private Categorie categorie;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "SEUIL")
+    private int seuil;
 
     public Livre()
     {
@@ -237,6 +242,16 @@ public class Livre implements Serializable
     @Override
     public String toString()
     {
-        return "Jpa.Classes.Livre[ idLivre=" + idLivre + " ]";
+        return titre;
+    }
+
+    public int getSeuil()
+    {
+        return seuil;
+    }
+
+    public void setSeuil(int seuil)
+    {
+        this.seuil = seuil;
     }
 }
