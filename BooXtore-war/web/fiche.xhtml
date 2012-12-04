@@ -32,7 +32,7 @@
             <h:outputText value="#{LibrairieBean.livre.sommaire}" style="font-style: italic"/>
             <br/>
             <br/>
-            <p:commandButton action="#{panierMBean.ajouterLivre(LibrairieBean.livre, 1)}" update=":panierForm:panier" icon="ui-icon-cart" rendered="#{LibrairieBean.isStock(LibrairieBean.livre)}" ajax="false"/>
+            <p:commandButton action="#{panierMBean.ajouterLivre(LibrairieBean.livre, 1)}" update=":panierForm:panier" icon="ui-icon-cart" rendered="#{LibrairieBean.isStock(LibrairieBean.livre)}"/>
         </h:form>
     </ui:define>
 </ui:composition>

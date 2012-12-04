@@ -1,0 +1,25 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="index.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="content">
+        <h:form>
+            <h:outputText value="#{authentificationMBean.login}"/>
+            <p:separator></p:separator>
+            <h:outputText value="Modifier l'email: "/>
+            <p:inputText id="mail" value="#{CompteBean.clientModifie.email}" required="true" validatorMessage="#{CompteBean.mail} n'est pas valide">
+                <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]"/>
+            </p:inputText>
+            <br/>
+            <h:outputText value="Modifier l'adresse "/>
+            <p:inputText id="adr" value="#{CompteBean.clientModifie.adresse}" required="true" validatorMessage="#{CompteBean.adr} n'est pas valide"/>
+            <br/>
+            <h:outputText value="Modifier le mot de passe: "/>
+            <p:password id="pwd" value="#{CompteBean.clientModifie.motDePasse}" required="true"/>
+            <br/>
+            <p:commandButton value="Valider" actionListener="#{CompteBean.modifierCompte(actionEvent)}" rendered="#{authentificationMBean.loggedIn}"/>
+        </h:form>
+    </ui:define>
+</ui:composition>

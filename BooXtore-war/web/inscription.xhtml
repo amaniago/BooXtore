@@ -11,8 +11,11 @@
                     <h:outputLabel for="login" value="Login" style="font-weight:bold"/>
                     <p:inputText id="login" value="#{CompteBean.login}" required="true" validatorMessage="#{CompteBean.login} n'est pas valide"/>
                     <br/>
-                    <h:outputLabel for="auteur" value="Mot de passe" style="font-weight:bold"/>
-                    <p:password id="pwd" value="#{CompteBean.pwd}" required="true"/>
+                    <h:outputLabel for="mdp" value="Mot de passe" style="font-weight:bold"/>
+                    <p:password id="pwd" value="#{CompteBean.pwd}" match="pwd2" required="true"/>
+                    <br/>
+                    <h:outputLabel for="mdp" value="Vérification" style="font-weight:bold"/>
+                    <p:password id="pwd2" value="#{CompteBean.pwd}" required="true"/>
                     <br/>
                     <h:outputLabel for="nom" value="Nom" style="font-weight:bold"/>
                     <p:inputText id="nom" value="#{CompteBean.nom}" required="true" validatorMessage="#{CompteBean.nom} n'est pas valide"/>

@@ -7,16 +7,12 @@
     <navigation-rule>
         <from-view-id>*</from-view-id>
         <navigation-case>
-            <from-outcome>listeglobale</from-outcome>
-            <to-view-id>/listeglobale.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>accueil</from-outcome>
-            <to-view-id>/top10.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
             <from-outcome>panier</from-outcome>
             <to-view-id>/panier.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>paiement</from-outcome>
+            <to-view-id>/paiement.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>

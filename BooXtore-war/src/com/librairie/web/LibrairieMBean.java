@@ -26,6 +26,7 @@ public class LibrairieMBean implements Serializable
 
     //Déclaration d'un livre
     private Livre livre;
+    private int nb;
 
     public LibrairieMBean()
     {
@@ -77,6 +78,11 @@ public class LibrairieMBean implements Serializable
     public List<Categorie> getCategories()
     {
         return categories = librairieEJB.getCategories();
+    }
+
+    public int getPagination()
+    {
+        return nb = librairieEJB.getPagination();
     }
 
     /**
