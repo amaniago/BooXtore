@@ -96,6 +96,6 @@ public class AuthentificationMBean implements Serializable
 
     public boolean isLoggedIn()
     {
-            return client != null;
+        return client != null;
     }
 }

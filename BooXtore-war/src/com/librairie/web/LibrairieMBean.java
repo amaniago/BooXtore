@@ -5,9 +5,12 @@ import Jpa.Classes.Categorie;
 import Jpa.Classes.Livre;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 @ManagedBean(name = "LibrairieBean")
 @ViewScoped
@@ -20,15 +23,24 @@ public class LibrairieMBean implements Serializable
     private List<Livre> top;
     private List<Categorie> categories;
     private List<Livre> livres;
+
     //Déclaration d'un livre
     private Livre livre;
     private int nb;
 
-    /**
-     * Constructeur du bean manager
-     */
     public LibrairieMBean()
     {
+    }
+
+    /**
+     * Initialisateur du bean manager
+     */
+    @PostConstruct
+    public void init()
+    {
+        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        if (params != null && params.containsKey("idLivre"))
+            livre = librairieEJB.getLivre(Integer.parseInt(params.get("idLivre")));
     }
 
     /**
@@ -54,8 +66,9 @@ public class LibrairieMBean implements Serializable
      * @param idLivre
      * @return
      */
-    public Livre getLivre(int idLivre){
-        return livre = librairieEJB.getLivre(idLivre);
+    public Livre getLivre()
+    {
+        return livre;
     }
 
     /**
@@ -72,6 +85,11 @@ public class LibrairieMBean implements Serializable
         return nb = librairieEJB.getPagination();
     }
 
+    /**
+     * Méthode permettant de savoir si un livre est disponible
+     * @param l Livre dont l'on vérifie l'état
+     * @return Disponibilité du livre
+     */
     public boolean isStock(Livre l)
     {
         String idEtat = l.getEtatLivre().getIdEtatLivre();
