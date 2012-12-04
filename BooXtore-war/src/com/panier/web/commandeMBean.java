@@ -10,6 +10,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -23,11 +24,11 @@ public class commandeMBean
     @EJB
     private CommandeEJBRemote CommandeEJB;
 
-    @ManagedProperty(value="#{AuthentificationMBean}")
-    private AuthentificationMBean authentificationMBean;
-
-    @ManagedProperty(value="#{PanierMBean}")
-    private PanierMBean panierMBean;
+//    @ManagedProperty(value="#{AuthentificationMBean}")
+//    private AuthentificationMBean authentificationMBean;
+//
+//    @ManagedProperty(value="#{PanierMBean}")
+//    private PanierMBean panierMBean;
 
 
     /** Creates a new instance of commandeMBean */
@@ -42,19 +43,21 @@ public class commandeMBean
      */
     public void commande()
     {
+        AuthentificationMBean a = (AuthentificationMBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("authentificationMBean");
+        PanierMBean p = (PanierMBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("panierMBean");
         //Ajout d'un compte utilisateur
-        CommandeEJB.creationCommande(authentificationMBean.getClient(), panierMBean.getPanierCommande());
+        CommandeEJB.creationCommande(a.getClient(), p.getPanierCommande());
     }
 
-    public void setPanierMBean(PanierMBean panierMBean)
-    {
-        this.panierMBean = panierMBean;
-    }
-
-    public void setAuthentificationMBean(AuthentificationMBean authentificationMBean)
-    {
-        this.authentificationMBean = authentificationMBean;
-    }
+//    public void setPanierMBean(PanierMBean panierMBean)
+//    {
+//        this.panierMBean = panierMBean;
+//    }
+//
+//    public void setAuthentificationMBean(AuthentificationMBean authentificationMBean)
+//    {
+//        this.authentificationMBean = authentificationMBean;
+//    }
 
 
 }

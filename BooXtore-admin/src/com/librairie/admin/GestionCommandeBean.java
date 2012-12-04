@@ -10,6 +10,7 @@ import Jpa.Classes.EtatCommande;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -29,11 +30,8 @@ public class GestionCommandeBean implements Serializable
     private String etatCommande;
     private Commande commandeModifie;
 
-    /**
-     * Constructeur GestionCommandeBean
-     * @throws IOException
-     */
-    public GestionCommandeBean() throws IOException
+    @PostConstruct
+    public void verificationAuthentification() throws IOException
     {
         //Verification si la session a été démarrée
         LoginBean login = (LoginBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("loginBean");
@@ -42,6 +40,14 @@ public class GestionCommandeBean implements Serializable
             //Redirection vers l'authentification si l'utilisateur n'est pas authentifié
             FacesContext.getCurrentInstance().getExternalContext().redirect("authentification.xhtml");
         }
+    }
+
+    /**
+     * Constructeur GestionCommandeBean
+     * @throws IOException
+     */
+    public GestionCommandeBean()
+    {
     }
 
     /**

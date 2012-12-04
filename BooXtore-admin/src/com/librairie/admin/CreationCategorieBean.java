@@ -7,6 +7,7 @@ package com.librairie.admin;
 import Ejb.LibrairieEJBRemote;
 import java.io.IOException;
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -17,7 +18,7 @@ import javax.faces.event.ActionEvent;
  *
  * @author Kevin
  */
-@ManagedBean (name="CreationCategorieBean")
+@ManagedBean(name = "CreationCategorieBean")
 @RequestScoped
 public class CreationCategorieBean implements Serializable
 {
@@ -25,11 +26,8 @@ public class CreationCategorieBean implements Serializable
     private LibrairieEJBRemote librairieEJB;
     private String nomCategorie;
 
-    /**
-     * Constructeur CreationCategorieBean
-     * @throws IOException
-     */
-    public CreationCategorieBean() throws IOException
+    @PostConstruct
+    public void verificationAuthentification() throws IOException
     {
         //Verification si la session a été démarrée
         LoginBean login = (LoginBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("loginBean");
@@ -38,6 +36,14 @@ public class CreationCategorieBean implements Serializable
             //Redirection vers l'authentification si l'utilisateur n'est pas authentifié
             FacesContext.getCurrentInstance().getExternalContext().redirect("authentification.xhtml");
         }
+    }
+
+    /**
+     * Constructeur CreationCategorieBean
+     * @throws IOException
+     */
+    public CreationCategorieBean()
+    {
     }
 
     /**
