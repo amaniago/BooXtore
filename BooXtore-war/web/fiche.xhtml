@@ -6,33 +6,33 @@
                 xmlns:f="http://java.sun.com/jsf/core">
     <ui:define name="content">
         <h:form>
-            <h:outputText value="#{LibrairieBean.getLivre(param.idLivre).titre}"/>
+            <h:outputText value="#{LibrairieBean.livre.titre}"/>
             <br/>
-            <h:outputText value="de: #{LibrairieBean.getLivre(param.idLivre).auteur}"/>
+            <h:outputText value="de: #{LibrairieBean.livre.auteur}"/>
             <p:separator></p:separator>
-            <h:outputText value="#{LibrairieBean.getLivre(param.idLivre).etatLivre}"/>
+            <h:outputText value="#{LibrairieBean.livre.etatLivre}"/>
             <br/>
-            <h:outputText value="Prix: #{LibrairieBean.getLivre(param.idLivre).prix} €"/>
+            <h:outputText value="Prix: #{LibrairieBean.livre.prix} €"/>
             <br/>
-            <h:outputText value="Plus que #{LibrairieBean.getLivre(param.idLivre).quantiterDisponible} exemplaires de disponible !"/>
+            <h:outputText value="Plus que #{LibrairieBean.livre.quantiterDisponible} exemplaires de disponible !"/>
             <p:separator></p:separator>
             <h:outputText value="Détails:" style="font-weight: bold"/>
             <br/>
             <br/>
-            <h:outputText value="• #{LibrairieBean.getLivre(param.idLivre).categorie}"/>
+            <h:outputText value="• #{LibrairieBean.livre.categorie}"/>
             <br/>
-            <h:outputText value="• #{LibrairieBean.getLivre(param.idLivre).editeur}"/>
+            <h:outputText value="• #{LibrairieBean.livre.editeur}"/>
             <br/>
             <h:outputText value="• Résumé: "/>
             <br/>
-            <h:outputText value="#{LibrairieBean.getLivre(param.idLivre).resume}" style="font-style: italic"/>
+            <h:outputText value="#{LibrairieBean.livre.resume}" style="font-style: italic"/>
             <br/>
             <h:outputText value="• Sommaire: "/>
             <br/>
-            <h:outputText value="#{LibrairieBean.getLivre(param.idLivre).sommaire}" style="font-style: italic"/>
+            <h:outputText value="#{LibrairieBean.livre.sommaire}" style="font-style: italic"/>
             <br/>
             <br/>
-            <p:commandButton action="#{panierMBean.ajouterLivre(LibrairieBean.getLivre(param.idLivre), 1)}" update=":panierForm:panier" icon="ui-icon-cart" rendered="#{LibrairieBean.isStock(LibrairieBean.getLivre(param.idLivre))}"/>
+            <p:commandButton action="#{panierMBean.ajouterLivre(LibrairieBean.livre, 1)}" update=":panierForm:panier" icon="ui-icon-cart" rendered="#{LibrairieBean.isStock(LibrairieBean.livre)}" ajax="false"/>
         </h:form>
     </ui:define>
 </ui:composition>
