@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Commande.findAll", query = "SELECT c FROM Commande c"),
     @NamedQuery(name = "Commande.findByIdCommande", query = "SELECT c FROM Commande c WHERE c.idCommande = :idCommande"),
     @NamedQuery(name = "Commande.findByTotal", query = "SELECT c FROM Commande c WHERE c.total = :total"),
-    @NamedQuery(name = "Commande.findByClient", query = "SELECT c FROM Commande c WHERE c.login = :login")
+    @NamedQuery(name = "Commande.findByClient", query = "SELECT c FROM Commande c WHERE c.login = :client")
 })
 public class Commande implements Serializable
 {

@@ -115,8 +115,11 @@ public class TestCommandeEJB
     public void getHistoTest()
     {
         List<Commande> lst = new ArrayList<>();
-        Assert.assertNotNull(ejb.getHisto("Bafur"));
-        Assert.assertFalse(ejb.getHisto("Bafur").isEmpty());
-        Assert.assertEquals(ejb.getHisto("Bafur").getClass(), lst.getClass());
+        EntityManager em = emf.createEntityManager();
+        Client client = em.find(Client.class, "Bafur");
+        em.close();
+        Assert.assertNotNull(ejb.getHisto(client));
+        Assert.assertFalse(ejb.getHisto(client).isEmpty());
+        Assert.assertEquals(ejb.getHisto(client).getClass(), lst.getClass());
     }
 }
