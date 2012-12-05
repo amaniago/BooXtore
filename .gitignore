@@ -20,3 +20,4 @@ BDD/BooXtore.trace.db
 *.war
 /BooXtore-webserv/nbproject/private/
 /BooXtore-webserv/build/
+!/BooXtore-war/pepper-grinder-1.0.8.jar
