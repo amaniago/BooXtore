@@ -13,7 +13,7 @@
             </f:facet>
         </h:head>
         <h:body>
-            <p:layout fullPage="true">
+            <p:layout id="page" fullPage="true">
                 <p:layoutUnit id="authentifLayout" position="north" size="120">
                     <h:form id="authentif" rendered="#{!authentificationMBean.loggedIn}">
                         <p:inputText id="login" value="#{authentificationMBean.login}" required="true" label="login"/>

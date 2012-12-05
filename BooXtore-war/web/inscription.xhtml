@@ -9,36 +9,39 @@
             <p:panel id="panel" header="Inscription">
                 <h:panelGrid  columns="3" cellpadding="5">
                     <h:outputLabel for="login" value="Login" style="font-weight:bold"/>
-                    <p:inputText id="login" value="#{CompteBean.login}" required="true" validatorMessage="#{CompteBean.login} n'est pas valide"/>
+                    <p:inputText id="login" value="#{CompteBean.login}" required="true" requiredMessage="Le champ login est vide"/>
                     <br/>
                     <h:outputLabel for="mdp" value="Mot de passe" style="font-weight:bold"/>
-                    <p:password id="pwd" value="#{CompteBean.pwd}" match="pwd2" required="true"/>
+                    <p:password id="pwd" value="#{CompteBean.pwd}" match="pwd2" required="true" requiredMessage="Le champ mot de passe est vide"/>
                     <br/>
                     <h:outputLabel for="mdp" value="Vérification" style="font-weight:bold"/>
-                    <p:password id="pwd2" value="#{CompteBean.pwd}" required="true"/>
+                    <p:password id="pwd2" value="#{CompteBean.pwd}" required="true" requiredMessage="Le champ de vérification du mot de passe est vide"/>
                     <br/>
                     <h:outputLabel for="nom" value="Nom" style="font-weight:bold"/>
-                    <p:inputText id="nom" value="#{CompteBean.nom}" required="true" validatorMessage="#{CompteBean.nom} n'est pas valide"/>
+                    <p:inputText id="nom" value="#{CompteBean.nom}" required="true"  requiredMessage="Le champ nom est vide"/>
                     <br/>
                     <h:outputLabel for="prenom" value="Prenom" style="font-weight:bold"/>
-                    <p:inputText id="prenom" value="#{CompteBean.prenom}" required="true" validatorMessage="#{CompteBean.prenom} n'est pas valide"/>
+                    <p:inputText id="prenom" value="#{CompteBean.prenom}" required="true"  requiredMessage="Le champ prenom est vide"/>
                     <br/>
                     <h:outputLabel for="mail" value="Email" style="font-weight:bold"/>
-                    <p:inputText id="mail" value="#{CompteBean.mail}" required="true" validatorMessage="#{CompteBean.mail} n'est pas valide">
+                    <p:inputText id="mail" value="#{CompteBean.mail}" required="true"  requiredMessage="Le champ mail est vide">
                         <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]"/>
                     </p:inputText>
                     <br/>
                     <h:outputLabel for="adr" value="Adresse" style="font-weight:bold"/>
-                    <p:inputText id="adr" value="#{CompteBean.adr}" required="true" validatorMessage="#{CompteBean.adr} n'est pas valide"/>
+                    <p:inputText id="adr" value="#{CompteBean.adr}" required="true"  requiredMessage="Le champ adresse est vide"/>
                     <br/>
                     <h:outputLabel for="codePostal" value="Code Postal" style="font-weight:bold"/>
-                    <p:inputMask id="codePostal" value="#{CompteBean.codePostal}" required="true" mask="99999" validatorMessage="#{CompteBean.codePostal} n'est pas valide"/>
+                    <p:inputMask id="codePostal" value="#{CompteBean.codePostal}" required="true" mask="99999"  requiredMessage="Le champ Code Postal est vide"/>
                     <br/>
                     <h:outputLabel for="ville" value="Ville" style="font-weight:bold"/>
-                    <p:inputText id="ville" value="#{CompteBean.ville}" required="true" validatorMessage="#{CompteBean.ville} n'est pas valide"/>
+                    <p:inputText id="ville" value="#{CompteBean.ville}" required="true"  requiredMessage="Le champ ville est vide"/>
                     <br/>
                     <p:commandButton value="Reset" type="reset"/>
-                    <p:commandButton id="btn" value="S'enregistrer" action="#{CompteBean.inscription}"/>
+                    <p:commandButton id="btn" value="S'enregistrer" action="#{CompteBean.inscription}" oncomplete="if (args.validationFailed) dlg1.show()"/>
+                    <p:dialog visible="#{facesContext.validationFailed}" id="popup" style="text-align:center" widgetVar="dlg1" resizable="false" draggable="false">
+                        <h:messages layout="page">L'un des champs n'est pas remplit</h:messages>
+                    </p:dialog>
                 </h:panelGrid>
             </p:panel>
         </h:form>
