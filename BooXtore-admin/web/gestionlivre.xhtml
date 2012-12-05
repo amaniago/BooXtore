@@ -22,6 +22,28 @@
                 <p:column headerText="Nom">
                     <h:outputText value="#{livre.titre}" />
                 </p:column>
+                <p:column headerText="Date de parution">
+                    <h:outputText value="#{livre.dateParution}" >
+                        <f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="Auteur">
+                    <h:outputText value="#{livre.auteur}" />
+                </p:column>
+                <p:column headerText="Editeur">
+                    <h:outputText value="#{livre.editeur}" />
+                </p:column>
+                <p:column headerText="Resume">
+                    <h:outputText value="#{livre.resume}" />
+                </p:column>
+                <p:column headerText="Sommaire">
+                    <h:outputText value="#{livre.sommaire}" />
+                </p:column>
+                <p:column headerText="Prix">
+                    <h:outputText value="#{livre.prix}" >
+                        <f:convertNumber type="currency" currencySymbol="€"/>
+                    </h:outputText>
+                </p:column>
             </p:dataTable>
 
             <p:dialog header="Livre" widgetVar="livreDialog" resizable="true"
@@ -29,13 +51,31 @@
 
                 <h:panelGrid id="display" columns="2" cellpadding="2">
 
-                    <h:outputText value="ID :" />
-                    <h:outputText value="#{GestionLivreBean.livreModifie.idLivre}" />
+                    <h:outputLabel for="id" value="ID :" />
+                    <h:outputText id="id" value="#{GestionLivreBean.livreModifie.idLivre}" />
 
-                    <h:outputText value="Titre :" />
-                    <!--<h:inputText value="#{GestionLivreBean.livreModifie.titre}"/>-->
+                    <h:outputLabel for="titre" value="Titre :" />
+                    <h:inputText id="titre" value="#{GestionLivreBean.titre}" />
 
-                    <p:commandButton id="btn" value="Enregistrer" actionListener="#{GestionLivreBean.modifierLivre(actionEvent)}"/>
+                    <h:outputLabel for="date" value="Date de parution :" />
+                    <p:calendar id="date" value="#{GestionLivreBean.dateDeParution}" effect="slideDown" />
+
+                    <h:outputLabel for="auteur" value="Auteur :" />
+                    <h:inputText id="auteur" value="#{GestionLivreBean.auteur}" />
+
+                    <h:outputLabel for="editeur" value="Editeur :" />
+                    <h:inputText id="editeur" value="#{GestionLivreBean.editeur}" />
+
+                    <h:outputLabel for="resume" value="Résumé :" />
+                    <p:inputTextarea id="resume" value="#{GestionLivreBean.resume}" rows="3" cols="100" maxlength="10000" autoResize="false"/>
+
+                    <h:outputLabel for="sommaire" value="Sommaire :" />
+                    <p:inputTextarea id="sommaire" value="#{GestionLivreBean.sommaire}" rows="3" cols="100" maxlength="10000" autoResize="false"/>
+
+                    <h:outputLabel for="prix" value="Prix :" />
+                    <h:inputText id="prix" value="#{GestionLivreBean.prix}" />
+
+                    <p:commandButton id="btn" value="Enregistrer" update="display" actionListener="#{GestionLivreBean.modifierLivre(actionEvent)}"/>
                 </h:panelGrid>
             </p:dialog>
 

@@ -9,6 +9,8 @@ import Jpa.Classes.Categorie;
 import Jpa.Classes.Livre;
 import java.io.IOException;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -26,6 +28,17 @@ import javax.faces.event.ActionEvent;
 public class GestionLivreBean implements Serializable
 {
     private Livre livreModifie;
+    private String titre;
+    private Date dateDeParution;
+    private String auteur;
+    private String editeur;
+    private String resume;
+    private String sommaire;
+    private BigDecimal prix;
+//    private String etatLivre;
+//    private Integer categorie;
+//    private Integer quantite;
+
     @EJB
     private LibrairieEJBRemote librairieEJB;
 
@@ -56,6 +69,26 @@ public class GestionLivreBean implements Serializable
      */
     public void modifierLivre(ActionEvent actionEvent) throws IOException
     {
+        if (!titre.isEmpty())
+        {
+            livreModifie.setTitre(titre);
+        }
+        if (!auteur.isEmpty())
+        {
+            livreModifie.setAuteur(auteur);
+        }
+        if (!editeur.isEmpty())
+        {
+            livreModifie.setEditeur(editeur);
+        }
+        if (prix != null)
+        {
+            livreModifie.setPrix(prix);
+        }
+
+        livreModifie.setResume(resume);
+        livreModifie.setSommaire(sommaire);
+
         librairieEJB.modifierLivre(livreModifie);
         FacesContext.getCurrentInstance().getExternalContext().redirect("gestionlivre.xhtml");
     }
@@ -96,5 +129,124 @@ public class GestionLivreBean implements Serializable
     public void setLivreModifie(Livre livreModifie)
     {
         this.livreModifie = livreModifie;
+    }
+
+    public String getTitre()
+    {
+        if (livreModifie != null)
+        {
+            return titre = livreModifie.getTitre();
+        }
+        else
+        {
+            return titre;
+        }
+    }
+
+    public void setTitre(String titre)
+    {
+        this.titre = titre;
+    }
+
+    public Date getDateDeParution()
+    {
+        if (livreModifie != null)
+        {
+            return dateDeParution = livreModifie.getDateParution();
+        }
+        else
+        {
+            return dateDeParution;
+        }
+    }
+
+    public void setDateDeParution(Date dateDeParution)
+    {
+        this.dateDeParution = dateDeParution;
+    }
+
+    public String getAuteur()
+    {
+        if (livreModifie != null)
+        {
+            return auteur = livreModifie.getAuteur();
+        }
+        else
+        {
+            return auteur;
+        }
+    }
+
+    public void setAuteur(String auteur)
+    {
+        this.auteur = auteur;
+    }
+
+    public String getEditeur()
+    {
+        if (livreModifie != null)
+        {
+            return editeur = livreModifie.getEditeur();
+        }
+        else
+        {
+            return editeur;
+        }
+    }
+
+    public void setEditeur(String editeur)
+    {
+        this.editeur = editeur;
+    }
+
+    public String getResume()
+    {
+        if (livreModifie != null)
+        {
+            return resume = livreModifie.getResume();
+        }
+        else
+        {
+            return resume;
+        }
+    }
+
+    public void setResume(String resume)
+    {
+        this.resume = resume;
+    }
+
+    public String getSommaire()
+    {
+        if (livreModifie != null)
+        {
+            return sommaire = livreModifie.getSommaire();
+        }
+        else
+        {
+            return sommaire;
+        }
+    }
+
+    public void setSommaire(String sommaire)
+    {
+        this.sommaire = sommaire;
+    }
+
+    public BigDecimal getPrix()
+    {
+        if (livreModifie != null)
+        {
+            return prix = livreModifie.getPrix();
+        }
+        else
+        {
+            return prix;
+        }
+    }
+
+    public void setPrix(BigDecimal prix)
+    {
+        this.prix = prix;
     }
 }
