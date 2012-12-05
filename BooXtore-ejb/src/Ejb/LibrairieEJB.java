@@ -93,6 +93,7 @@ public class LibrairieEJB implements LibrairieEJBRemote
         livre.setPrix(prix);
         livre.setEtatLivre(em.find(EtatLivre.class, idEtat));
         livre.setCategorie(em.find(Categorie.class, idCategorie));
+        livre.setSeuil(5);
         em.persist(livre);
         return livre;
     }

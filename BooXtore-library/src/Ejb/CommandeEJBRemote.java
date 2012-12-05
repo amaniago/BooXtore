@@ -20,4 +20,6 @@ public interface CommandeEJBRemote
     public List<Commande> getCommandes();
 
     public List<EtatCommande> getEtats();
+
+    public List<Commande> getHisto(String client);
 }
