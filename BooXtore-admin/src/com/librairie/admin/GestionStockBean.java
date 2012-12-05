@@ -26,6 +26,8 @@ public class GestionStockBean implements Serializable
 {
     private Livre livreModifie;
     private Integer quantiteDisponible;
+    private Integer seuil;
+
     @EJB
     private LibrairieEJBRemote librairieEJB;
 
@@ -65,7 +67,14 @@ public class GestionStockBean implements Serializable
      */
     public void modifierQuantite(ActionEvent actionEvent) throws IOException
     {
-        livreModifie.setQuantiterDisponible(quantiteDisponible);
+        if(quantiteDisponible != null)
+        {
+            livreModifie.setQuantiterDisponible(quantiteDisponible);
+        }
+        if(seuil != null)
+        {
+            livreModifie.setSeuil(seuil);
+        }
         librairieEJB.modifierLivre(livreModifie);
         FacesContext.getCurrentInstance().getExternalContext().redirect("gestionstock.xhtml");
     }
@@ -88,5 +97,15 @@ public class GestionStockBean implements Serializable
     public void setQuantiteDisponible(Integer quantiteDisponible)
     {
         this.quantiteDisponible = quantiteDisponible;
+    }
+
+    public Integer getSeuil()
+    {
+        return seuil;
+    }
+
+    public void setSeuil(Integer seuil)
+    {
+        this.seuil = seuil;
     }
 }

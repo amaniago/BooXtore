@@ -117,10 +117,10 @@ public class CommandeEJB implements CommandeEJBRemote
      * @return Historique des commandes
      */
     @Override
-    public List<Commande> getHisto(String login)
+    public List<Commande> getHisto(Client client)
     {
         Query query = em.createNamedQuery("Commande.findByClient", Commande.class);
-        query.setParameter("client", login);
+        query.setParameter("client", client);
         query.setHint("eclipselink.result-collection-type", java.util.ArrayList.class);
         return query.getResultList();
     }
