@@ -9,7 +9,7 @@
         <h:form id="form">
             <p:contextMenu for="livres">
                 <p:menuitem value="Modifier" update="display" oncomplete="livreDialog.show()"/>
-                <p:menuitem value="Supprimer" actionListener="#{GestionLivreBean.supprimerLivre()}"/>
+                <p:menuitem value="Supprimer" oncomplete="confirmation.show()"/>
             </p:contextMenu>
 
             <p:dataTable id="livres" var="livre" value="#{GestionLivreBean.allLivres}" selection="#{GestionLivreBean.livreModifie}" rowKey="#{livre.idLivre}" selectionMode="single">
@@ -33,10 +33,15 @@
                     <h:outputText value="#{GestionLivreBean.livreModifie.idLivre}" />
 
                     <h:outputText value="Titre :" />
-                    <h:inputText value="#{GestionLivreBean.livreModifie.titre}"/>
+                    <!--<h:inputText value="#{GestionLivreBean.livreModifie.titre}"/>-->
 
                     <p:commandButton id="btn" value="Enregistrer" actionListener="#{GestionLivreBean.modifierLivre(actionEvent)}"/>
                 </h:panelGrid>
+            </p:dialog>
+
+            <p:dialog id="confirmDialog" header="Confirmation de suppression" widgetVar="confirmation">
+                <p:commandButton id="confirm" value="Oui" actionListener="#{GestionLivreBean.supprimerLivre()}" />
+                <p:commandButton id="decline" value="Non" onclick="confirmation.hide()" />
             </p:dialog>
 
         </h:form>

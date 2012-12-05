@@ -39,11 +39,11 @@
                 </h:panelGrid>
             </p:dialog>
 
-            <p:confirmDialog id="confirmDialog" message="Voulez-vous vraiment supprimer cette catégorie?"
+            <p:dialog id="confirmDialog"
                              header="Confirmation de suppression" widgetVar="confirmation">
                 <p:commandButton id="confirm" value="Oui" actionListener="#{GestionCategorieBean.supprimerCategorie()}" />
                 <p:commandButton id="decline" value="Non" onclick="confirmation.hide()" />
-            </p:confirmDialog>
+            </p:dialog>
 
         </h:form>
     </ui:define>
