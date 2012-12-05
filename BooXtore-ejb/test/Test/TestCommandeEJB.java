@@ -107,4 +107,16 @@ public class TestCommandeEJB
         Assert.assertFalse(ejb.getEtats().isEmpty());
         Assert.assertEquals(ejb.getEtats().getClass(), lst.getClass());
     }
+
+    /**
+     * Test de la méthode getHisto, de l'EJB CommandeEJB.
+     */
+    @Test
+    public void getHistoTest()
+    {
+        List<Commande> lst = new ArrayList<>();
+        Assert.assertNotNull(ejb.getHisto("Bafur"));
+        Assert.assertFalse(ejb.getHisto("Bafur").isEmpty());
+        Assert.assertEquals(ejb.getHisto("Bafur").getClass(), lst.getClass());
+    }
 }
