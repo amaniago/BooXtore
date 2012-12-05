@@ -6,13 +6,14 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="content">
-        <h:form>
+        <h:form id="form">
             <p:panel id="panel" header="Nouvelle catégorie">
-                <h:panelGrid columns="3" cellpadding="5">
-                    <h:outputLabel for="name" value="Nom " style="font-weight:bold"/>
-                    <p:inputText id="name" value="#{CreationCategorieBean.nomCategorie}" required="true"/>
-                    <p:commandButton id="btnCreation" value="Créer" actionListener="#{CreationCategorieBean.creerCategorie(actionEvent)}"/>
-                    <h:outputText value="#{CreationCategorieBean.nomCategorie}"/>
+                <p:messages id="msgs"/>
+                <h:panelGrid columns="4" cellpadding="5">
+                    <h:outputLabel for="nom" value="Nom " style="font-weight:bold"/>
+                    <p:inputText id="nom" value="#{CreationCategorieBean.nomCategorie}" required="true"/>
+                    <p:commandButton id="btnCreation" value="Créer" update="form" actionListener="#{CreationCategorieBean.creerCategorie(actionEvent)}"/>
+                    <p:message for="nom" display="icon"/>
                 </h:panelGrid>
             </p:panel>
         </h:form>

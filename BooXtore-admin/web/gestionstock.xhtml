@@ -31,7 +31,7 @@
                 <p:column headerText="Titre">
                     <h:outputText value="#{livre.titre}" />
                 </p:column>
-                <p:column headerText="Quantite" sortBy="#{livre.quantiterDisponible}">
+                <p:column headerText="Quantite">
                     <h:outputText value="#{livre.quantiterDisponible}" />
                 </p:column>
                 <p:column headerText="Seuil de réapprovisionnement">
@@ -42,17 +42,24 @@
             <p:dialog header="Livre" widgetVar="livreDialog" resizable="true"
                       showEffect="clip" hideEffect="fold" id="dialog">
 
-                <h:panelGrid id="display" columns="2" cellpadding="2">
+                <h:panelGrid id="display" columns="4" cellpadding="2">
 
                     <h:outputText value="Livre :" />
                     <h:outputText value="#{GestionStockBean.livreModifie.titre}" style="font-weight:bold"/>
+                    <h:outputText/>
+                    <h:outputText/>
 
                     <h:outputText value="Quantité disponible :" />
-                    <h:inputText id="quantité" value="#{GestionStockBean.quantiteDisponible}" size="3" label="Quantité" >
-                        <f:convertNumber minFractionDigits="0" />
-                    </h:inputText>
+                    <h:inputText id="quantite" value="#{GestionStockBean.quantiteDisponible}"/>
+                    <h:outputText value="#{GestionStockBean.livreModifie.quantiterDisponible}" />
+                    <p:message for="quantite" display="icon"/>
 
-                    <p:commandButton id="btn" value="Enregistrer" actionListener="#{GestionStockBean.modifierQuantite(actionEvent)}"/>
+                    <h:outputText value="Seuil de réapprovisionnement :" />
+                    <h:inputText id="seuil" value="#{GestionStockBean.seuil}" />
+                    <h:outputText value="#{GestionStockBean.livreModifie.seuil}" />
+                    <p:message for="seuil" display="icon"/>
+
+                    <p:commandButton id="btn" value="Enregistrer" update="display" actionListener="#{GestionStockBean.modifierQuantite(actionEvent)}"/>
                 </h:panelGrid>
             </p:dialog>
 
