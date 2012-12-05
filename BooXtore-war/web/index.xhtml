@@ -32,7 +32,7 @@
                         </h:outputLink>
                     </h:form>
                     <h:form rendered="#{authentificationMBean.loggedIn}">
-                        <h:outputText value="Connecté en temps que "/>
+                        <h:outputText value="Connecté en tant que "/>
                         <h:outputLink value="./compte.xhtml?login=#{authentificationMBean.login}">
                             <h:outputText value="#{authentificationMBean.login}"/>
                         </h:outputLink>
@@ -46,13 +46,13 @@
                     <div id="footer">
                         <h:form id="footer">
                             <p:commandLink id="plan">
-                                <h:outputText value="Plan du site "/>
+                                <h:outputText value="Plan du site" style="margin: 10px"/>
                             </p:commandLink>
                             <p:commandLink id="qui">
-                                <h:outputText value="Qui sommes-nous ? "/>
+                                <h:outputText value="Qui sommes-nous ?" style="margin: 10px"/>
                             </p:commandLink>
                             <p:commandLink id="conditions">
-                                <h:outputText value="Conditions générales de vente"/>
+                                <h:outputText value="Conditions générales de vente" style="margin: 10px"/>
                             </p:commandLink>
                         </h:form>
                     </div>

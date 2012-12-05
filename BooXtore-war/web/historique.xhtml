@@ -17,16 +17,17 @@
                     <h:outputText value="#{commande.login}"/>
                 </p:column>
                 <p:column headerText="Liste des livres">
-                    <p:dataTable var="livrecommande" value="#{commande.contenirList}" >
+                    <p:dataTable id="dtCommandes" var="livrecommande" value="#{commande.contenirList}" >
                         <p:column>
                             <h:outputText value="#{livrecommande.livre}"/>
                         </p:column>
-                        <p:column style="width: 40px">
+                        <p:column style="width: 40px; text-align: right">
                             <h:outputText value="#{livrecommande.quantiteCommander}"/>
                         </p:column>
                     </p:dataTable>
                 </p:column>
             </p:dataTable>
+            <br/>
             <h:outputLink value="./compte.xhtml">
                 <h:outputText value="Retour"/>
             </h:outputLink>
