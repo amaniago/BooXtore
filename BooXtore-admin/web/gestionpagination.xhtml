@@ -1,0 +1,21 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="index.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="form">
+            <p:panel id="panel" header="Modifier la pagination">
+                <p:messages id="msgs"/>
+                <h:panelGrid columns="3" cellpadding="5">
+                    <h:outputLabel for="pagination" value="Nombre de livres par page :" style="font-weight:bold"/>
+                    <p:inputText id="pagination" value="#{gestionPaginationBean.pagination}" required="true"/>
+                    <p:commandButton id="btnCreation" value="Modifier" update="form" actionListener="#{gestionPaginationBean.modifierPagination(actionEvent)}"/>
+                    <h:outputText value="#{CreationCategorieBean.nomCategorie}"/>
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>

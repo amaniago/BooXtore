@@ -6,12 +6,22 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="content">
+        <style type="text/css">
+            .color
+            {
+                background: lightcoral;
+            }
+        </style>
         <h:form id="form">
             <p:contextMenu for="livres">
                 <p:menuitem value="Modifier" update="display" oncomplete="livreDialog.show()"/>
             </p:contextMenu>
 
-            <p:dataTable id="livres" var="livre" value="#{GestionStockBean.allLivres}" selection="#{GestionStockBean.livreModifie}" rowKey="#{livre.idLivre}" selectionMode="single">
+            <p:dataTable id="livres" var="livre" value="#{GestionStockBean.allLivres}"
+                         selection="#{GestionStockBean.livreModifie}"
+                         rowKey="#{livre.idLivre}"
+                         selectionMode="single"
+                         rowStyleClass="#{livre.quantiterDisponible le livre.seuil ? 'color' : null}">
                 <f:facet name="header">
                     Liste Livres/Quantités
                 </f:facet>
@@ -21,8 +31,11 @@
                 <p:column headerText="Titre">
                     <h:outputText value="#{livre.titre}" />
                 </p:column>
-                <p:column headerText="Quantite">
+                <p:column headerText="Quantite" sortBy="#{livre.quantiterDisponible}">
                     <h:outputText value="#{livre.quantiterDisponible}" />
+                </p:column>
+                <p:column headerText="Seuil de réapprovisionnement">
+                    <h:outputText value="#{livre.seuil}" />
                 </p:column>
             </p:dataTable>
 

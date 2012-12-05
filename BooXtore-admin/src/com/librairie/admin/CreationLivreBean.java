@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -40,11 +41,8 @@ public class CreationLivreBean implements Serializable
     private Integer categorie;
     private Integer quantite;
 
-    /**
-     * Constructeur CreationLivreBean
-     * @throws IOException
-     */
-    public CreationLivreBean() throws IOException
+    @PostConstruct
+    public void verificationAuthentification() throws IOException
     {
         //Verification si la session a été démarrée
         LoginBean login = (LoginBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("loginBean");
@@ -53,6 +51,14 @@ public class CreationLivreBean implements Serializable
             //Redirection vers l'authentification si l'utilisateur n'est pas authentifié
             FacesContext.getCurrentInstance().getExternalContext().redirect("authentification.xhtml");
         }
+    }
+
+    /**
+     * Constructeur CreationLivreBean
+     * @throws IOException
+     */
+    public CreationLivreBean()
+    {
     }
 
     /**
@@ -67,8 +73,9 @@ public class CreationLivreBean implements Serializable
         {
             quantite = 20;
         }
+        
         //Création de la catégorie en base
-        librairieEJB.ajouterLivre(titre, (java.sql.Date) dateDeParution, resume, sommaire, quantite, auteur, editeur, prix, etatLivre, categorie);
+        librairieEJB.ajouterLivre(titre, new java.sql.Date(dateDeParution.getTime()), resume, sommaire, quantite, auteur, editeur, prix, etatLivre, categorie);
         //Redirection vers la page de gestion des catégories
         FacesContext.getCurrentInstance().getExternalContext().redirect("gestionlivre.xhtml");
     }

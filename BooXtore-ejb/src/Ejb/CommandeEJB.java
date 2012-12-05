@@ -110,4 +110,18 @@ public class CommandeEJB implements CommandeEJBRemote
         query.setHint("eclipselink.result-collection-type", java.util.ArrayList.class);
         return query.getResultList();
     }
+
+    /**
+     * Permet d'obtenir l'historique des commandes d'un clients
+     * @param client Client dont l'on veux l'historique des commandes
+     * @return Historique des commandes
+     */
+    @Override
+    public List<Commande> getHisto(String login)
+    {
+        Query query = em.createNamedQuery("Commande.findByClient", Commande.class);
+        query.setParameter("client", login);
+        query.setHint("eclipselink.result-collection-type", java.util.ArrayList.class);
+        return query.getResultList();
+    }
 }

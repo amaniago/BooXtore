@@ -9,6 +9,7 @@ import Jpa.Classes.Client;
 import java.io.IOException;
 import java.io.Serializable;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -53,6 +54,14 @@ public class LoginBean implements Serializable
                 //Redirection vers la page d'index
                 FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
             }
+            else
+            {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Vous n'êtes pas administrateur !"));
+            }
+        }
+        else
+        {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Login/Mot de passe incorrect"));
         }
 
     }

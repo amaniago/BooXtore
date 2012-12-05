@@ -8,11 +8,13 @@
         <h:form id="form">
             <p:panel id="panel" header="Authentification">
                 <p:messages id="msgs"/>
-                <h:panelGrid columns="2" cellpadding="5">
+                <h:panelGrid columns="3" cellpadding="5">
                     <h:outputLabel for="login" value="Login " />
                     <p:inputText id="login" value="#{loginBean.login}" required="true" label="login"/>
+                    <p:message for="login" display="icon"/>
                     <h:outputText value="Mot de passe " />
-                    <p:password id="nonFeedback" value="#{loginBean.mdp}" />
+                    <p:password id="mdp" value="#{loginBean.mdp}" required="true"/>
+                    <p:message for="mdp" display="icon"/>
                 </h:panelGrid>
                 <p:commandButton id="btn" value="S'identifier" update="form" actionListener="#{loginBean.authentification(actionEvent)}"/>
             </p:panel>
