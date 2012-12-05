@@ -1,32 +1,30 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.compte.web;
 
 import Ejb.CompteEJBRemote;
-import Jpa.Classes.Client;
 import java.io.IOException;
-import java.io.Serializable;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 
-@ManagedBean(name = "CompteBean")
+/**
+ *
+ * @author Kevin
+ */
+@ManagedBean
 @ViewScoped
-public class CompteMBean implements Serializable
+public class InscriptionMBean
 {
-    @EJB
-    private CompteEJBRemote CompteEJB;
-
-    private Client clientmodifie;
-
-    /** Creates a new instance of CompteMBean */
-    public CompteMBean()
+    /** Creates a new instance of InscriptionMBean */
+    public InscriptionMBean()
     {
     }
-
-
-    //Propriétés d'un compte utilisateur
+    @EJB
+    private CompteEJBRemote CompteEJB;
     private String login;
     private String pwd;
     private String nom;
@@ -36,18 +34,17 @@ public class CompteMBean implements Serializable
     private String codePostal;
     private String ville;
 
-
-
     /**
-     * MÃ©thode permettant de modifier le compte
-     * @param actionEvent
+     * MÃ©thode d'inscription d'un compte utilisateur
      * @throws IOException
      */
-    public void modifierCompte() throws IOException
+    public void inscription() throws IOException
     {
-        CompteEJB.modifierCompte(clientmodifie);
-        FacesContext.getCurrentInstance().getExternalContext().redirect("compte.xhtml");
+        //Ajout d'un compte utilisateur
+        CompteEJB.inscription(login, adr, nom, prenom, mail, adr, codePostal, ville);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("top10.xhtml");
     }
+
 
     public String getLogin()
     {
@@ -129,13 +126,5 @@ public class CompteMBean implements Serializable
         this.ville = ville;
     }
 
-    public Client getClientModifie(){
-        AuthentificationMBean a = (AuthentificationMBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("authentificationMBean");
-        return clientmodifie = a.getClient();
-    }
 
-    public void setClientModifie(Client clientmodifie)
-    {
-        this.clientmodifie = clientmodifie;
-    }
 }

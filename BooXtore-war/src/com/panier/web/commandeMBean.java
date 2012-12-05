@@ -13,6 +13,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.xml.ws.WebServiceRef;
 import WebServ.BanqueService_Service;
+import javax.annotation.PostConstruct;
 
 @ManagedBean
 @ViewScoped
@@ -20,10 +21,8 @@ public class commandeMBean
 {
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/BanqueService/BanqueService.wsdl")
     private BanqueService_Service service;
-
     @EJB
     private CommandeEJBRemote CommandeEJB;
-
     private String carte;
     private List<Commande> histo;
 
@@ -40,6 +39,18 @@ public class commandeMBean
     /** Creates a new instance of commandeMBean */
     public commandeMBean()
     {
+    }
+
+    @PostConstruct
+    public void verificationAuthentification() throws IOException
+    {
+        //Verification si la session a été démarrée
+        AuthentificationMBean authentificationMBean = (AuthentificationMBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("authentificationMBean");
+        if (authentificationMBean.getClient() == null)
+        {
+            //Redirection vers l'authentification si l'utilisateur n'est pas authentifié
+            FacesContext.getCurrentInstance().getExternalContext().redirect("top10.xhtml");
+        }
     }
 
     /**
