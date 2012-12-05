@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.librairie.admin;
 
 import Ejb.LibrairieEJBRemote;
@@ -19,10 +15,6 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
-/**
- *
- * @author Kevin
- */
 @ManagedBean(name = "CreationLivreBean")
 @ViewScoped
 public class CreationLivreBean implements Serializable
@@ -73,7 +65,7 @@ public class CreationLivreBean implements Serializable
         {
             quantite = 20;
         }
-        
+
         //Création de la catégorie en base
         librairieEJB.ajouterLivre(titre, new java.sql.Date(dateDeParution.getTime()), resume, sommaire, quantite, auteur, editeur, prix, etatLivre, categorie);
         //Redirection vers la page de gestion des catégories

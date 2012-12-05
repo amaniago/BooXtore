@@ -4,7 +4,6 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="index.xhtml"
                 xmlns:f="http://java.sun.com/jsf/core">
-
     <ui:define name="content">
         <h:form id="form">
             <p:panel id="panel" header="Nouveau livre">
@@ -13,47 +12,37 @@
                     <h:outputLabel for="titre" value="Titre" style="font-weight:bold"/>
                     <p:inputText id="titre" value="#{CreationLivreBean.titre}" required="true"/>
                     <p:message for="titre" display="icon"/>
-
                     <h:outputLabel for="auteur" value="Auteur" style="font-weight:bold"/>
                     <p:inputText id="auteur" value="#{CreationLivreBean.auteur}" required="true"/>
                     <p:message for="auteur" display="icon"/>
-
                     <h:outputLabel for="editeur" value="Editeur" style="font-weight:bold"/>
                     <p:inputText id="editeur" value="#{CreationLivreBean.editeur}" required="true"/>
                     <p:message for="editeur" display="icon"/>
-
                     <h:outputLabel for="date" value="Date de parution" style="font-weight:bold"/>
                     <p:calendar id="date" value="#{CreationLivreBean.dateDeParution}" effect="slideDown" />
                     <p:message for="date" display="icon"/>
-
                     <h:outputLabel for="prix" value="Prix" style="font-weight:bold"/>
                     <p:inputText id="prix" value="#{CreationLivreBean.prix}" required="true"/>
                     <p:message for="prix" display="icon"/>
-
                     <h:outputLabel for="sommaire" value="Sommaire" style="font-weight:bold"/>
                     <p:inputTextarea id="sommaire" value="#{CreationLivreBean.sommaire}" rows="3" cols="100" maxlength="10000" autoResize="false"/>
                     <p:message for="sommaire" display="icon"/>
-
                     <h:outputLabel for="resume" value="Résumé" style="font-weight:bold"/>
                     <p:inputTextarea id="resume" value="#{CreationLivreBean.resume}" rows="3" cols="100" maxlength="10000" autoResize="false"/>
                     <p:message for="resume" display="icon"/>
-
                     <h:outputLabel for="categorie" value="Catégorie" style="font-weight:bold"/>
                     <h:selectOneMenu id="categorie" value="#{CreationLivreBean.categorie}" >
                         <f:selectItems value="#{CreationLivreBean.allCategories}" var="categorie" itemValue="#{categorie.idCategorie}" itemLabel="#{categorie.nomCategorie}"/>
                     </h:selectOneMenu>
                     <p:message for="categorie" display="icon"/>
-
                     <h:outputLabel for="etat" value="Etats" style="font-weight:bold"/>
                     <h:selectOneMenu id="etat" value="#{CreationLivreBean.etatLivre}" >
                         <f:selectItems value="#{CreationLivreBean.allEtatsLivre}" var="etatlivre" itemValue="#{etatlivre.idEtatLivre}" itemLabel="#{etatlivre.valeurEtat}"/>
                     </h:selectOneMenu>
                     <p:message for="etat" display="icon"/>
-
                     <h:outputLabel for="quantite" value="Quantité disponible" style="font-weight:bold"/>
                     <h:inputText id="quantité" value="#{CreationLivreBean.quantite}"/>
                     <p:message for="quantité" display="icon"/>
-
                     <h:outputText />
                 </h:panelGrid>
                 <p:commandButton id="btn" value="Créer un livre" update="form" actionListener="#{CreationLivreBean.creerLivre(actionEvent)}"/>

@@ -4,13 +4,11 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="index.xhtml"
                 xmlns:f="http://java.sun.com/jsf/core">
-
     <ui:define name="content">
         <h:form id="form">
             <p:contextMenu for="commandes">
                 <p:menuitem value="Modifier" update="display" oncomplete="commandeDialog.show()"/>
             </p:contextMenu>
-
             <p:dataTable id="commandes" var="commande" value="#{GestionCommandeBean.allCommande}" selection="#{GestionCommandeBean.commandeModifie}" rowKey="#{commande.idCommande}" selectionMode="single">
                 <f:facet name="header">
                     Liste des commandes
@@ -25,26 +23,17 @@
                     <h:outputText value="#{commande.etatCommande}" />
                 </p:column>
             </p:dataTable>
-
-            <p:dialog header="Commande" widgetVar="commandeDialog" resizable="true"
-                      showEffect="clip" hideEffect="fold" id="dialog">
-
+            <p:dialog header="Commande" widgetVar="commandeDialog" resizable="true" showEffect="clip" hideEffect="fold" id="dialog">
                 <h:panelGrid id="display" columns="2" cellpadding="2">
-
                     <h:outputText value="Commande :" />
                     <h:outputText value="#{GestionCommandeBean.commandeModifie.idCommande}" style="font-weight:bold"/>
-
                     <h:outputText value="Etat :" />
                     <h:selectOneMenu value="#{GestionCommandeBean.etatCommande}" >
                         <f:selectItems value="#{GestionCommandeBean.etats}" var="etatCommande" itemValue="#{etatCommande.idEtatCommande}" itemLabel="#{etatCommande.typeEtat}"/>
                     </h:selectOneMenu>
-
                     <p:commandButton id="btn" value="Enregistrer" actionListener="#{GestionCommandeBean.modifierEtatCommande(actionEvent)}"/>
                 </h:panelGrid>
             </p:dialog>
-
         </h:form>
     </ui:define>
 </ui:composition>
-
-

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.librairie.admin;
 
 import Ejb.CommandeEJBRemote;
@@ -17,10 +13,6 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
-/**
- *
- * @author Kevin
- */
 @ManagedBean(name = "GestionCommandeBean")
 @ViewScoped
 public class GestionCommandeBean implements Serializable

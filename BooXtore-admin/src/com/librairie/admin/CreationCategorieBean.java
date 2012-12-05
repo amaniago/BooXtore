@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.librairie.admin;
 
 import Ejb.LibrairieEJBRemote;
@@ -14,10 +10,6 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
-/**
- *
- * @author Kevin
- */
 @ManagedBean(name = "CreationCategorieBean")
 @RequestScoped
 public class CreationCategorieBean implements Serializable

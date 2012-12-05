@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.librairie.admin;
 
 import Ejb.LibrairieEJBRemote;
@@ -19,10 +15,6 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
-/**
- *
- * @author Kevin
- */
 @ManagedBean(name = "GestionLivreBean")
 @ViewScoped
 public class GestionLivreBean implements Serializable
@@ -37,7 +29,6 @@ public class GestionLivreBean implements Serializable
     private BigDecimal prix;
 //    private String etatLivre;
 //    private Integer categorie;
-//    private Integer quantite;
 
     @EJB
     private LibrairieEJBRemote librairieEJB;
@@ -86,6 +77,7 @@ public class GestionLivreBean implements Serializable
             livreModifie.setPrix(prix);
         }
 
+        livreModifie.setDateParution(dateDeParution);
         livreModifie.setResume(resume);
         livreModifie.setSommaire(sommaire);
 
