@@ -18,3 +18,5 @@ BDD/BooXtore.trace.db
 *.ear
 *.jar
 *.war
+/BooXtore-webserv/nbproject/private/
+/BooXtore-webserv/build/

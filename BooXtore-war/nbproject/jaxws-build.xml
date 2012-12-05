@@ -28,7 +28,7 @@
     </target>
     <target name="wsimport-client-BanqueService" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/BanqueService"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/BanqueService" destdir="${build.generated.dir}/jax-wsCache/BanqueService" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/BanqueService/wsdl/localhost_8080/BanqueService/BanqueService.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="http://localhost:8080/BanqueService/BanqueService?wsdl" xnocompile="true" xendorsed="true" package="webserv">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/BanqueService" destdir="${build.generated.dir}/jax-wsCache/BanqueService" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/BanqueService/wsdl/localhost_8080/BanqueService/BanqueService.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="http://localhost:8080/BanqueService/BanqueService?wsdl" xnocompile="true" xendorsed="true" package="WebServ">
             <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/BanqueService/wsdl/localhost_8080/BanqueService/BanqueService.wsdl"/>
             <produces dir="${build.generated.dir}/jax-wsCache/BanqueService"/>
         </wsimport>
@@ -39,7 +39,7 @@
         </copy>
     </target>
     <target name="wsimport-client-clean-BanqueService" depends="-init-project">
-        <delete dir="${build.generated.sources.dir}/jax-ws/webserv"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/WebServ"/>
         <delete dir="${build.generated.dir}/jax-wsCache/BanqueService"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-BanqueService"/>

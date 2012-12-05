@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.compte.web;
 
 import Ejb.CompteEJBRemote;
@@ -21,7 +17,7 @@ public class AuthentificationMBean implements Serializable
     @EJB
     private CompteEJBRemote compteEJB;
 
-    //PropriÃ©tÃ©s de l'authentification
+    //Propriétés de l'authentification
     private String login;
     private String mdp;
     private String adr;
@@ -39,10 +35,10 @@ public class AuthentificationMBean implements Serializable
      */
     public String authentification() throws IOException
     {
-        //VÃ©rification de l'existance d'un compte correspondant dans la base de donnÃ©e
+        //Vérification de l'existance d'un compte correspondant dans la base de donnée
         if (compteEJB.authentification(login, mdp))
         {
-            //Connexion Ã  la base
+            //Connexion à la base
             client = compteEJB.getLogin(login);
         }
 
@@ -64,7 +60,7 @@ public class AuthentificationMBean implements Serializable
      */
     public String logout()
     {
-        //DÃ©connexion de la session
+        //Déconnexion de la session
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "top10?faces-redirect=true";
     }

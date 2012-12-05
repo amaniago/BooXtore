@@ -1,35 +1,37 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.panier.web;
 
 import Ejb.CommandeEJBRemote;
+import WebServ.BanqueService_Service;
 import com.compte.web.AuthentificationMBean;
+import java.io.IOException;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.xml.ws.WebServiceRef;
 
-/**
- *
- * @author Kevin
- */
 @ManagedBean
-@SessionScoped
-
+@ViewScoped
 public class commandeMBean
 {
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/BanqueService/BanqueService.wsdl")
+    private BanqueService_Service service;
+    
     @EJB
     private CommandeEJBRemote CommandeEJB;
 
-//    @ManagedProperty(value="#{AuthentificationMBean}")
-//    private AuthentificationMBean authentificationMBean;
-//
-//    @ManagedProperty(value="#{PanierMBean}")
-//    private PanierMBean panierMBean;
+    private String carte;
 
+    public String getCarte()
+    {
+        return carte;
+    }
+
+    public void setCarte(String carte)
+    {
+        this.carte = carte;
+    }
 
     /** Creates a new instance of commandeMBean */
     public commandeMBean()
@@ -37,27 +39,26 @@ public class commandeMBean
     }
 
     /**
-     * MÃ©thode qui permet d'effectuer la commande
+     * Méthode qui permet d'effectuer la commande
      * @param client
      * @param panier
      */
-    public void commande()
+    public void commande() throws IOException
     {
-        AuthentificationMBean a = (AuthentificationMBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("authentificationMBean");
-        PanierMBean p = (PanierMBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("panierMBean");
-        //Ajout d'un compte utilisateur
-        CommandeEJB.creationCommande(a.getClient(), p.getPanierCommande());
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        AuthentificationMBean a = (AuthentificationMBean) context.getSessionMap().get("authentificationMBean");
+        PanierMBean p = (PanierMBean) context.getSessionMap().get("panierMBean");
+        if (transaction(carte))
+        {
+            CommandeEJB.creationCommande(a.getClient(), p.getPanierCommande());
+            context.getSessionMap().remove("panierMBean");
+            context.redirect("top10.xhtml");
+        }
     }
 
-//    public void setPanierMBean(PanierMBean panierMBean)
-//    {
-//        this.panierMBean = panierMBean;
-//    }
-//
-//    public void setAuthentificationMBean(AuthentificationMBean authentificationMBean)
-//    {
-//        this.authentificationMBean = authentificationMBean;
-//    }
-
-
+    private Boolean transaction(java.lang.String numCb)
+    {
+        WebServ.BanqueService port = service.getBanqueServicePort();
+        return port.transaction(numCb);
+    }
 }

@@ -23,7 +23,7 @@
                     <p:inputText id="prenom" value="#{CompteBean.prenom}" required="true"/>
                     <br/>
                     <h:outputLabel value="Code de carte bancaire" style="font-weight:bold"/>
-                    <p:inputMask id="code" required="true" mask="9999-9999-9999-9999"/>
+                    <p:inputMask id="code" value="#{commandeMBean.carte}" required="true" mask="9999-9999-9999-9999"/>
                     <br/>
                     <h:outputLabel value="Cryptogramme visuel" style="font-weight:bold"/>
                     <p:inputMask id="crypto" required="true" mask="999"/>
@@ -42,4 +42,3 @@
         </h:form>
     </ui:define>
 </ui:composition>
-

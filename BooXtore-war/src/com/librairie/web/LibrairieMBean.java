@@ -19,14 +19,13 @@ public class LibrairieMBean implements Serializable
     @EJB
     private LibrairieEJBRemote librairieEJB;
 
-    //DÃ©claration des listes
+    //Déclaration des listes
     private List<Livre> top;
     private List<Categorie> categories;
     private List<Livre> livres;
 
-    //DÃ©claration d'un livre
+    //Déclaration d'un livre
     private Livre livre;
-    private int nb;
 
     public LibrairieMBean()
     {
@@ -44,7 +43,7 @@ public class LibrairieMBean implements Serializable
     }
 
     /**
-     * MÃ©thode permettant la rÃ©cupÃ©ration du top 10 des ventes
+     * Méthode permettant la récupération du top 10 des ventes
      * @return
      */
     public List<Livre> getTop()
@@ -53,7 +52,7 @@ public class LibrairieMBean implements Serializable
     }
 
     /**
-     * MÃ©thode permettant la rÃ©cupÃ©ration de la totalitÃ© des livres
+     * Méthode permettant la récupération de la totalité des livres
      * @return
      */
     public List<Livre> getLivres()
@@ -62,7 +61,7 @@ public class LibrairieMBean implements Serializable
     }
 
     /**
-     * MÃ©thode permettant la rÃ©cupÃ©ration d'un livre en fonction de son id
+     * Méthode permettant la récupération d'un livre en fonction de son id
      * @param idLivre
      * @return
      */
@@ -72,7 +71,7 @@ public class LibrairieMBean implements Serializable
     }
 
     /**
-     * MÃ©thode permettant la rÃ©cupÃ©ration de la liste des catÃ©gories
+     * Méthode permettant la récupération de la liste des catégories
      * @return
      */
     public List<Categorie> getCategories()
@@ -82,13 +81,13 @@ public class LibrairieMBean implements Serializable
 
     public int getPagination()
     {
-        return nb = librairieEJB.getPagination();
+        return librairieEJB.getPagination();
     }
 
     /**
-     * MÃ©thode permettant de savoir si un livre est disponible
-     * @param l Livre dont l'on vÃ©rifie l'Ã©tat
-     * @return DisponibilitÃ© du livre
+     * Méthode permettant de savoir si un livre est disponible
+     * @param l Livre dont l'on vérifie l'état
+     * @return Disponibilité du livre
      */
     public boolean isStock(Livre l)
     {

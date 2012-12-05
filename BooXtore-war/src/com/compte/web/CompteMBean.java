@@ -23,7 +23,7 @@ public class CompteMBean implements Serializable
     public CompteMBean()
     {
     }
-    //PropriÃ©tÃ©s d'un compte utilisateur
+    //Propriétés d'un compte utilisateur
     private String login;
     private String pwd;
     private String nom;
