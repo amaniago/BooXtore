@@ -73,8 +73,9 @@ public class CreationLivreBean implements Serializable
         {
             quantite = 20;
         }
+        
         //Création de la catégorie en base
-        librairieEJB.ajouterLivre(titre, (java.sql.Date) dateDeParution, resume, sommaire, quantite, auteur, editeur, prix, etatLivre, categorie);
+        librairieEJB.ajouterLivre(titre, new java.sql.Date(dateDeParution.getTime()), resume, sommaire, quantite, auteur, editeur, prix, etatLivre, categorie);
         //Redirection vers la page de gestion des catégories
         FacesContext.getCurrentInstance().getExternalContext().redirect("gestionlivre.xhtml");
     }
