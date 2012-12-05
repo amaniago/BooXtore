@@ -1,6 +1,7 @@
 package com.panier.web;
 
 import Ejb.CommandeEJBRemote;
+import Jpa.Classes.Client;
 import Jpa.Classes.Commande;
 import com.compte.web.AuthentificationMBean;
 import java.io.IOException;
@@ -11,7 +12,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.xml.ws.WebServiceRef;
-import webserv.BanqueService_Service;
+import WebServ.BanqueService_Service;
 
 @ManagedBean
 @ViewScoped
@@ -61,12 +62,14 @@ public class commandeMBean
 
     private Boolean transaction(java.lang.String numCb)
     {
-        webserv.BanqueService port = service.getBanqueServicePort();
+        WebServ.BanqueService port = service.getBanqueServicePort();
         return port.transaction(numCb);
     }
 
-    public List<Commande> getHisto(String client) throws IOException
+    public List<Commande> histo() throws IOException
     {
-        return CommandeEJB.getHisto(client);
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        AuthentificationMBean authentificationMBean = (AuthentificationMBean) context.getSessionMap().get("authentificationMBean");
+        return CommandeEJB.getHisto(authentificationMBean.getClient());
     }
 }

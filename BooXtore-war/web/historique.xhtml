@@ -6,21 +6,23 @@
                 xmlns:f="http://java.sun.com/jsf/core">
     <ui:define name="content">
         <h:form>
-            <p:dataTable var="commande" value="#{commandeMBean.histo(authentificationMBean.getLogin())}">
+            <p:dataTable var="commande" value="#{commandeMBean.histo()}">
                 <f:facet name="header">
                     Historique des commandes
                 </f:facet>
-                <p:column headerText="ID de la commande">
+                <p:column headerText="ID" style="width: 30px">
                     <h:outputText value="#{commande.idCommande}"/>
                 </p:column>
-                <p:column headerText="Login">
+                <p:column headerText="Login" style="width: 100px">
                     <h:outputText value="#{commande.login}"/>
                 </p:column>
                 <p:column headerText="Liste des livres">
-                    <h:outputText value="#{commande.contenirList}"/>
-                    <p:dataTable var="livrecommande" value="#{commande.contenirList}">
+                    <p:dataTable var="livrecommande" value="#{commande.contenirList}" >
                         <p:column>
-                            <h:outputText value="#{livrecommande.livrecommande}"/>
+                            <h:outputText value="#{livrecommande.livre}"/>
+                        </p:column>
+                        <p:column style="width: 40px">
+                            <h:outputText value="#{livrecommande.quantiteCommander}"/>
                         </p:column>
                     </p:dataTable>
                 </p:column>
