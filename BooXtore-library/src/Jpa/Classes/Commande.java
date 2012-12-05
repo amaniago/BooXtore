@@ -7,6 +7,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -40,7 +41,7 @@ public class Commande implements Serializable
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "TOTAL")
     private BigDecimal total;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "commande")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "commande", fetch= FetchType.EAGER)
     private List<Contenir> contenirList;
     @JoinColumn(name = "ID_ETAT_COMMANDE", referencedColumnName = "ID_ETAT_COMMANDE")
     @ManyToOne

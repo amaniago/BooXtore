@@ -9,13 +9,20 @@
         <h:head>
             <f:facet name="first">
                 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+                <style type="text/css" media="all">
+                    @import URL("/BooXtore-war/resources/css/default.css");
+                </style>
+                <style type="text/css" media="all">
+                    @import URL("/BooXtore-war/resources/css/cssLayout.css");
+                </style>
                 <title>BooXtore Accueil</title>
             </f:facet>
         </h:head>
         <h:body>
-            <p:layout fullPage="true">
-                <p:layoutUnit id="authentifLayout" position="north" size="120">
-                    <h:form id="authentif" rendered="#{!authentificationMBean.loggedIn}">
+            <p:layout id="page" fullPage="true">
+                <p:layoutUnit id="authentifLayout" position="north" size="140">
+                    <div id="logo"><img src="\BooXtore-war\resources\css\ban3.png" /></div>
+                    <div id="formulaire"><h:form id="authentif" rendered="#{!authentificationMBean.loggedIn}">
                         <p:inputText id="login" value="#{authentificationMBean.login}" required="true" label="login"/>
                         <p:password id="nonFeedback" value="#{authentificationMBean.mdp}"/>
                         <h:commandButton value="login" action="#{authentificationMBean.authentification()}"/>
@@ -25,7 +32,7 @@
                         </h:outputLink>
                     </h:form>
                     <h:form rendered="#{authentificationMBean.loggedIn}">
-                        <h:outputText value="Connecté en temps que "/>
+                        <h:outputText value="Connecté en tant que "/>
                         <h:outputLink value="./compte.xhtml?login=#{authentificationMBean.login}">
                             <h:outputText value="#{authentificationMBean.login}"/>
                         </h:outputLink>
@@ -33,19 +40,22 @@
                         <h:commandLink id="Logout" action="#{authentificationMBean.logout()}" value="(Se déconnecter)"/>
                     </h:form>
                     <h:outputLink value="./inscription.xhtml"/>
+                    </div>
                 </p:layoutUnit>
                 <p:layoutUnit position="south" size="100">
-                    <h:form id="footer">
-                        <p:commandLink id="plan">
-                            <h:outputText value="Plan du site "/>
-                        </p:commandLink>
-                        <p:commandLink id="qui">
-                            <h:outputText value="Qui sommes-nous ? "/>
-                        </p:commandLink>
-                        <p:commandLink id="conditions">
-                            <h:outputText value="Conditions générales de vente"/>
-                        </p:commandLink>
-                    </h:form>
+                    <div id="footer">
+                        <h:form id="footer">
+                            <p:commandLink id="plan">
+                                <h:outputText value="Plan du site" style="margin: 10px"/>
+                            </p:commandLink>
+                            <p:commandLink id="qui">
+                                <h:outputText value="Qui sommes-nous ?" style="margin: 10px"/>
+                            </p:commandLink>
+                            <p:commandLink id="conditions">
+                                <h:outputText value="Conditions générales de vente" style="margin: 10px"/>
+                            </p:commandLink>
+                        </h:form>
+                    </div>
                 </p:layoutUnit>
                 <p:layoutUnit position="west" size="171">
                    <h:form>

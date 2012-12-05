@@ -14,7 +14,7 @@
                         <p:inputText id="globalFilter" onkeyup="livreTable.filter()" style="width:150px"/>
                     </p:outputPanel>
                 </f:facet>
-                <p:column id="LivreTitre" filterBy="#{livre.titre}" headerText="Titre" filterMatchMode="contains">
+                <p:column id="LivreTitre" headerText="Titre">
                     <h:outputLink value="./fiche.xhtml?idLivre=#{livre.idLivre}">
                         <h:outputText value="#{livre.titre}"/>
                     </h:outputLink>
@@ -22,7 +22,7 @@
                 <p:column id="LivreCategorie" filterBy="#{livre.categorie.nomCategorie}" headerText="Catégorie" filterMatchMode="contains">
                     <h:outputText value="#{livre.categorie}"/>
                 </p:column>
-                <p:column id="LivreAuteur" filterBy="#{livre.auteur}" headerText="Auteur" filterMatchMode="contains">
+                <p:column id="LivreAuteur" headerText="Auteur">
                     <h:outputText value="#{livre.auteur}"/>
                 </p:column>
                 <p:column id="LivreParution" headerText="Date de Parution">
@@ -30,7 +30,7 @@
                         <f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
                     </h:outputText>
                 </p:column>
-                <p:column id="LivreEditeur" filterBy="#{livre.editeur}" headerText="Editeur" filterMatchMode="contains">
+                <p:column id="LivreEditeur" headerText="Editeur">
                     <h:outputText value="#{livre.editeur}"/>
                 </p:column>
                 <p:column id="LivrePrix" headerText="Prix">

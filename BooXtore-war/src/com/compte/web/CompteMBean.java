@@ -49,7 +49,7 @@ public class CompteMBean implements Serializable
      * @param actionEvent
      * @throws IOException
      */
-        public void modifierCompte(ActionEvent actionEvent) throws IOException
+    public void modifierCompte() throws IOException
     {
         CompteEJB.modifierCompte(clientmodifie);
         FacesContext.getCurrentInstance().getExternalContext().redirect("compte.xhtml");
@@ -136,10 +136,11 @@ public class CompteMBean implements Serializable
     }
 
     public Client getClientModifie(){
-        return clientmodifie;
+        AuthentificationMBean a = (AuthentificationMBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("authentificationMBean");
+        return clientmodifie = a.getClient();
     }
 
-    public void setCategorieModifie(Client clientmodifie)
+    public void setClientModifie(Client clientmodifie)
     {
         this.clientmodifie = clientmodifie;
     }

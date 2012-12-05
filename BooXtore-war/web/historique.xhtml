@@ -1,0 +1,36 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="index.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="content">
+        <h:form>
+            <p:dataTable var="commande" value="#{commandeMBean.histo()}">
+                <f:facet name="header">
+                    Historique des commandes
+                </f:facet>
+                <p:column headerText="ID" style="width: 30px">
+                    <h:outputText value="#{commande.idCommande}"/>
+                </p:column>
+                <p:column headerText="Login" style="width: 100px">
+                    <h:outputText value="#{commande.login}"/>
+                </p:column>
+                <p:column headerText="Liste des livres">
+                    <p:dataTable id="dtCommandes" var="livrecommande" value="#{commande.contenirList}" >
+                        <p:column>
+                            <h:outputText value="#{livrecommande.livre}"/>
+                        </p:column>
+                        <p:column style="width: 40px; text-align: right">
+                            <h:outputText value="#{livrecommande.quantiteCommander}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:column>
+            </p:dataTable>
+            <br/>
+            <h:outputLink value="./compte.xhtml">
+                <h:outputText value="Retour"/>
+            </h:outputLink>
+        </h:form>
+    </ui:define>
+</ui:composition>
